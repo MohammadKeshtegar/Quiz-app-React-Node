@@ -1,0 +1,134 @@
+[
+  {
+    "_id": {
+      "$oid": "662265655154522063d9d029"
+    },
+    "category": "Programing",
+    "quizTime": 40,
+    "questions": [
+      {
+        "question": "What Python used for?",
+        "options": ["System scripting", "Web development", "Game development", "All"],
+        "correctAnswer": 3,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "662265655154522063d9d02a"
+        }
+      },
+      {
+        "question": "What are the benefits of using Python as a tool in the present senario?",
+        "options": ["Object-Oriented languate", "Extensive support libraries", "Open sourse and community development", "All"],
+        "correctAnswer": 3,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "662265655154522063d9d02b"
+        }
+      },
+      {
+        "question": "Is Python a compiled language or an interpreted language?",
+        "options": ["Compiled language", "Interpreted language", "Both", "None"],
+        "correctAnswer": 2,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "662265655154522063d9d02c"
+        }
+      },
+      {
+        "question": "What does '#' symbol do in Python?",
+        "options": ["Comment everything coming after that on the line", "It's pointing a specific line", "Do nothing", "Defining variables"],
+        "correctAnswer": 0,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "662265655154522063d9d02c"
+        }
+      }
+    ],
+    "questionNum": 4,
+    "__v": 0,
+    "owner": {
+      "$oid": "66116975787a084bca520f09"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6627f78c7bf884bacdc967c6"
+    },
+    "category": "Mathematics",
+    "quizTime": 30,
+    "questions": [
+      {
+        "question": "Answer of 11 * 11 * 11?",
+        "options": ["12321", "1331", "1221", "123321"],
+        "correctAnswer": 1,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "6627f78c7bf884bacdc967c7"
+        }
+      },
+      {
+        "question": "Which one is correct?",
+        "options": ["√16 + √9 > 25", "4^2 + 3^2 = 25", "√1000 > √10000", "None"],
+        "correctAnswer": 1,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "6627f78c7bf884bacdc967c8"
+        }
+      },
+      {
+        "question": "(... * 3) / 12 = 36 ?",
+        "options": ["144", "148", "9", "72"],
+        "correctAnswer": 2,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "6627f78c7bf884bacdc967c9"
+        }
+      }
+    ],
+    "questionNum": 3,
+    "__v": 0,
+    "owner": {
+      "$oid": "66116975787a084bca520f09"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6627f78c7bf884bacdc967ca"
+    },
+    "category": "History",
+    "quizTime": 30,
+    "questions": [
+      {
+        "question": "What year the world war 2 started?",
+        "options": ["1939", "1929", "1938", "1949"],
+        "correctAnswer": 0,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "6627f78c7bf884bacdc967cb"
+        }
+      },
+      {
+        "question": "In what country America droped the atomic bomb?",
+        "options": ["England", "Russa", "Germany", "Japan"],
+        "correctAnswer": 3,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "6627f78c7bf884bacdc967cd"
+        }
+      },
+      {
+        "question": "Where origamy come from?",
+        "options": ["North Korea", "India", "China", "Iran"],
+        "correctAnswer": 2,
+        "difficulty": "easy",
+        "_id": {
+          "$oid": "6627f78c7bf884bacdc967cc"
+        }
+      }
+    ],
+    "questionNum": 3,
+    "__v": 0,
+    "owner": {
+      "$oid": "66116975787a084bca520f09"
+    }
+  }
+]

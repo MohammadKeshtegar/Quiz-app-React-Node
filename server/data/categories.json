@@ -1,0 +1,9 @@
+[
+  { "_id": { "$oid": "662252fbb5d94f84b65f8bcd" }, "category": "Programming" },
+  { "_id": { "$oid": "66225538a048901cc9b84547" }, "category": "Technology" },
+  { "_id": { "$oid": "6622551ba048901cc9b84544" }, "category": "History" },
+  { "_id": { "$oid": "6622548ea048901cc9b8453e" }, "category": "Mathematics" },
+  { "_id": { "$oid": "662255cba048901cc9b8454a" }, "category": "Botanical" },
+  { "_id": { "$oid": "6622565ca048901cc9b84556" }, "category": "Pyhtozoolagy" },
+  { "_id": { "$oid": "6622566ba048901cc9b84559" }, "category": "Chemistry" }
+]
