@@ -1,7 +1,9 @@
+import SpinnerItself from "./SpinnerItself";
+
 function Spinner() {
   return (
     <div className="w-full h-screen flex items-center justify-center bg-neutral-900">
-      <div className="loader"></div>
+      <SpinnerItself />
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllUsers as getAllUsersApi } from "../../services/apiUser";
+import { getAllUsers } from "../../services/apiUser";
 
 export function useGetAllUsers(admin) {
   const { data, isLoading } = useQuery({
-    queryFn: () => getAllUsersApi(admin),
+    queryFn: () => getAllUsers(admin),
     queryKey: ["user"],
   });
 

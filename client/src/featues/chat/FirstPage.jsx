@@ -6,7 +6,7 @@ import Modal from "../../ui/Modal";
 
 function FirstPage() {
   return (
-    <div className="text-neutral-600 text-xl font-semibold w-full h-full flex items-center justify-center flex-col gap-5">
+    <div className="text-neutral-600 text-xl font-semibold w-full h-full bg-neutral-950/50 flex items-center justify-center flex-col gap-5">
       Start chat by joining to a group or create your own chat group
       <Modal>
         <Modal.Open opens="create-chat-group">

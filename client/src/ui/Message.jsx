@@ -1,11 +1,11 @@
-function Message({ children, userId, currentUserId, maxWidth }) {
+function Message({ message, userId, maxWidth = null }) {
   return (
     <p
-      className={`${userId === currentUserId ? "bg-blue-600" : "bg-neutral-600"} px-3 py-2 rounded-xl ${maxWidth} text-wrap ${
-        userId === currentUserId ? "self-end" : "self-start"
+      className={`${userId === message.sender ? "bg-blue-600" : "bg-neutral-600"} px-3 py-2 rounded-xl ${maxWidth || "max-w-[500px]"} text-wrap ${
+        userId === message.sender ? "self-end" : "self-start"
       }`}
     >
-      {children}
+      {message.message}
     </p>
   );
 }

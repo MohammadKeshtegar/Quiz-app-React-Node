@@ -8,7 +8,7 @@ function UserProfile({ user }) {
     <div className="w-full rounded overflow-hidden bg-neutral-800 p-2 relative group shadow-lg">
       <div className="flex items-center gap-5 bg-neutral-900 rounded px-5 py-3">
         <Modal>
-          <Modal.Open>
+          <Modal.Open opens={"user-info"}>
             <div
               className="absolute -top-full right-4 z-20 dark:bg-neutral-600 bg-white p-2 rounded-full text-blue-500 hover:text-white hover:bg-blue-500 transition-all cursor-pointer group-hover:top-4"
               title="Edit profile"
@@ -17,7 +17,7 @@ function UserProfile({ user }) {
             </div>
           </Modal.Open>
 
-          <Modal.Window>
+          <Modal.Window name={"user-info"}>
             <UserContainerForm user={user} />
           </Modal.Window>
         </Modal>

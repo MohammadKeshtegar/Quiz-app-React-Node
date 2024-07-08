@@ -62,21 +62,32 @@ const socketIo = new Server(httpServer, {
 });
 
 socketIo.on("connection", (socket) => {
-  console.log(`⚡ : ${socket.id} user just connected`);
+  // console.log(`⚡ : ${socket.id} user just connected`);
 
-  socket.on("setup", (userData) => {
-    // socket.join(userData._id);
+  socket.on("setup", (user) => {
+    socket.join(user.id);
     socket.emit("connected");
   });
 
   socket.on("join-chat", (roomId) => {
-    socket.join(roomId);
-    console.log("User joined room: ", roomId);
+    // console.log("User joined room: ", roomId);
+  });
+
+  socket.on("typing", (room) => socket.in(room).emit("typing"));
+  socket.on("stop-typing", (room) => socket.in(room).emit("stop-typing"));
+
+  socket.on("new-message", (newMessageReceived, chat) => {
+    chat.members.forEach((member) => {
+      if (member === newMessageReceived.data.sender) return;
+
+      socket.in(member).emit("message-received", newMessageReceived.data);
+    });
   });
 });
 
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/question", questionRouter);
+
 app.use("/api/v1/messages", messageRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/quiz", quizRouter);

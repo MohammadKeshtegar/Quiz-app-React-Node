@@ -39,7 +39,7 @@ function AdminDashboard() {
       <div className="w-full flex gap-3">
         <div className="w-1/2 flex flex-col gap-3">
           <UserProfile user={user} />
-          <AdminMiniChat />
+          {/* <AdminMiniChat /> */}
         </div>
 
         <div className="w-1/2 bg-neutral-800 rounded p-3">

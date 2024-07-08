@@ -3,10 +3,11 @@ import mongoose from "mongoose";
 const chatSchema = mongoose.Schema(
   {
     name: { type: String, required: [true, "A chat must have a name!"] },
+    admin: { type: mongoose.Types.ObjectId, ref: "User" },
     picture: { type: String, default: "default-back.png" },
     chatSize: { type: Number },
-    members: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
-    messages: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Message" }],
+    members: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    messages: [{ type: mongoose.Types.ObjectId, ref: "Message" }],
   },
   {
     timestamps: true,

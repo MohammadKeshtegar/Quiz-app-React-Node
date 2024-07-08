@@ -13,6 +13,12 @@ const messageSchema = new mongoose.Schema(
   }
 );
 
+messageSchema.virtual("chat", {
+  ref: "Chat",
+  foreignField: "messages",
+  localField: "_id",
+});
+
 const Message = mongoose.model("Message", messageSchema);
 
 export default Message;

@@ -9,17 +9,17 @@ import FirstPage from "./FirstPage";
 // const socket = io(ENDPOINT);
 
 function ChatLayout() {
-  const { isLoading, data } = useGetAllChats();
   const [chatId, setChatId] = useState(null);
+  const [chat, setChat] = useState({});
+  const { isLoading, data } = useGetAllChats();
 
   if (isLoading) return <Spinner />;
-  console.log(data);
   const { data: chats } = data;
 
   return (
     <div className="flex w-full relative h-full">
-      <ChatSidebar chats={chats} setChatId={setChatId} />
-      {!chatId ? <FirstPage /> : <ChatMessaging chatId={chatId} />}
+      <ChatSidebar chats={chats} chatId={chatId} setChat={setChat} setChatId={setChatId} />
+      {!chatId ? <FirstPage /> : <ChatMessaging chat={chat} chatId={chatId} />}
     </div>
   );
 }

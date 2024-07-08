@@ -1,6 +1,7 @@
 import Message from "../models/messageModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import appError from "../utils/appError.js";
+import Chat from "../models/chatModel.js";
 
 export const getAllMessages = catchAsync(async (req, res, next) => {
   const messages = await Message.find();
@@ -14,6 +15,7 @@ export const getAllChatMessages = catchAsync(async (req, res, next) => {
 
 export const createMessage = catchAsync(async (req, res, next) => {
   const newMessage = await Message.create(req.body);
+  await Chat.findByIdAndUpdate(req.body.chatId, { $push: { messages: newMessage._id } });
   res.status(201).json({ status: "success", data: newMessage });
 });
 

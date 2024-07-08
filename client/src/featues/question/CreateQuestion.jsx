@@ -204,7 +204,7 @@ function CreateQuestion({ questions, setQuizTime, setCategory, editQuestion, set
 
         <div className="flex items-center justify-between">
           <Modal>
-            <Modal.Open>
+            <Modal.Open opens={"confirm-delete-qestion"}>
               <Button
                 disable={!isEditSession}
                 onClick={() => handleDelete(editQuestion)}
@@ -213,7 +213,7 @@ function CreateQuestion({ questions, setQuizTime, setCategory, editQuestion, set
                 Delete
               </Button>
             </Modal.Open>
-            <Modal.Window>
+            <Modal.Window name={"confirm-delete-qestion"}>
               <ConfirmDelete onClick={() => handleDelete(editQuestion)} isLoading={isDeleting} source="question" />
             </Modal.Window>
           </Modal>

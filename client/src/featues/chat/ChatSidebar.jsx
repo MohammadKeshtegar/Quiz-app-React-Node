@@ -6,10 +6,8 @@ import ChatSideBarItem from "./ChatSidebarItem";
 import Modal from "../../ui/Modal";
 import CreateChatGroup from "./CreateChatGroup";
 
-function ChatSidebar({ chats, setChatId }) {
-  // const [chats, setChats] = useState([]);
+function ChatSidebar({ chats, chatId, setChatId, setChat }) {
   const [showSearch, setShowSearch] = useState(false);
-  console.log(chats);
 
   return (
     <div className="w-80 h-[calc(100vh-64px)] flex flex-col border-r border-blue-500 divide-y divide-neutral-700 text-neutral-300 dark:bg-neutral-900">
@@ -24,12 +22,13 @@ function ChatSidebar({ chats, setChatId }) {
 
         <div className="flex items-center gap-1 w-full p-2 text-lg">
           <Modal>
-            <Modal.Open>
+            <Modal.Open opens={"create-chat"}>
               <div className="p-3 hover:bg-blue-500 rounded-full hover:cursor-pointer transition-all">
                 <FiPlusCircle />
               </div>
             </Modal.Open>
-            <Modal.Window>
+
+            <Modal.Window name={"create-chat"}>
               <CreateChatGroup />
             </Modal.Window>
           </Modal>
@@ -40,10 +39,18 @@ function ChatSidebar({ chats, setChatId }) {
         </div>
       </div>
 
-      <ul className="overflow-y-auto">
+      <ul className="overflow-y-auto w-72">
         {chats.length > 0 ? (
-          chats.map((chat) => (
-            <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" chatId={chat._id} setChatId={setChatId} />
+          chats.map((chat, i) => (
+            <ChatSideBarItem
+              key={i}
+              userName="Jeff bezos"
+              lastMessage="Hi bro, How are you going today?"
+              chatId={chatId}
+              chat={chat}
+              setChatId={setChatId}
+              setChat={setChat}
+            />
           ))
         ) : (
           <div className="w-full flex justify-center pt-20 text-neutral-500 text-lg">No chat found!😢</div>

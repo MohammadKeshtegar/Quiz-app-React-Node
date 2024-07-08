@@ -2,23 +2,25 @@ import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import { Form } from "react-router-dom";
 
+import { useUpdateChatGroup } from "./useUpdateChatGroup";
+import SpinnerItself from "../../ui/SpinnerItself";
+import GroupPicture from "../../ui/GroupPicture";
+import MiniSpinner from "../../ui/MiniSpinner";
 import ChatUsersItem from "./ChatUsersItem";
 import Button from "../../ui/Button";
-import { useGetAllUsers } from "../user/useGetAllUsers";
-import SpinnerItself from "../../ui/SpinnerItself";
-import { useCreateChatGroup } from "./useCreateChatGroup";
-import MiniSpinner from "../../ui/MiniSpinner";
-import { useQueryClient } from "@tanstack/react-query";
+import { useGetNotTeammateUsers } from "../user/useGetNotTeammateUsers";
 
-function CreateChatGroup({ onCloseModal }) {
+function ChatInfoForAdmin({ onCloseModal, chat }) {
   const inputFileRef = useRef(null);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
   const [users, setUsers] = useState([]);
-  const { handleSubmit, register } = useForm();
-  const { isLoading, data } = useGetAllUsers();
-  const { isCreating, createChat } = useCreateChatGroup();
-  const queryClient = useQueryClient();
+  const { handleSubmit, register } = useForm({ defaultValues: chat });
+  const { isUpdating, updateChat } = useUpdateChatGroup(chat._id);
+  console.log(chat._id);
+  const { isLoading, data } = useGetNotTeammateUsers(chat._id);
+
+  const hasPicture = chat.picture.startsWith("default");
 
   function handleOpenFile(e) {
     inputFileRef.current.click();
@@ -35,15 +37,9 @@ function CreateChatGroup({ onCloseModal }) {
   }
 
   function onSubmit(data) {
-    createChat(
-      { ...data, users, picture: file },
-      {
-        onSuccess: () => {
-          onCloseModal();
-          queryClient.invalidateQueries({ queryKey: ["chat"] });
-        },
-      }
-    );
+    const newData = { ...data, users, picture: file };
+
+    updateChat({ newData, chatId: chat._id }, { onSuccess: () => onCloseModal() });
   }
 
   if (isLoading)
@@ -60,7 +56,7 @@ function CreateChatGroup({ onCloseModal }) {
         <input type="file" accept="image/*" className="hidden" onChange={(e) => handleGroupCover(e)} ref={inputFileRef} />
         <label className="w-28">
           <img
-            src={image || "/default-back.png"}
+            src={image ? image : !hasPicture ? `http://127.0.0.1:5000/public/images/chat/${chat.picture}` : "/default-back.png"}
             alt=""
             className="w-20 h-20 object-cover rounded-full cursor-pointer border-2 border-blue-500"
             onClick={handleOpenFile}
@@ -88,11 +84,11 @@ function CreateChatGroup({ onCloseModal }) {
 
       <div className="w-full">
         <Button styleType="fill" customeStyle="w-full justify-center uppercase" type="submit">
-          {isCreating ? <MiniSpinner /> : "Create"}
+          {isUpdating ? <MiniSpinner /> : "Create"}
         </Button>
       </div>
     </Form>
   );
 }
 
-export default CreateChatGroup;
+export default ChatInfoForAdmin;

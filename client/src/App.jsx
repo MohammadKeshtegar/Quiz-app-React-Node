@@ -5,7 +5,9 @@ import ToastNotif from "./ui/ToastNotif";
 import AppLayout from "./ui/AppLayout";
 import NotFound from "./ui/NotFound";
 import Spinner from "./ui/Spinner";
+import ErrorRoute from "./ui/ErrorRoute";
 
+// Quiz
 const ConfirmCreateQuiz = lazy(() => import("./featues/quiz/ConfirmCreateQuiz"));
 const ConfirmedQuizzes = lazy(() => import("./featues/quiz/ConfirmedQuizzes"));
 const ObserveQuiz = lazy(() => import("./featues/quiz/ObserveQuiz"));
@@ -15,22 +17,28 @@ const CreateQuiz = lazy(() => import("./featues/quiz/CreateQuiz"));
 const ManageQuiz = lazy(() => import("./featues/quiz/ManageQuiz"));
 const QuizList = lazy(() => import("./featues/quiz/QuizList"));
 
+// Admin
 const AdminDashboard = lazy(() => import("./featues/admin/AdminDashboard"));
 
+// User
 const UserDashboard = lazy(() => import("./featues/user/UserDashboard"));
 const PlayersList = lazy(() => import("./featues/user/PlayersList"));
 const ManageUsers = lazy(() => import("./featues/user/ManageUser"));
 const UserQuiz = lazy(() => import("./featues/user/UserQuiz"));
 
+// Inbox
 const InboxMessage = lazy(() => import("./featues/Inbox/InboxMessage"));
 const Inbox = lazy(() => import("./featues/Inbox/Inbox"));
 
+// Authentication
 const Signup = lazy(() => import("./featues/authentication/Signup"));
 const Login = lazy(() => import("./featues/authentication/Login"));
 
+// Chat
 const ChatLayout = lazy(() => import("./featues/chat/ChatLayout"));
-const CreateChat = lazy(() => import("./featues/chat/CreateChat"));
+const CreateChatGroup = lazy(() => import("./featues/chat/CreateChatGroup"));
 
+// Home
 const Home = lazy(() => import("./pages/Home"));
 
 const router = createBrowserRouter([
@@ -40,6 +48,7 @@ const router = createBrowserRouter([
         <AppLayout />
       </Suspense>
     ),
+    errorElement: <ErrorRoute />,
     children: [
       {
         path: "/",
@@ -57,7 +66,7 @@ const router = createBrowserRouter([
       {
         path: "/chats",
         children: [
-          { path: "create", element: <CreateChat /> },
+          { path: "create", element: <CreateChatGroup /> },
           { path: "", element: <ChatLayout /> },
         ],
       },

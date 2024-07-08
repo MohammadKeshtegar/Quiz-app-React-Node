@@ -1,3 +1,4 @@
+import Chat from "../models/chatModel.js";
 import User from "../models/userModel.js";
 import appError from "../utils/appError.js";
 import catchAsync from "../utils/catchAsync.js";
@@ -38,6 +39,12 @@ export const getUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) return next(new appError("No user found with this id!", 404));
   res.status(200).json({ status: "success", data: user.name });
+});
+
+export const getNotTeammateUsers = catchAsync(async (req, res, next) => {
+  const chat = await Chat.findById(req.params.id);
+  const users = await User.find({ _id: { $nin: chat.members } });
+  res.status(200).json({ status: "success", data: users });
 });
 
 export const updateUser = catchAsync(async (req, res, next) => {

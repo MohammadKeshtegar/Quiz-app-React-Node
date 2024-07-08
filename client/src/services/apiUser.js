@@ -15,6 +15,15 @@ export async function getAllUsers(admin) {
   return data;
 }
 
+export async function getNotTeammateUsers(chatId) {
+  const res = await fetch(`${userURL}/not-teammate-users/${chatId}`);
+  const data = await res.json();
+
+  if (!res.ok) console.error(data);
+
+  return data;
+}
+
 export async function updateUserData({ data: userData }) {
   const formData = new FormData();
   if (userData.photo) formData.append("photo", userData.photo[0]);

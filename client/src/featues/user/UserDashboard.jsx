@@ -21,20 +21,12 @@ function UserDashboard() {
         <UserLabel label="Firends" value={friends.length} />
       </div>
 
-      <div className="w-full bg-neutral-800 rounded py-2 px-3 text-neutral-400">
-        <div className="bg-neutral-800 rounded">
-          <LineChart />
-        </div>
-      </div>
-
-      <DailyUsageChar />
-
       <div className="flex gap-3 w-full">
         <div className="w-1/2">
           <UserProfile user={user} />
         </div>
         <div className="w-1/2 bg-neutral-800 p-2 text-neutral-400 rounded flex gap-3">
-          <ul className="w-1/2 h-[239px] bg-neutral-900 rounded overflow-y-auto divide-y-2 divide-neutral-800">
+          <ul className="w-1/2 h-[264px] bg-neutral-900 rounded overflow-y-auto divide-y-2 divide-neutral-800">
             <li className="py-2 px-3">hello</li>
             <li className="py-2 px-3">hello</li>
             <li className="py-2 px-3">hello</li>
@@ -62,6 +54,14 @@ function UserDashboard() {
           </div>
         </div>
       </div>
+
+      <div className="w-full bg-neutral-800 rounded py-2 px-3 text-neutral-400">
+        <div className="bg-neutral-800 rounded">
+          <LineChart />
+        </div>
+      </div>
+
+      <DailyUsageChar />
     </div>
   );
 }
