@@ -14,6 +14,8 @@ const initialState = {
   createdQuiz: 0,
   points: 0,
   coins: 0,
+  chat: "",
+  inbox: [],
   telegram: "",
   discord: "",
   reddit: "",
@@ -46,6 +48,8 @@ const userSlice = createSlice({
       state.instagram = action.payload.instagram;
       state.linkedin = action.payload.linkedin;
       state.coins = action.payload.coins;
+      state.chat = action.payload.chat;
+      state.inbox = action.payload.inbox;
       state.id = action.payload._id;
     },
     setUserUpdate(state, action) {
@@ -62,6 +66,8 @@ const userSlice = createSlice({
       state.reddit = action.payload.reddit;
       state.instagram = action.payload.instagram;
       state.linkedin = action.payload.linkedin;
+      state.chat = action.payload.chat;
+      state.inbox = action.payload.inbox;
       state.coins = action.payload.coins;
     },
     setUserLogout(state) {
@@ -77,6 +83,8 @@ const userSlice = createSlice({
       state.confirmedQuiz = [];
       state.createdQuiz = 0;
       state.points = 0;
+      state.chat = "";
+      state.inbox = [];
       state.coins = 0;
     },
     setUserConfirmedQuiz(state, action) {

@@ -10,8 +10,6 @@ function UserDashboard() {
   const user = useSelector((state) => state.user);
   const { friends, confirmedQuiz, createdQuiz, points } = user;
 
-  console.log(confirmedQuiz);
-
   return (
     <div className="w-full h-full p-5 flex flex-col gap-3">
       <div className="flex gap-3 items-center w-full">

@@ -10,7 +10,11 @@ function ChatSidebar({ chats, chatId, setChatId, setChat }) {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
-    <div className="w-80 h-[calc(100vh-64px)] flex flex-col border-r border-blue-500 divide-y divide-neutral-700 text-neutral-300 dark:bg-neutral-900">
+    <div
+      className={`w-80 ${
+        chats.length > 0 ? "h-[calc(100vh-64px)]" : "h-[calc(100vh)]"
+      } flex flex-col border-r border-blue-500 divide-y divide-neutral-700 text-neutral-300 dark:bg-neutral-900`}
+    >
       <div className="flex border-b border-neutral-400">
         {showSearch && (
           <input

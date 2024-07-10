@@ -1,16 +1,38 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoMdSettings } from "react-icons/io";
+import { FaTrashCan } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { IoMdEye } from "react-icons/io";
+import { useState } from "react";
 
+import { useDeleteChatGroup } from "./useDeleteChatGroup";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import ChatInfoForAdmin from "./ChatInfoForAdmin";
 import GroupPicture from "../../ui/GroupPicture";
 import ChatInfoForUser from "./ChatInfoForUser";
 import Modal from "../../ui/Modal";
-import Menu from "../../ui/Menu";
-import ChatInfoForAdmin from "./ChatInfoForAdmin";
 
 function ChatSideBarItem({ lastMessage, chatId, chat, setChatId, setChat }) {
+  const [showMenu, setShowMenu] = useState("");
   const user = useSelector((state) => state.user);
+  const isAdmin = user.id === chat.admin;
+  const { isDeleting, deleteChatGroup } = useDeleteChatGroup();
+
+  function handleShowMenu() {
+    if (showMenu) {
+      setShowMenu("");
+    } else {
+      setShowMenu(chatId);
+    }
+  }
+
+  function handleDeleteChat() {
+    setChatId("");
+    deleteChatGroup(chatId);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+  }
 
   return (
     <li
@@ -30,34 +52,52 @@ function ChatSideBarItem({ lastMessage, chatId, chat, setChatId, setChat }) {
         <p className="text-xs text-neutral-500 truncate">{lastMessage}</p>
       </div>
 
-      <Menu>
-        <Menu.Toggle id={"chat-menu"}>
+      <div>
+        <div className="rounded-full p-2 hover:bg-neutral-700 transition-all relative" onClick={handleShowMenu}>
           <BsThreeDotsVertical />
-        </Menu.Toggle>
+        </div>
 
-        <Menu.List id={"chat-menu"}>
-          <Modal>
-            <Modal.Open opens={"chat-details"}>
-              <Menu.Item icon={<IoMdEye />}>See chat details</Menu.Item>
-            </Modal.Open>
-
-            <Modal.Window>
-              <ChatInfoForUser chat={chat} />
-            </Modal.Window>
-          </Modal>
-
-          {/* {user.id === chat.admin && (
-            <>
-              <Modal.Open opens={"edit-chat"}>
-                <Menu.Item icon={<IoMdSettings />}>Edit</Menu.Item>
+        {showMenu === chatId && (
+          <div className="absolute bg-neutral-800 p-1 rounded flex flex-col gap-1 z-40">
+            <Modal>
+              <Modal.Open>
+                <div className="flex gap-2 items-center text-lg hover:bg-blue-500 rounded px-2 py-1 transition-all">
+                  <IoMdEye /> Chat details
+                </div>
               </Modal.Open>
-              <Modal.Window name={"edit-chat"}>
-                <ChatInfoForAdmin />
+              <Modal.Window>
+                <ChatInfoForUser chat={chat} isAdmin={isAdmin} />
               </Modal.Window>
-            </>
-          )} */}
-        </Menu.List>
-      </Menu>
+            </Modal>
+
+            {isAdmin && (
+              <Modal>
+                <Modal.Open>
+                  <div className="flex gap-2 items-center text-lg hover:bg-blue-500 rounded px-2 py-1 transition-all">
+                    <IoMdSettings /> Edit chat
+                  </div>
+                </Modal.Open>
+                <Modal.Window>
+                  <ChatInfoForAdmin chat={chat} />
+                </Modal.Window>
+              </Modal>
+            )}
+
+            {isAdmin && (
+              <Modal>
+                <Modal.Open>
+                  <div className="flex gap-2 items-center text-lg hover:bg-blue-500 rounded px-2 py-1 transition-all">
+                    <FaTrashCan /> Delete chat
+                  </div>
+                </Modal.Open>
+                <Modal.Window>
+                  <ConfirmDelete onClick={handleDeleteChat} isLoading={isDeleting} source={"chat"} itemName={chat.name} />
+                </Modal.Window>
+              </Modal>
+            )}
+          </div>
+        )}
+      </div>
     </li>
   );
 }

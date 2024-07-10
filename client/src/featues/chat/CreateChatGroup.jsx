@@ -9,14 +9,16 @@ import SpinnerItself from "../../ui/SpinnerItself";
 import { useCreateChatGroup } from "./useCreateChatGroup";
 import MiniSpinner from "../../ui/MiniSpinner";
 import { useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 function CreateChatGroup({ onCloseModal }) {
+  const currentUser = useSelector((state) => state.user);
   const inputFileRef = useRef(null);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
   const [users, setUsers] = useState([]);
   const { handleSubmit, register } = useForm();
-  const { isLoading, data } = useGetAllUsers();
+  const { isLoading, data } = useGetAllUsers(true);
   const { isCreating, createChat } = useCreateChatGroup();
   const queryClient = useQueryClient();
 
@@ -36,7 +38,7 @@ function CreateChatGroup({ onCloseModal }) {
 
   function onSubmit(data) {
     createChat(
-      { ...data, users, picture: file },
+      { ...data, users: [...users, currentUser.id], picture: file },
       {
         onSuccess: () => {
           onCloseModal();
@@ -78,9 +80,7 @@ function CreateChatGroup({ onCloseModal }) {
           <>
             <input type="text" placeholder="Seach user" className="input-auth-style mb-3" />
             <ul className="bg-neutral-600 rounded p-1 max-h-96 overflow-y-auto divide-y-2 divide-neutral-500">
-              {fetchedUsers.map((user, i) => (
-                <ChatUsersItem index={i} user={user} handleUser={handleUser} />
-              ))}
+              {fetchedUsers.map((user, i) => user._id !== currentUser.id && <ChatUsersItem key={i} index={i} user={user} handleUser={handleUser} />)}
             </ul>
           </>
         )}

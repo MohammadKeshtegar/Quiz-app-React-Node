@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 import { useLogout } from "../featues/authentication/useLogout";
 import { useMode } from "../context/Mode";
+import HeaderUserUi from "./HeaderUserUi";
 import ButtonLink from "./ButtonLink";
 import Logo from "./Logo";
-import HeaderUserUi from "./HeaderUserUi";
 
 function Header() {
   const user = useSelector((state) => state.user);

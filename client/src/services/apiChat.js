@@ -36,13 +36,35 @@ export async function createChatGroup(chatGroupData) {
   return data;
 }
 
-export async function updateChatGroup({ chatData, chatId }) {
+export async function updateChatGroup({ newData, chatId }) {
   const formData = new FormData();
-  formData.append("name", chatData.name);
-  formData.append("members", JSON.stringify(chatData.users));
-  if (chatData.picture) formData.append("picture", chatData.picture);
+  formData.append("name", newData.name);
+  formData.append("members", JSON.stringify(newData.users));
+  if (newData.picture) formData.append("picture", newData.picture);
 
-  const res = await fetch(`${chatURL}`, { method: "PATCH", body: formData });
+  const res = await fetch(`${chatURL}/${chatId}`, { method: "PATCH", body: formData });
+  const data = await res.json();
+
+  if (!res.ok) console.error(data);
+
+  return data;
+}
+
+export async function deleteChatGroup(chatId) {
+  const res = await fetch(`${chatURL}/${chatId}`, { method: "DELETE" });
+  const data = await res.json();
+
+  if (!res.ok) console.error(data);
+
+  return data;
+}
+
+export async function removeChatMember({ chatId, userId }) {
+  const res = await fetch(`${chatURL}/${chatId}/remove-member`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId }),
+  });
   const data = await res.json();
 
   if (!res.ok) console.error(data);

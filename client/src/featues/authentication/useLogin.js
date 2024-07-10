@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import { login as loginApi } from "../../services/apiAuth";
-import { useDispatch } from "react-redux";
 import { setUserData } from "../../redux/slices/userSlice";
 
 export function useLogin() {

@@ -1,7 +1,7 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { useMode } from "../context/Mode";
-
 import { subDays } from "date-fns";
+
+import { useMode } from "../context/Mode";
 
 function LineChart() {
   const { mode } = useMode();

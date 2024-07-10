@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
     chat: { type: mongoose.Types.ObjectId, ref: "Chat", default: null },
+    inbox: [{ type: mongoose.Types.ObjectId, ref: "Inbox" }],
     telegram: { type: String, default: "" },
     discord: { type: String, default: "" },
     reddit: { type: String, default: "" },

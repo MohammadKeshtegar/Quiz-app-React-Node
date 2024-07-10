@@ -1,13 +1,11 @@
-import { MdOutlinePlaylistAddCheck } from "react-icons/md";
+import { MdOutlinePlaylistAddCheck, MdSpaceDashboard, MdManageAccounts } from "react-icons/md";
+import { LuClipboardCheck, LuUsers2 } from "react-icons/lu";
 import { RiListSettingsLine } from "react-icons/ri";
-import { MdManageAccounts } from "react-icons/md";
-import { LuClipboardCheck } from "react-icons/lu";
-import { MdSpaceDashboard } from "react-icons/md";
 import { IoMdChatbubbles } from "react-icons/io";
 import { PiUserList } from "react-icons/pi";
-import { LuUsers2 } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { FaInbox } from "react-icons/fa";
+
 import SidebarItem from "./SidebarItem";
 
 function IconSiderbar() {
@@ -18,6 +16,7 @@ function IconSiderbar() {
     { icon: <LuUsers2 />, path: "/players" },
     { icon: <LuClipboardCheck />, path: "quiz/quiz-list" },
     { icon: <IoMdChatbubbles />, path: "/chats" },
+    { icon: <FaInbox />, path: "/inbox" },
   ];
   const adminLinks = [
     { icon: <MdSpaceDashboard />, path: "/admin/dashboard" },

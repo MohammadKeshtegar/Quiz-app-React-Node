@@ -14,7 +14,9 @@ function ConfirmDelete({ onClick, isLoading, onCloseModal, source, itemName, all
               ( <span className="capitalize">{source}</span>: <span className="text-blue-500">#{itemName}</span> )
             </>
           ) : (
-            ""
+            <>
+              ( <span className="capitalize">{source}</span>: <span className="text-blue-500">{itemName}</span> )
+            </>
           )}
         </p>
       )}

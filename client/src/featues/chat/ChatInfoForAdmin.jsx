@@ -2,13 +2,12 @@ import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import { Form } from "react-router-dom";
 
+import { useGetNotTeammateUsers } from "../user/useGetNotTeammateUsers";
 import { useUpdateChatGroup } from "./useUpdateChatGroup";
 import SpinnerItself from "../../ui/SpinnerItself";
-import GroupPicture from "../../ui/GroupPicture";
 import MiniSpinner from "../../ui/MiniSpinner";
 import ChatUsersItem from "./ChatUsersItem";
 import Button from "../../ui/Button";
-import { useGetNotTeammateUsers } from "../user/useGetNotTeammateUsers";
 
 function ChatInfoForAdmin({ onCloseModal, chat }) {
   const inputFileRef = useRef(null);
@@ -16,8 +15,7 @@ function ChatInfoForAdmin({ onCloseModal, chat }) {
   const [image, setImage] = useState();
   const [users, setUsers] = useState([]);
   const { handleSubmit, register } = useForm({ defaultValues: chat });
-  const { isUpdating, updateChat } = useUpdateChatGroup(chat._id);
-  console.log(chat._id);
+  const { isUpdating, updateChat } = useUpdateChatGroup();
   const { isLoading, data } = useGetNotTeammateUsers(chat._id);
 
   const hasPicture = chat.picture.startsWith("default");
@@ -84,7 +82,7 @@ function ChatInfoForAdmin({ onCloseModal, chat }) {
 
       <div className="w-full">
         <Button styleType="fill" customeStyle="w-full justify-center uppercase" type="submit">
-          {isUpdating ? <MiniSpinner /> : "Create"}
+          {isUpdating ? <MiniSpinner /> : "Update"}
         </Button>
       </div>
     </Form>

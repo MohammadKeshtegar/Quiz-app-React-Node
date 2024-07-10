@@ -4,14 +4,14 @@ import { toast } from "react-toastify";
 
 import { updateChatGroup as updateChatGroupApi } from "../../services/apiChat";
 
-export function useUpdateChatGroup(chatId) {
+export function useUpdateChatGroup() {
   const queryClient = useQueryClient();
 
   const { isPending: isUpdating, mutate: updateChat } = useMutation({
     mutationFn: updateChatGroupApi,
     onSuccess: () => {
       toast.success("Group updated successfully!", { autoClose: 1000 });
-      queryClient.invalidateQueries({ queryKey: ["chat", chatId] });
+      queryClient.invalidateQueries({ queryKey: ["chat"] });
     },
     onError: (err) => {
       console.error(err);

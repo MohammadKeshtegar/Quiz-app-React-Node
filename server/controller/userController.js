@@ -36,7 +36,7 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 export const getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).populate("inbox");
   if (!user) return next(new appError("No user found with this id!", 404));
   res.status(200).json({ status: "success", data: user.name });
 });

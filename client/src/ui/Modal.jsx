@@ -11,15 +11,15 @@ function Modal({ children }) {
   const [openName, setOpenName] = useState("");
 
   const close = () => setOpenName("");
-  const open = setOpenName;
+  const openModal = setOpenName;
 
-  return <ModadlContext.Provider value={{ close, open, openName }}>{children}</ModadlContext.Provider>;
+  return <ModadlContext.Provider value={{ close, openModal, openName }}>{children}</ModadlContext.Provider>;
 }
 
 function Open({ children, opens: openWindowName }) {
-  const { open } = useContext(ModadlContext);
+  const { openModal } = useContext(ModadlContext);
 
-  return cloneElement(children, { onClick: () => open(openWindowName) });
+  return cloneElement(children, { onClick: () => openModal(openWindowName) });
 }
 
 function Window({ children, name }) {

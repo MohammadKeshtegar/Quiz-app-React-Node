@@ -19,7 +19,7 @@ function ChatLayout() {
   return (
     <div className="flex w-full relative h-full">
       <ChatSidebar chats={chats} chatId={chatId} setChat={setChat} setChatId={setChatId} />
-      {!chatId ? <FirstPage /> : <ChatMessaging chat={chat} chatId={chatId} />}
+      {!chatId || !chat ? <FirstPage /> : <ChatMessaging chat={chat} chatId={chatId} />}
     </div>
   );
 }

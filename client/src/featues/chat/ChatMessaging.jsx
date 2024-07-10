@@ -15,7 +15,7 @@ import { useGetChat } from "./useGetChat";
 import Message from "../../ui/Message";
 import Spinner from "../../ui/Spinner";
 
-// Note to put this line out of the Component, because each time the component rerenders, the socket
+// Note to put this line out side of the Component, because each time the component rerenders, the socket
 let socket, selectedChatCompare;
 
 function ChatMessage({ chat, chatId }) {
@@ -29,8 +29,6 @@ function ChatMessage({ chat, chatId }) {
   const { handleSubmit, register, reset } = useForm();
   const { isLoading, data } = useGetChat(chatId);
   const { isCreating, createMessage } = useCreateMessage(chatId);
-
-  useEffect(function () {}, []);
 
   useEffect(
     function () {
@@ -70,7 +68,6 @@ function ChatMessage({ chat, chatId }) {
 
   useEffect(
     function () {
-      // messageContainer.current.scrollTop = messageContainer.current.scrollHeight;
       if (messageContainer.current) {
         setTimeout(() => {
           messageContainer.current.scroll({

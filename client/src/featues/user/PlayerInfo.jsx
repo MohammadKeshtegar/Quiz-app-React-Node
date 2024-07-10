@@ -4,13 +4,27 @@ import LineChart from "../../ui/LineChart";
 import Button from "../../ui/Button";
 import UserLabel from "./UserLabel";
 import Spinner from "../../ui/Spinner";
+import { useCreateInbox } from "../Inbox/useCreateInbox";
+import { useState } from "react";
 
 function PlayerInfo({ player, user, index }) {
   const file = undefined;
+  const [isChatInvitation, setIsChatInvitation] = useState(false);
   const { isLoading, data } = useGetChat(player.chat);
+  const { isCreating, sendInbox } = useCreateInbox();
 
   if (isLoading) return <Spinner />;
   const chat = data?.data;
+
+  function handleFriendInvatation() {
+    setIsChatInvitation(false);
+    sendInbox({ sender: user.id, reciever: player._id, messageType: "invite as friend" });
+  }
+
+  function handleChatGroupInvatation() {
+    setIsChatInvitation(true);
+    sendInbox({ sender: user.id, reciever: player._id, messageType: "invite chat" });
+  }
 
   return (
     <div className="w-[1200px] h-full flex flex-col rounded bg-neutral-900">
@@ -19,12 +33,20 @@ function PlayerInfo({ player, user, index }) {
           <UserPhotoUsernameAndSocialLinks user={player} />
           {player._id !== user.id && (
             <div className="w-full flex gap-2">
-              <Button styleType="fill" customeStyle="w-full flex justify-center">
-                Ask as friend
-              </Button>
-              <Button styleType="fill" customeStyle="w-full flex justify-center">
-                Invite to group
-              </Button>
+              {!isChatInvitation && isCreating && (
+                <Button onClick={handleFriendInvatation} styleType="fill" customeStyle="w-full flex justify-center">
+                  Invite as friend
+                </Button>
+              )}
+
+              {player.chat
+                ? isChatInvitation &&
+                  isCreating && (
+                    <Button onClick={handleChatGroupInvatation} styleType="fill" customeStyle="w-full flex justify-center">
+                      Invite to group
+                    </Button>
+                  )
+                : null}
             </div>
           )}
         </div>
