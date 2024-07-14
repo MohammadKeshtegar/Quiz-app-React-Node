@@ -1,9 +1,11 @@
 import express from "express";
-import { createInbox, deleteInbox } from "../controller/inboxController.js";
+
+import { createInbox, deleteInbox, getAllInboxes, readInbox } from "../controller/inboxController.js";
+import { protect } from "../controller/authController.js";
 
 const router = express.Router();
 
-router.route("/").post(createInbox);
-router.route("/:id").delete(deleteInbox);
+router.route("/").get(protect, getAllInboxes).post(createInbox);
+router.route("/:id").patch(readInbox).delete(deleteInbox);
 
 export default router;

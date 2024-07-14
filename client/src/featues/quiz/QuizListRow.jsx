@@ -1,4 +1,6 @@
 import { MdOutlinePlaylistAddCheck } from "react-icons/md";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { RxCrossCircled } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { IoReload } from "react-icons/io5";
 import { IoMdEye } from "react-icons/io";
@@ -24,6 +26,9 @@ function QuizListRow({ quiz, index, check = false, result }) {
     totalPoint = quizResult.reduce((acc, el) => (acc += el.score), 0);
   }
 
+  const isDoneQuiz = user.confirmedQuiz.some((el) => el.quizId === quiz._id);
+  const isUserOwnQuiz = quiz.owner._id === user.id;
+
   function handleConfirmQuiz() {
     navigation(`/quiz/confirm-quiz/${quiz._id}`);
   }
@@ -34,7 +39,6 @@ function QuizListRow({ quiz, index, check = false, result }) {
 
   return (
     <Table.Row rowStyle={`p-2 ${check ? "grid-cols-8" : "grid-cols-6"}`}>
-      {!check && <div>#{index + 1}</div>}
       <div>{category}</div>
       <div>{questionNum}</div>
       <div>{quizTime}</div>
@@ -56,9 +60,15 @@ function QuizListRow({ quiz, index, check = false, result }) {
       )}
 
       {!check && (
-        <ListIconButton onClick={handleConfirmQuiz}>
+        <ListIconButton onClick={handleConfirmQuiz} disable={isUserOwnQuiz}>
           <MdOutlinePlaylistAddCheck />
         </ListIconButton>
+      )}
+
+      {!check && (
+        <div className="flex justify-center">
+          {isDoneQuiz ? <FaRegCircleCheck className="text-xl text-green-500" /> : <RxCrossCircled className="text-xl text-red-500" />}
+        </div>
       )}
     </Table.Row>
   );

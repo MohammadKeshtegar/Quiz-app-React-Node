@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
         quizResult: [{ questionIndex: Number, optionIndex: Number, correctAnswer: Number, score: Number, _id: false }],
       },
     ],
-    createdQuiz: { type: Number, default: 0 },
+    createdQuiz: [{ type: mongoose.Types.ObjectId, ref: "Quiz" }],
     points: { type: Number, default: 0 },
     photo: { type: String, default: "default-user.png" },
     password: { type: String, required: [true, "Please provide a password!"], select: false },

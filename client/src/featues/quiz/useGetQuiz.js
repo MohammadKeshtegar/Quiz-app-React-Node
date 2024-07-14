@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getQuiz as getQuizApi } from "../../services/apiQuiz";
 import { useLocation, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+import { getQuiz as getQuizApi } from "../../services/apiQuiz";
 
 export function useGetQuiz() {
   const { state } = useLocation();

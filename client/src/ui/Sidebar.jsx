@@ -13,7 +13,7 @@ function Sidebar() {
     { name: "Dashboard", path: "/user/dashboard", icon: <MdSpaceDashboard /> },
     { name: "My Quiz", path: "/user/quiz", icon: <PiUserList /> },
     { name: "Confirmed Quizzes", path: "/user/confirmed-quizzes", icon: <MdOutlinePlaylistAddCheck /> },
-    { name: "Best players", path: "/players", icon: <LuUsers2 /> },
+    { name: "Players", path: "/players", icon: <LuUsers2 /> },
     { name: "Quizes", path: "quiz/quiz-list", icon: <LuClipboardCheck /> },
     { name: "Chats", path: "/chats", icon: <IoMdChatbubbles /> },
     { name: "Inbox", path: "/inbox", icon: <FaInbox /> },
@@ -31,13 +31,11 @@ function Sidebar() {
     <div className="w-60 min-h-[calc(100vh-64px)] px-2 flex flex-col border-r border-blue-500 text-neutral-300 dark:bg-gradient-to-tl from-neutral-900 to-neutral-800">
       {user.email ? (
         user?.role === "user" ? (
-          <div>
-            <ul className="flex flex-col gap-2 py-2">
-              {userLinks.map((link) => (
-                <SidebarItem key={link.name} text={link.name} path={link.path} icon={link.icon} />
-              ))}
-            </ul>
-          </div>
+          <ul className="flex flex-col gap-2 py-2">
+            {userLinks.map((link) => (
+              <SidebarItem key={link.name} text={link.name} path={link.path} icon={link.icon} />
+            ))}
+          </ul>
         ) : (
           <ul className="flex flex-col gap-2 py-2">
             {adminLinks.map((link) => (

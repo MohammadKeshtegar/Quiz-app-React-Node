@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import Modal from "../../ui/Modal";
 import PlayerInfo from "../user/PlayerInfo";
 
-function InviteAsFriend({ sender, index = 1 }) {
+function InvitationAsFriend({ sender, index = 1 }) {
   const user = useSelector((state) => state.user);
 
   return (
@@ -20,4 +20,4 @@ function InviteAsFriend({ sender, index = 1 }) {
   );
 }
 
-export default InviteAsFriend;
+export default InvitationAsFriend;

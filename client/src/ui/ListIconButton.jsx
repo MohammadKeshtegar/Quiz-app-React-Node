@@ -1,14 +1,18 @@
 import { cloneElement } from "react";
 
-function ListIconButton({ children, onClick }) {
+function ListIconButton({ children, onClick, disable = false }) {
   return (
-    <div className="flex justify-center">
+    <button className="flex justify-center" disabled={disable}>
       {cloneElement(children, {
-        className:
-          "text-blue-500 hover:text-blue-400 text-2xl border border-blue-500 hover:border-blue-400 rounded transition-all p-0.5 cursor-pointer",
+        className: `${
+          disable
+            ? "text-neutral-500 border-neutral-500 cursor-not-allowed"
+            : "text-blue-500 hover:text-blue-400 border-blue-500 hover:border-blue-400"
+        } text-2xl border rounded transition-all p-0.5 cursor-pointer`,
         onClick: onClick,
+        title: disable ? "You can't do your own quiz" : "",
       })}
-    </div>
+    </button>
   );
 }
 

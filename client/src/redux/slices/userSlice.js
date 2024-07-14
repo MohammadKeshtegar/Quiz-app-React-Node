@@ -91,9 +91,12 @@ const userSlice = createSlice({
       state.confirmedQuiz = action.payload.confirmedQuiz;
       state.points = action.payload.points + state.points;
     },
+    setUserReadInbox(state, action) {
+      state.inbox = [...state.inbox, action.payload.inbox];
+    },
   },
 });
 
-export const { setUserData, setUserUpdate, setUserLogout, setUserConfirmedQuiz } = userSlice.actions;
+export const { setUserData, setUserUpdate, setUserLogout, setUserConfirmedQuiz, setUserReadInbox } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,8 +1,8 @@
 import Question from "../models/questionModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
-import Quiz from "../models/quizModel.js";
 import User from "../models/userModel.js";
+import Quiz from "../models/quizModel.js";
 
 export const getAllQuizzes = catchAsync(async (req, res, next) => {
   let quizzes;
@@ -29,8 +29,9 @@ export const getQuiz = catchAsync(async (req, res, next) => {
 });
 
 export const createQuiz = catchAsync(async (req, res, next) => {
-  await User.findByIdAndUpdate(req.user._id, { $inc: { createdQuiz: 1 } }, { new: true });
   const newQuiz = await Quiz.create({ ...req.body, owner: req.user._id });
+  // Add the new quiz to the createdQuiz property of the owner
+  await User.findByIdAndUpdate(req.user._id, { createdQuiz: { $push: newQuiz } }, { new: true });
   res.status(200).json({ status: "success", data: newQuiz });
 });
 

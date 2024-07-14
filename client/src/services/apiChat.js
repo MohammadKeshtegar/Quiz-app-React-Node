@@ -50,6 +50,15 @@ export async function updateChatGroup({ newData, chatId }) {
   return data;
 }
 
+export async function joinChatGroup(chatId) {
+  const res = await fetch(`${chatURL}/join-chat/${chatId}`, { method: "PATCH" });
+  const data = await res.json();
+
+  if (!res.ok) console.error(data);
+
+  return data;
+}
+
 export async function deleteChatGroup(chatId) {
   const res = await fetch(`${chatURL}/${chatId}`, { method: "DELETE" });
   const data = await res.json();

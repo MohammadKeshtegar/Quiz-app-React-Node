@@ -1,11 +1,12 @@
+import { useState } from "react";
+
 import UserPhotoUsernameAndSocialLinks from "./UserPhotoUsernameAndSocialLinks";
+import { useCreateInbox } from "../Inbox/useCreateInbox";
+import SpinnerItself from "../../ui/SpinnerItself";
 import { useGetChat } from "../chat/useGetChat";
-import LineChart from "../../ui/LineChart";
+import MiniSpinner from "../../ui/MiniSpinner";
 import Button from "../../ui/Button";
 import UserLabel from "./UserLabel";
-import Spinner from "../../ui/Spinner";
-import { useCreateInbox } from "../Inbox/useCreateInbox";
-import { useState } from "react";
 
 function PlayerInfo({ player, user, index }) {
   const file = undefined;
@@ -13,7 +14,12 @@ function PlayerInfo({ player, user, index }) {
   const { isLoading, data } = useGetChat(player.chat);
   const { isCreating, sendInbox } = useCreateInbox();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading)
+    return (
+      <div className="w-96 bg-neutral-900 rounded p-2 flex items-center justify-center h-56">
+        <SpinnerItself />
+      </div>
+    );
   const chat = data?.data;
 
   function handleFriendInvatation() {
@@ -27,31 +33,11 @@ function PlayerInfo({ player, user, index }) {
   }
 
   return (
-    <div className="w-[1200px] h-full flex flex-col rounded bg-neutral-900">
-      <div className="w-full flex">
-        <div className="flex flex-col items-center gap-5 rounded px-5 py-3 w-1/2">
-          <UserPhotoUsernameAndSocialLinks user={player} />
-          {player._id !== user.id && (
-            <div className="w-full flex gap-2">
-              {!isChatInvitation && isCreating && (
-                <Button onClick={handleFriendInvatation} styleType="fill" customeStyle="w-full flex justify-center">
-                  Invite as friend
-                </Button>
-              )}
+    <div className="w-full h-full flex flex-col rounded bg-neutral-900">
+      <div className="w-full flex flex-col">
+        <UserPhotoUsernameAndSocialLinks user={player} />
 
-              {player.chat
-                ? isChatInvitation &&
-                  isCreating && (
-                    <Button onClick={handleChatGroupInvatation} styleType="fill" customeStyle="w-full flex justify-center">
-                      Invite to group
-                    </Button>
-                  )
-                : null}
-            </div>
-          )}
-        </div>
-
-        <div className="grid grid-cols-2 gap-2 grid-rows-2 p-2 w-1/2">
+        <div className="grid grid-cols-2 gap-2 grid-rows-2 p-2 w-full">
           <UserLabel label={"Rank"} value={index + 1} />
           <UserLabel label={"Confirmed quiz"} value={player.confirmedQuiz.length} />
           <UserLabel label={"Points"} value={player.points} />
@@ -65,14 +51,20 @@ function PlayerInfo({ player, user, index }) {
             )}
           </div>
         </div>
-      </div>
 
-      <div className="p-2">
-        <div className="w-full bg-neutral-800 rounded py-2 px-3 text-neutral-400">
-          <div className="bg-neutral-800 rounded">
-            <LineChart />
+        {player._id !== user.id && (
+          <div className="w-full flex flex-col gap-2 p-2">
+            <Button onClick={handleFriendInvatation} disable={isCreating} styleType="fill" customeStyle="w-full flex justify-center">
+              {!isChatInvitation && isCreating ? <MiniSpinner /> : "Invite as friend"}
+            </Button>
+
+            {player.chat ? (
+              <Button onClick={handleChatGroupInvatation} disable={isCreating} styleType="fill" customeStyle="w-full flex justify-center">
+                {isChatInvitation && isCreating ? <MiniSpinner /> : "Invite to group"}
+              </Button>
+            ) : null}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

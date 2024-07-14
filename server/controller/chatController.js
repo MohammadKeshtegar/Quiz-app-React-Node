@@ -1,9 +1,10 @@
+import mongoose, { set } from "mongoose";
+import multer from "multer";
+
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
-import Chat from "../models/chatModel.js";
-import multer from "multer";
-import mongoose, { set } from "mongoose";
 import User from "../models/userModel.js";
+import Chat from "../models/chatModel.js";
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -32,7 +33,7 @@ export const getAllChats = catchAsync(async (req, res, next) => {
 });
 
 export const getChat = catchAsync(async (req, res, next) => {
-  const chat = await Chat.findById(req.params.id).populate("messages");
+  const chat = await Chat.findById(req.params.id).populate("messages").populate("members", "photo username");
   if (!chat) return next(new AppError("No chat found with this id!", 404));
   res.status(200).json({ status: "success", data: chat });
 });
@@ -69,6 +70,19 @@ export const updateChat = catchAsync(async (req, res, next) => {
 
   if (!chat) return next(new AppError("No chat found with this id", 404));
   res.status(200).json({ status: "success", data: chat });
+});
+
+export const joinChat = catchAsync(async (req, res, next) => {
+  const chat = await Chat.findById(req.params.id);
+  const isInChatGroup = chat.members.some((member) => member.toString() === req.user.id);
+
+  if (isInChatGroup) {
+    res.status(200).json({ status: "failed", message: "You already joined this chat!" });
+  } else {
+    const updatedChat = await Chat.findByIdAndUpdate(req.params.id, { $push: { members: new mongoose.Types.ObjectId(req.user.id) } }, { new: true });
+    if (!chat) return next(new AppError("No chat found with this id", 404));
+    res.status(200).json({ status: "success", data: updatedChat });
+  }
 });
 
 export const removeChatMember = catchAsync(async (req, res, next) => {

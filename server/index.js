@@ -18,7 +18,7 @@ import quizRouter from "./routes/quizRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 
 process.on("uncaughtException", (err) => {
-  console.log("💥 UNCAUGHT EXCEPTION 💥, shutting down...");
+  console.error("💥 UNCAUGHT EXCEPTION 💥, shutting down...");
   console.error(err);
   process.exit(1);
 });

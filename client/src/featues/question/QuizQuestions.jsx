@@ -1,11 +1,11 @@
+import { IoMdArrowDropupCircle } from "react-icons/io";
 import { useState } from "react";
-import { IoIosArrowDropleft, IoMdArrowDropupCircle } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+
+import BackArrow from "../../ui/BackArrow";
 import Question from "./Question";
 
 function QuizQuestions({ questions, quizResult = null }) {
   const [windowHeightOffset, setWindowHeightOffset] = useState();
-  const navigate = useNavigate();
 
   function handleHeight() {
     setWindowHeightOffset(0);
@@ -19,19 +19,9 @@ function QuizQuestions({ questions, quizResult = null }) {
     setWindowHeightOffset(window.scrollY);
   };
 
-  function handleClick() {
-    navigate(-1);
-  }
-
   return (
     <>
-      <div>
-        <IoIosArrowDropleft
-          className="text-blue-500 hover:text-blue-400 transition-all cursor-pointer text-4xl mb-5"
-          title="Back"
-          onClick={handleClick}
-        />
-      </div>
+      <BackArrow />
 
       <div className="flex flex-col gap-20">
         {questions.map((question, i) => (

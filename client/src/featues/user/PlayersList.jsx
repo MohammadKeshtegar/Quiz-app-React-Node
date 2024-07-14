@@ -1,11 +1,11 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import { PALYERS_HEADER } from "../../constant/constant";
+import PaginationButton from "../../ui/PaginationButton";
 import { useGetAllUsers } from "./useGetAllUsers";
 import Spinner from "../../ui/Spinner";
 import PlayerRow from "./PlayerRow";
 import Table from "../../ui/Table";
-import PaginationButton from "../../ui/PaginationButton";
 
 function PlayersList() {
   const { isLoading, data } = useGetAllUsers(true);
@@ -18,7 +18,7 @@ function PlayersList() {
         <div>
           <input
             type="text"
-            placeholder="Enter user name"
+            placeholder="Search username"
             className="bg-neutral-600 rounded px-3 py-2 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
