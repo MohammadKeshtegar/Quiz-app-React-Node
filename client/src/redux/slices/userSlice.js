@@ -94,9 +94,12 @@ const userSlice = createSlice({
     setUserReadInbox(state, action) {
       state.inbox = [...state.inbox, action.payload.inbox];
     },
+    setUserFriends(state, action) {
+      state.friends = action.payload.friends;
+    },
   },
 });
 
-export const { setUserData, setUserUpdate, setUserLogout, setUserConfirmedQuiz, setUserReadInbox } = userSlice.actions;
+export const { setUserData, setUserUpdate, setUserLogout, setUserConfirmedQuiz, setUserReadInbox, setUserFriends } = userSlice.actions;
 
 export default userSlice.reducer;

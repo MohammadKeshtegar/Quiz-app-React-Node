@@ -46,3 +46,33 @@ export async function changeUserPassword(passwordData) {
 
   console.log(data);
 }
+
+export async function forgotPassword({ email, port }) {
+  const res = await fetch(`${userAuthURL}/forgot-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, port }),
+  });
+  const data = await res.json();
+
+  if (!res.ok) console.error(data);
+
+  return data;
+}
+
+export async function resetPassowrd({ token, ...passwordData }) {
+  const res = await fetch(`${userAuthURL}/reset-password/${token.token}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...passwordData }),
+  });
+
+  console.log(token);
+  console.log(passwordData);
+
+  const data = await res.json();
+
+  if (!res.ok) console.error(data);
+
+  return data;
+}

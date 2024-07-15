@@ -1,3 +1,4 @@
+import express from "express";
 import { protect } from "../controller/authController.js";
 import {
   createChat,
@@ -9,7 +10,6 @@ import {
   updateChat,
   uploadChatPhoto,
 } from "../controller/chatController.js";
-import express from "express";
 
 const router = express.Router();
 

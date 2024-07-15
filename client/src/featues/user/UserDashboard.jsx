@@ -4,6 +4,7 @@ import ButtonLink from "../../ui/ButtonLink";
 import LineChart from "../../ui/LineChart";
 import UserProfile from "./UserProfile";
 import UserLabel from "./UserLabel";
+import FriendRow from "../../ui/FriendRow";
 
 function UserDashboard() {
   const user = useSelector((state) => state.user);
@@ -24,9 +25,9 @@ function UserDashboard() {
         </div>
 
         <div className="w-1/2 bg-neutral-800 p-2 text-neutral-400 rounded flex gap-3">
-          <ul className="w-1/2 h-[264px] bg-neutral-900 rounded overflow-y-auto divide-y-2 divide-neutral-800">
+          <ul className="w-1/2 h-[272px] bg-neutral-900 rounded overflow-y-auto">
             {friends.length > 0 ? (
-              friends.map((friend) => <li className="py-2 px-3">{friend.username}</li>)
+              friends.map((friend, i) => <FriendRow friend={friend} key={i} />)
             ) : (
               <div className="flex flex-col justify-center items-center mt-20">
                 <p className="text-neutral-500 text-lg">You have noe friends! 😢</p>
@@ -42,13 +43,6 @@ function UserDashboard() {
               <p className="text-xl">Users had done your quizzes: 0</p>
               <p className="text-xl">Average rating: 0</p>
               <p className="text-xl">Created quiz: {createdQuiz.length}</p>
-            </div>
-
-            <div className="flex gap-2 w-full mt-auto mb-1">
-              <ButtonLink customeStyle="w-1/2 flex justify-center" styleType="fill">
-                Create
-              </ButtonLink>
-              <ButtonLink customeStyle="w-1/2 flex justify-center">See all</ButtonLink>
             </div>
           </div>
         </div>

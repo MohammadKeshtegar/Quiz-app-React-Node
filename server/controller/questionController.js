@@ -1,5 +1,5 @@
-import catchAsync from "../utils/catchAsync.js";
 import Question from "../models/questionModel.js";
+import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
 
 export const getAllQuestions = catchAsync(async (req, res, next) => {

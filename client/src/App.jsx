@@ -1,11 +1,11 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
 
+import ErrorRoute from "./ui/ErrorRoute";
 import ToastNotif from "./ui/ToastNotif";
 import AppLayout from "./ui/AppLayout";
 import NotFound from "./ui/NotFound";
 import Spinner from "./ui/Spinner";
-import ErrorRoute from "./ui/ErrorRoute";
 
 // Quiz
 const ConfirmCreateQuiz = lazy(() => import("./featues/quiz/ConfirmCreateQuiz"));
@@ -31,12 +31,14 @@ const InboxMessage = lazy(() => import("./featues/Inbox/InboxMessage"));
 const Inbox = lazy(() => import("./featues/Inbox/Inbox"));
 
 // Authentication
+const ForgotPassword = lazy(() => import("./featues/authentication/ForgotPassword"));
+const ResetPassword = lazy(() => import("./featues/authentication/ResetPassword"));
 const Signup = lazy(() => import("./featues/authentication/Signup"));
 const Login = lazy(() => import("./featues/authentication/Login"));
 
 // Chat
-const ChatLayout = lazy(() => import("./featues/chat/ChatLayout"));
 const CreateChatGroup = lazy(() => import("./featues/chat/CreateChatGroup"));
+const ChatLayout = lazy(() => import("./featues/chat/ChatLayout"));
 
 // Home
 const Home = lazy(() => import("./pages/Home"));
@@ -80,6 +82,8 @@ const router = createBrowserRouter([
       { path: "/players", element: <PlayersList /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
+      { path: "/forgot-password", element: <ForgotPassword /> },
+      { path: "/reset-password/:token", element: <ResetPassword /> },
       {
         path: "/user",
         children: [

@@ -1,8 +1,11 @@
 import { promisify } from "util";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
+
 import catchAsync from "../utils/catchAsync.js";
-import User from "../models/userModel.js";
 import AppError from "../utils/appError.js";
+import User from "../models/userModel.js";
+import Email from "../utils/email.js";
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -13,7 +16,7 @@ const createToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
   const cookieOptions = {
-    maxAge: process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+    maxAge: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     httpOnly: true,
   };
 
@@ -56,7 +59,7 @@ export const login = catchAsync(async (req, res, next) => {
 
   if (!email || !password) return next(new AppError("Please provide email and password!", 400));
 
-  const user = await User.findOne({ email }).select("+password").select("+role");
+  const user = await User.findOne({ email }).select("+password").select("+role").populate("friends", "username photo points");
 
   if (!user || !(await user.correctPassword(password, user.password))) return next(new AppError("Incorrect email or password!", 400));
 
@@ -97,6 +100,44 @@ export const restrickTo = (...roles) => {
     next();
   };
 };
+
+export const forgotPassword = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) return next(new AppError("There is no user with this email address", 404));
+
+  const resetToken = user.createPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  try {
+    const url = `${req.protocol}://${req.hostname}/api/v1/users/resetPassword/${resetToken}`;
+    const resetPageUrl = `${req.protocol}://${req.hostname}:${req.body.port}/reset-password/${resetToken}`;
+    await new Email(user, url, resetPageUrl).sendPasswordReset();
+
+    res.status(200).json({ status: "success", message: "Token sent to email" });
+  } catch (err) {
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save({ validateBeforeSave: true });
+    console.error(err);
+    return next(new AppError("There was an error while sending the email, please try again later!", 500));
+  }
+});
+
+export const resetPassowrd = catchAsync(async (req, res, next) => {
+  const hashedToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
+
+  const user = await User.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } });
+
+  if (!user) return next(new AppError("Token is invalid or has expired!", 400));
+
+  user.password = req.body.password;
+  user.confirmPassword = req.body.confirmPassword;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  await user.save();
+
+  createToken(user, 200, res);
+});
 
 export const changePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");

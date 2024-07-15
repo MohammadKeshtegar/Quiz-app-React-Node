@@ -49,16 +49,14 @@ function Login() {
           <NavLink to="/signup" className="text-blue-500 text-sm hover:underline pl-1 block">
             Haven't an account?
           </NavLink>
-          <NavLink to="" className="text-blue-500 text-sm hover:underline pl-1">
+          <NavLink to="/forgot-password" className="text-blue-500 text-sm hover:underline pl-1">
             Forgot your password?
           </NavLink>
         </div>
 
-        <div className="my-4">
-          <Button styleType="fill" type="submit" customeStyle="w-full flex items-center justify-center">
-            {isLoggingIn ? <MiniSpinner /> : "Login"}
-          </Button>
-        </div>
+        <Button styleType="fill" type="submit" customeStyle={"w-full my-4"}>
+          {isLoggingIn ? <MiniSpinner /> : "Login"}
+        </Button>
       </Form>
     </div>
   );

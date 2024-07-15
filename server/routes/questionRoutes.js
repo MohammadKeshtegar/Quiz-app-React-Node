@@ -1,4 +1,5 @@
 import express from "express";
+
 import { createQuestion, deleteQuestion, getAllQuestions, getQuestion, getQuizQuestions, updateQuestion } from "../controller/questionController.js";
 import { protect } from "../controller/authController.js";
 

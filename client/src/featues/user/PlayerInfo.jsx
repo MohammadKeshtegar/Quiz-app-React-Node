@@ -55,7 +55,7 @@ function PlayerInfo({ player, user, index }) {
         {player._id !== user.id && (
           <div className="w-full flex flex-col gap-2 p-2">
             <Button onClick={handleFriendInvatation} disable={isCreating} styleType="fill" customeStyle="w-full flex justify-center">
-              {!isChatInvitation && isCreating ? <MiniSpinner /> : "Invite as friend"}
+              {!isChatInvitation && isCreating ? <MiniSpinner /> : "Ask for friend"}
             </Button>
 
             {player.chat ? (

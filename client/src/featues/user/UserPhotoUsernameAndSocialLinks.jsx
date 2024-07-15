@@ -1,10 +1,12 @@
 import IconLink from "../../ui/IconLink";
 import { FaTelegram, FaInstagram, FaLinkedin, FaReddit } from "react-icons/fa";
 import { FaXTwitter, FaDiscord } from "react-icons/fa6";
+import UserPhoto from "../../ui/UserPhoto";
 
 function UserPhotoUsernameAndSocialLinks({ user }) {
   const { telegram, discord, reddit, twitter, instagram, linkedin } = user;
   const defaultPhoto = user.photo?.includes("default");
+
   const links = Array.from([
     { link: telegram, icon: <FaTelegram /> },
     { link: discord, icon: <FaDiscord /> },
@@ -16,12 +18,8 @@ function UserPhotoUsernameAndSocialLinks({ user }) {
 
   return (
     <div className="flex items-center gap-5 bg-neutral-900 rounded px-5 py-3 w-full">
-      <div className="rounded-full ">
-        <img
-          src={!defaultPhoto ? `http://127.0.0.1:5000/public/images/users/${user.photo}` : "/default-user.png"}
-          className="w-28 h-28 border-4 border-blue-500 rounded-full overflow-hidden z-20"
-          alt="user-img"
-        />
+      <div className="rounded-full border-4 border-blue-500">
+        <UserPhoto defaultPhoto={defaultPhoto} userPhoto={user.photo} photoSize={28} />
       </div>
 
       <div className="divide-y-2 divide-blue-700 mx-auto w-3/5">

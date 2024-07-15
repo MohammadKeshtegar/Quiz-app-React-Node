@@ -1,7 +1,8 @@
+import catchAsync from "../utils/catchAsync.js";
+import appError from "../utils/appError.js";
 import Chat from "../models/chatModel.js";
 import User from "../models/userModel.js";
-import appError from "../utils/appError.js";
-import catchAsync from "../utils/catchAsync.js";
+
 import multer from "multer";
 
 const multerStorage = multer.diskStorage({
@@ -36,7 +37,7 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 export const getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id).populate("inbox");
+  const user = await User.findById(req.params.id).populate("inbox").populate("friends", "username photo points");
   if (!user) return next(new appError("No user found with this id!", 404));
   res.status(200).json({ status: "success", data: user.name });
 });
@@ -54,6 +55,13 @@ export const updateUser = catchAsync(async (req, res, next) => {
   else req.body.photo = undefined;
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, { new: true, runValidators: true });
+  if (!updatedUser) return next(new appError("No user found with this id!", 404));
+  res.status(200).json({ status: 200, data: updatedUser });
+});
+
+export const updateUserFriends = catchAsync(async (req, res, next) => {
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, { $push: { friends: req.user.id } });
+  await User.findByIdAndUpdate(req.user.id, { $push: { friends: req.params.id } });
   if (!updatedUser) return next(new appError("No user found with this id!", 404));
   res.status(200).json({ status: 200, data: updatedUser });
 });

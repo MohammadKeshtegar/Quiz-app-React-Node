@@ -55,6 +55,15 @@ export async function getUserQuiz(userId) {
 
 export async function updateUserPassword(passwordData) {}
 
+export async function updateUserFriends(userId) {
+  const res = await fetch(`${userURL}/update-friends/${userId}`, { method: "PATCH" });
+  const data = await res.json();
+
+  if (!res.ok) console.error(data);
+
+  return data;
+}
+
 export async function deleteUser(userId) {
   const res = await fetch(`${userURL}/${userId}`, { method: "DELETE" });
   const data = await res.json();
