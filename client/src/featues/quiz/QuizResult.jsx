@@ -1,15 +1,22 @@
 import { useLocation } from "react-router-dom";
-import Question from "../question/Question";
+
 import ButtonLink from "../../ui/ButtonLink";
+import Question from "../question/Question";
 
 function QuizResult() {
   const { state } = useLocation();
   const { quiz, quizResult } = state;
 
-  const totalPoint = quiz.questions.reduce((acc, question, i) => {
-    if (question.correctAnswer === quizResult[i].optionIndex) acc += quizResult[i].score;
-    return acc;
-  }, 0);
+  let totalPoint;
+
+  if (state.totalPoint) {
+    totalPoint = state.totalPoint;
+  } else {
+    totalPoint = quiz.questions.reduce((acc, question, i) => {
+      if (question.correctAnswer === quizResult[i].optionIndex) acc += quizResult[i].score;
+      return acc;
+    }, 0);
+  }
 
   function nothing() {}
 

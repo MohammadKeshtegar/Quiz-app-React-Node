@@ -15,8 +15,8 @@ export const getAllQuizzes = catchAsync(async (req, res, next) => {
       .populate("questions");
   } else {
     quizzes = await Quiz.find().populate("owner", "name role").populate("questions");
-    if (req.url.includes("/quizzes")) {
-      quizzes = quizzes.filter((quiz) => quiz.owner.equals(req.user._id));
+    if (req.params.userId) {
+      quizzes = quizzes.filter((quiz) => quiz.owner.equals(req.user.id));
     }
   }
   res.status(200).json({ status: "success", data: quizzes });
@@ -31,7 +31,7 @@ export const getQuiz = catchAsync(async (req, res, next) => {
 export const createQuiz = catchAsync(async (req, res, next) => {
   const newQuiz = await Quiz.create({ ...req.body, owner: req.user._id });
   // Add the new quiz to the createdQuiz property of the owner
-  await User.findByIdAndUpdate(req.user._id, { createdQuiz: { $push: newQuiz } }, { new: true });
+  await User.findByIdAndUpdate(req.user._id, { $push: { createdQuiz: newQuiz } }, { new: true });
   res.status(200).json({ status: "success", data: newQuiz });
 });
 

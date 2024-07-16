@@ -3,13 +3,13 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { IoReload } from "react-icons/io5";
+import { useSelector } from "react-redux";
 import { IoMdEye } from "react-icons/io";
 
-import Table from "../../ui/Table";
 import ListIconButton from "../../ui/ListIconButton";
-import { useSelector } from "react-redux";
+import Table from "../../ui/Table";
 
-function QuizListRow({ quiz, index, check = false, result }) {
+function QuizListRow({ quiz, check = false, result }) {
   const user = useSelector((state) => state.user);
   const { points } = user;
   const navigation = useNavigate();
@@ -33,6 +33,10 @@ function QuizListRow({ quiz, index, check = false, result }) {
     navigation(`/quiz/confirm-quiz/${quiz._id}`);
   }
 
+  function hanldeConfirmQuizAgain() {
+    navigation(`/quiz/confirm-quiz/${quiz._id}`, { state: { again: true } });
+  }
+
   function handleSeeQuiz() {
     navigation(`/quiz/result/${quiz._id}`, { state: { quiz, quizResult } });
   }
@@ -54,7 +58,7 @@ function QuizListRow({ quiz, index, check = false, result }) {
       )}
 
       {check && (
-        <ListIconButton onClick={handleConfirmQuiz}>
+        <ListIconButton onClick={hanldeConfirmQuizAgain}>
           <IoReload />
         </ListIconButton>
       )}

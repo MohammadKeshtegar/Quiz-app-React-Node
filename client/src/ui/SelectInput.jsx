@@ -1,6 +1,6 @@
-function SelectInput({ data, render }) {
+function SelectInput({ data, render, onChange }) {
   return (
-    <select name="quiz-category-filter" className="bg-blue-500 rounded px-3 py-2">
+    <select onChange={onChange} name="quiz-category-filter" className="bg-blue-500 rounded px-3 py-2">
       {data.map(render)}
     </select>
   );

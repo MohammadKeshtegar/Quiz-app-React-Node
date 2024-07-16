@@ -6,8 +6,8 @@ export function useGetUserQuiz() {
   const { id: userId } = useSelector((state) => state.user);
 
   const { isLoading, data: userQuizzes } = useQuery({
-    queryKey: ["quiz", userId],
     queryFn: () => getUserQuiz(userId),
+    queryKey: ["quiz", userId],
   });
 
   return { isLoading, userQuizzes };

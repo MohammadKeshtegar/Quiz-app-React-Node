@@ -9,13 +9,12 @@ function ConfirmCreateQuiz() {
   const { isCreating, createQuiz } = useCreateQuiz();
 
   const {
-    state: { questions, questionIds, category, quizTime, questionNum },
+    state: { questions, category, quizTime, questionNum },
   } = useLocation();
   const navigate = useNavigate();
 
   function handleCreateQuiz() {
-    createQuiz({ questions: questionIds, category, quizTime, questionNum }, { onSuccess: () => navigate("/user/quiz") });
-    localStorage.removeItem("questionIds");
+    createQuiz({ questions, category, quizTime, questionNum }, { onSuccess: () => navigate("/user/quiz") });
     localStorage.removeItem("questions");
   }
 

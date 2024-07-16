@@ -9,6 +9,7 @@ import Spinner from "./ui/Spinner";
 
 // Quiz
 const ConfirmCreateQuiz = lazy(() => import("./featues/quiz/ConfirmCreateQuiz"));
+const ConfirmQuizAgain = lazy(() => import("./featues/quiz/ConfirmQuizAgain"));
 const ConfirmedQuizzes = lazy(() => import("./featues/quiz/ConfirmedQuizzes"));
 const ObserveQuiz = lazy(() => import("./featues/quiz/ObserveQuiz"));
 const ConfirmQuiz = lazy(() => import("./featues/quiz/ConfirmQuiz"));
@@ -59,10 +60,11 @@ const router = createBrowserRouter([
       {
         path: "/quiz",
         children: [
-          { path: "create", element: <CreateQuiz /> },
-          { path: "quiz-list", element: <QuizList /> },
-          { path: "result/:id", element: <QuizResult /> },
+          { path: "confirm-quiz-again/:id", element: <ConfirmQuizAgain /> },
           { path: "confirm-quiz/:id", element: <ConfirmQuiz /> },
+          { path: "result/:id", element: <QuizResult /> },
+          { path: "quiz-list", element: <QuizList /> },
+          { path: "create", element: <CreateQuiz /> },
         ],
       },
       {
@@ -75,31 +77,31 @@ const router = createBrowserRouter([
       {
         path: "/inbox",
         children: [
-          { path: "", element: <Inbox /> },
           { path: ":id", element: <InboxMessage /> },
+          { path: "", element: <Inbox /> },
         ],
       },
-      { path: "/players", element: <PlayersList /> },
-      { path: "/login", element: <Login /> },
-      { path: "/signup", element: <Signup /> },
-      { path: "/forgot-password", element: <ForgotPassword /> },
       { path: "/reset-password/:token", element: <ResetPassword /> },
+      { path: "/forgot-password", element: <ForgotPassword /> },
+      { path: "/players", element: <PlayersList /> },
+      { path: "/signup", element: <Signup /> },
+      { path: "/login", element: <Login /> },
       {
         path: "/user",
         children: [
+          { path: "confirmed-quizzes", element: <ConfirmedQuizzes /> },
+          { path: "confirm-quiz", element: <ConfirmCreateQuiz /> },
           { path: "dashboard", element: <UserDashboard /> },
           { path: "quiz", element: <UserQuiz /> },
-          { path: "confirm-quiz", element: <ConfirmCreateQuiz /> },
-          { path: "confirmed-quizzes", element: <ConfirmedQuizzes /> },
         ],
       },
       {
         path: "/admin",
         children: [
-          { path: "dashboard", element: <AdminDashboard /> },
-          { path: "manage-quizzes", element: <ManageQuiz /> },
-          { path: "manage-users", element: <ManageUsers /> },
           { path: "observe-quiz/:quizId", element: <ObserveQuiz /> },
+          { path: "manage-quizzes", element: <ManageQuiz /> },
+          { path: "dashboard", element: <AdminDashboard /> },
+          { path: "manage-users", element: <ManageUsers /> },
         ],
         errorElement: <NotFound />,
       },

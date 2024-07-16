@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 
 import { useGetConfirmedQuizzes } from "./useGetConfirmedQuizzes";
 import { CONFIRMED_QUIZ_HEADER } from "../../constant/constant";
+import PaginationButton from "../../ui/PaginationButton";
 import ButtonLink from "../../ui/ButtonLink";
 import QuizListRow from "./QuizListRow";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
-import PaginationButton from "../../ui/PaginationButton";
 
 function ConfirmedQuizzes() {
   const user = useSelector((state) => state.user);

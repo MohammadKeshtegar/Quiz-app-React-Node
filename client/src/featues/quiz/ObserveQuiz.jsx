@@ -1,7 +1,7 @@
 import QuizQuestions from "../question/QuizQuestions";
 import { useGetQuiz } from "./useGetQuiz";
-import Spinner from "../../ui/Spinner";
 import QuizOptions from "./QuizOptions";
+import Spinner from "../../ui/Spinner";
 
 function ObserveQuiz() {
   const { isLoading, data } = useGetQuiz();

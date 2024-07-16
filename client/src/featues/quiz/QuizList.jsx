@@ -9,11 +9,16 @@ import SelectInput from "../../ui/SelectInput";
 import QuizListRow from "./QuizListRow";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
+import { useState } from "react";
 
 function QuizList() {
-  const QuizFilterOptions = [];
+  const [owner, setOwner] = useState(null);
+  const [sortBy, setSortBy] = useState(null);
+  const [filterBy, setFilterBy] = useState("All");
+
+  const QuizFilterOptions = ["All"];
   const QuizSortOptions = [
-    { value: "quizTime", text: "Time" },
+    { value: "time", text: "Quiz Time" },
     { value: "questionNum", text: "Question numbers" },
   ];
 
@@ -21,65 +26,94 @@ function QuizList() {
   const { data: categoryData, isLoading: isFetchingCategories } = useGetAllCategories();
 
   if (isLoading || isFetchingCategories) return <Spinner />;
-  const { data: quizzes } = data;
+  const { data: fetchedQuizzes } = data;
   const { data: categories } = categoryData;
 
   categories.forEach((category) => {
     QuizFilterOptions.push(category.category);
   });
 
+  const quizzesBasedOnOwner = fetchedQuizzes.slice().filter((quiz) => {
+    if (owner) return quiz.owner.name.toLowerCase() === owner.toLowerCase();
+    else return fetchedQuizzes;
+  });
+
+  const filteredQuizzes = quizzesBasedOnOwner.slice().filter((quiz) => {
+    if (filterBy === "All") return fetchedQuizzes;
+    else if (filterBy) return quiz.category === filterBy;
+    else return fetchedQuizzes;
+  });
+
+  const quizzes = filteredQuizzes.slice().sort((a, b) => {
+    if (sortBy === "time") return a.quizTime - b.quizTime;
+    else if (sortBy === "questionNum") return a.questionNum - b.questionNum;
+    else return fetchedQuizzes;
+  });
+
   return (
     <>
-      {quizzes.length > 0 ? (
+      {fetchedQuizzes.length > 0 ? (
         <div className="w-full h-full p-5 text-white flex flex-col gap-5">
           <div className="flex items-center gap-7 self-end">
             <div>
-              <input
-                type="text"
-                placeholder="Enter owner name"
-                className="bg-neutral-600 rounded px-3 py-2 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              <input type="text" placeholder="Enter owner name" className="input-auth-style" onChange={(e) => setOwner(e.target.value)} />
+            </div>
+
+            <div>
+              Sort by:{" "}
+              <SelectInput
+                onChange={(e) => setSortBy(e.target.value)}
+                data={QuizSortOptions}
+                render={(option, i) => <SelectOption key={i} value={option.value} text={option.text} />}
               />
             </div>
 
             <div>
-              Sort by: <SelectInput data={QuizSortOptions} render={(option, i) => <SelectOption key={i} value={option.value} text={option.text} />} />
-            </div>
-
-            <div>
-              Filter by: <SelectInput data={QuizFilterOptions} render={(option, i) => <SelectOption key={i} value={option} text={option} />} />
+              Filter by:{" "}
+              <SelectInput
+                onChange={(e) => setFilterBy(e.target.value)}
+                data={QuizFilterOptions}
+                render={(option, i) => <SelectOption key={i} value={option} text={option} />}
+              />
             </div>
           </div>
 
           <div>
-            <Table>
-              <Table.Header headerTitles={QUIZ_HEADER_LIST} headerStyle="grid-cols-6" />
+            {quizzes.length > 0 ? (
+              <Table>
+                <Table.Header headerTitles={QUIZ_HEADER_LIST} headerStyle="grid-cols-6" />
 
-              <Table.Body
-                data={quizzes}
-                render={(quiz, i) => <QuizListRow key={i} quiz={quiz} index={i} />}
-                bodyStyle="border border-neutral-700/50"
-              />
+                <Table.Body
+                  data={quizzes}
+                  render={(quiz, i) => <QuizListRow key={i} quiz={quiz} index={i} />}
+                  bodyStyle="border border-neutral-700/50"
+                />
 
-              <Table.Footer>
-                <div>
-                  <p className="text-lg">
-                    Total quizzes: <span className="font-semibold">{quizzes.length}</span>
-                  </p>
-                </div>
+                <Table.Footer>
+                  <div>
+                    <p className="text-lg">
+                      Total quizzes: <span className="font-semibold">{quizzes.length}</span>
+                    </p>
+                  </div>
 
-                <div className="border-2 rounded flex items-center">
-                  <PaginationButton>
-                    <FaChevronLeft />
-                  </PaginationButton>
+                  {quizzes.length > 10 && (
+                    <div className="border-2 rounded flex items-center">
+                      <PaginationButton>
+                        <FaChevronLeft />
+                      </PaginationButton>
 
-                  <div className="border-x-2 px-4 py-1 bg-neutral-600">0</div>
+                      <div className="border-x-2 px-4 py-1 bg-neutral-600">0</div>
 
-                  <PaginationButton>
-                    <FaChevronRight />
-                  </PaginationButton>
-                </div>
-              </Table.Footer>
-            </Table>
+                      <PaginationButton>
+                        <FaChevronRight />
+                      </PaginationButton>
+                    </div>
+                  )}
+                </Table.Footer>
+              </Table>
+            ) : (
+              <div className="text-center mt-48 text-xl text-neutral-400 bg-neutral-800 rounded w-96 mx-auto py-10">No quiz found</div>
+            )}
           </div>
         </div>
       ) : (

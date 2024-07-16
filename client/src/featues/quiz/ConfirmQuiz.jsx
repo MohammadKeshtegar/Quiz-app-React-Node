@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import ConfirmQuizQestion from "./ConfirmQuizQestion";
@@ -11,6 +12,7 @@ function ConfirmQuiz() {
   const [quizResult, setQuizResult] = useState([]);
   const [start, setStart] = useState(false);
   const { isLoading, data } = useGetQuiz();
+  const { state } = useLocation();
 
   useEffect(
     function () {
@@ -31,12 +33,13 @@ function ConfirmQuiz() {
       ) : (
         <div className={`flex items-center gap-10 ${start ? "come-from-up-animation" : ""}`}>
           <ConfirmQuizQestion
-            questionObject={question}
-            quiz={quiz}
+            setQuestionIndex={setQuestionIndex}
             questionIndex={questionIndex}
             setQuizResult={setQuizResult}
-            setQuestionIndex={setQuestionIndex}
+            questionObject={question}
             quizResult={quizResult}
+            quiz={quiz}
+            again={state?.again}
           />
         </div>
       )}
