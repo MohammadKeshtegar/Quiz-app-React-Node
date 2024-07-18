@@ -44,7 +44,9 @@ export async function changeUserPassword(passwordData) {
   });
   const data = await res.json();
 
-  console.log(data);
+  if (!res.ok) console.error(data);
+
+  return data;
 }
 
 export async function forgotPassword({ email, port }) {

@@ -5,8 +5,13 @@ import { toast } from "react-toastify";
 export function useChangePassword() {
   const { isPending: isChanging, mutate: changePassword } = useMutation({
     mutationFn: changeUserPasswordApi,
-    onSuccess: () => {
-      toast.success("Your password changed successfully!", { autoClose: 1000 });
+    onSuccess: (data) => {
+      console.log(data);
+      if (data.status === "fail") {
+        toast.error(data.message);
+      } else {
+        toast.success("Your password changed successfully!", { autoClose: 1000 });
+      }
     },
     onError: (err) => {
       console.error(err);

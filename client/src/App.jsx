@@ -9,7 +9,6 @@ import Spinner from "./ui/Spinner";
 
 // Quiz
 const ConfirmCreateQuiz = lazy(() => import("./featues/quiz/ConfirmCreateQuiz"));
-const ConfirmQuizAgain = lazy(() => import("./featues/quiz/ConfirmQuizAgain"));
 const ConfirmedQuizzes = lazy(() => import("./featues/quiz/ConfirmedQuizzes"));
 const ObserveQuiz = lazy(() => import("./featues/quiz/ObserveQuiz"));
 const ConfirmQuiz = lazy(() => import("./featues/quiz/ConfirmQuiz"));
@@ -60,7 +59,6 @@ const router = createBrowserRouter([
       {
         path: "/quiz",
         children: [
-          { path: "confirm-quiz-again/:id", element: <ConfirmQuizAgain /> },
           { path: "confirm-quiz/:id", element: <ConfirmQuiz /> },
           { path: "result/:id", element: <QuizResult /> },
           { path: "quiz-list", element: <QuizList /> },
