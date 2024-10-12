@@ -9,7 +9,6 @@ import Button from "../../ui/Button";
 import UserLabel from "./UserLabel";
 
 function PlayerInfo({ player, user, index }) {
-  const file = undefined;
   const [isChatInvitation, setIsChatInvitation] = useState(false);
   const { isLoading, data } = useGetChat(player.chat);
   const { isCreating, sendInbox } = useCreateInbox();
@@ -21,6 +20,7 @@ function PlayerInfo({ player, user, index }) {
       </div>
     );
   const chat = data?.data;
+  const hasPicture = chat.picture.startsWith("default");
 
   function handleFriendInvatation() {
     setIsChatInvitation(false);
@@ -43,9 +43,15 @@ function PlayerInfo({ player, user, index }) {
           <UserLabel label={"Points"} value={player.points} />
 
           <div className="w-full rounded text-black px-5 py-2 shadow-md bg-zinc-50 flex items-center gap-5 dark:bg-neutral-800 dark:text-white">
-            <img src={file || "/default-back.png"} alt="group-post" className="w-20 h-20 p-2 rounded-full flex items-center justify-center" />
             {chat ? (
-              <span className="flex items-center justify-center w-full h-full bg-zinc-50 rounded-full dark:bg-neutral-800"></span>
+              <>
+                <img
+                  src={!hasPicture ? `http://127.0.0.1:5000/public/images/chat/${chat.picture}` : "/default-back.png"}
+                  alt="group-post"
+                  className="w-20 h-20 p-2 rounded-full flex items-center justify-center"
+                />
+                <span className="flex items-center w-full h-full bg-zinc-50 rounded-full dark:bg-neutral-800 text-lg font-bold">{chat.name}</span>
+              </>
             ) : (
               <div className="text-xl font-semibold">No group</div>
             )}
@@ -59,7 +65,12 @@ function PlayerInfo({ player, user, index }) {
             </Button>
 
             {player.chat ? (
-              <Button onClick={handleChatGroupInvatation} disable={isCreating} styleType="fill" customeStyle="w-full flex justify-center">
+              <Button
+                onClick={handleChatGroupInvatation}
+                disable={isCreating || !user.chat}
+                styleType="fill"
+                customeStyle="w-full flex justify-center"
+              >
                 {isChatInvitation && isCreating ? <MiniSpinner /> : "Invite to group"}
               </Button>
             ) : null}

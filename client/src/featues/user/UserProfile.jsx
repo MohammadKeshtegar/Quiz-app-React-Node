@@ -5,8 +5,8 @@ import UserPhotoUsernameAndSocialLinks from "./UserPhotoUsernameAndSocialLinks";
 
 function UserProfile({ user }) {
   return (
-    <div className="w-full rounded overflow-hidden bg-neutral-800 p-2 relative group shadow-lg">
-      <div className="flex items-center gap-5 bg-neutral-900 rounded px-5 py-3">
+    <div className="w-full rounded overflow-hidden dark:bg-neutral-800 bg-zinc-50 p-2 relative group shadow-lg">
+      <div className="flex items-center gap-5 dark:bg-neutral-900 bg-zinc-200 rounded px-5 py-3">
         <Modal>
           <Modal.Open opens={"user-info"}>
             <div
@@ -25,7 +25,7 @@ function UserProfile({ user }) {
         <UserPhotoUsernameAndSocialLinks user={user} />
       </div>
 
-      <div className="w-full text-neutral-400 px-2 py-4 flex flex-col">
+      <div className="w-full dark:text-neutral-400 text-neutral-800 px-2 py-4 flex flex-col">
         <div className="grid grid-cols-3 place-items-start">
           <span>Email: </span>
           <span className="col-span-2">{user.email}</span>

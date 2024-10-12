@@ -5,8 +5,12 @@ import { IoSend } from "react-icons/io5";
 import ChatSideBarItem from "../chat/ChatSidebarItem";
 import ChatButtons from "../../ui/ChatButtons";
 import Message from "../../ui/Message";
+import { useSelector } from "react-redux";
 
 function AdminMiniChat() {
+  const user = useSelector((state) => state.user);
+  console.log(user);
+
   return (
     <div className="bg-neutral-800 w-full rounded overflow-hidden text-neutral-500 flex h-[492px]">
       <div className="w-1/2 border-r border-blue-500 bg-neutral-900/30 overflow-y-auto">
@@ -21,7 +25,6 @@ function AdminMiniChat() {
 
       <div className="flex flex-col bg-neutral-900/50 w-full">
         <div className="flex-1 p-2 overflow-y-auto text-white flex flex-col gap-2 relative">
-          {" "}
           <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={1}>
             How your project is going on?
           </Message>

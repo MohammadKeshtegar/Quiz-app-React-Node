@@ -4,11 +4,11 @@
 
 @layer components {
   .input-auth-style {
-    @apply rounded-sm border text-neutral-300 border-neutral-200 px-3 py-2 mt-1 w-full text-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all dark:bg-neutral-600 dark:border-none dark:placeholder:text-neutral-400;
+    @apply rounded-sm bg-neutral-200 dark:text-neutral-300 px-3 py-2 mt-1 w-full text-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-300 focus:ring-blue-500 transition-all dark:bg-neutral-600 focus:border-none dark:placeholder:text-neutral-400 placeholder:text-neutral-400;
   }
 
   .input-option-style {
-    @apply dark:bg-neutral-800 border dark:border-neutral-700 rounded px-4 py-2 w-full focus:outline-none placeholder:text-neutral-300 focus:ring-1 focus:ring-blue-400 dark:placeholder:text-neutral-600 transition-all;
+    @apply dark:bg-neutral-800 bg-neutral-100 border dark:border-neutral-700 border-neutral-400 rounded px-4 py-2 w-full focus:outline-none placeholder:text-neutral-400 focus:ring-1 focus:ring-blue-400 dark:placeholder:text-neutral-600 transition-all;
   }
 
   .select-input-style {
@@ -20,6 +20,9 @@
   }
   .input-file[type="file"]::file-selector-button:hover {
     @apply bg-blue-600;
+  }
+  a.active {
+    @apply text-white;
   }
 }
 

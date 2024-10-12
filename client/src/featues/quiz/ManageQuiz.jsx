@@ -37,7 +37,7 @@ function ManageQuiz() {
                 <FaChevronLeft />
               </PaginationButton>
 
-              <div className="border-x-2 px-4 py-1 bg-neutral-600">0</div>
+              <div className="border-x-2 px-4 py-1 dark:bg-neutral-600">0</div>
 
               <PaginationButton>
                 <FaChevronRight />

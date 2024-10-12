@@ -8,6 +8,7 @@ import ButtonLink from "../../ui/ButtonLink";
 import QuizListRow from "./QuizListRow";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
+import { useLocation } from "react-router-dom";
 
 function ConfirmedQuizzes() {
   const user = useSelector((state) => state.user);

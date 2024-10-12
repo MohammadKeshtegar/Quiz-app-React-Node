@@ -30,7 +30,7 @@ function UserQuiz() {
             <Table.Body
               data={quizzes}
               render={(quiz, i) => <QuizRow key={quiz._id} quiz={quiz} index={i} />}
-              bodyStyle="border border-neutral-700/50"
+              bodyStyle="dark:border dark:border-neutral-700/50 border-y border-neutral-400"
             />
             <Table.Footer>
               <div>
@@ -39,12 +39,12 @@ function UserQuiz() {
                 </p>
               </div>
 
-              <div className="border-2 rounded flex items-center">
+              <div className="border-2 rounded flex items-center dark:border-neutral-400 border-neutral-500">
                 <PaginationButton>
                   <FaChevronLeft />
                 </PaginationButton>
 
-                <div className="border-x-2 px-4 py-1 bg-neutral-600">0</div>
+                <div className="border-x-2 px-4 py-1 dark:border-neutral-400 dark:bg-neutral-600 border-neutral-500">0</div>
 
                 <PaginationButton>
                   <FaChevronRight />

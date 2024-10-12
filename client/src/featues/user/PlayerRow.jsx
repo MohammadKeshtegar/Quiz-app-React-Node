@@ -12,7 +12,7 @@ function PlayerRow({ index, player }) {
   const defaultPhoto = photo?.includes("default");
 
   return (
-    <Table.Row rowStyle={`p-2 grid-cols-5 ${player._id === user.id && "bg-neutral-800"}`}>
+    <Table.Row rowStyle={`p-2 grid-cols-5 ${player._id === user.id && "dark:bg-neutral-800 bg-neutral-300"}`}>
       <div>{index + 1}</div>
       <div className="flex justify-center">
         <img

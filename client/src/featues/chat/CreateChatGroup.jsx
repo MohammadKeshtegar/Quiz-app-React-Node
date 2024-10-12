@@ -1,22 +1,22 @@
-import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { Form } from "react-router-dom";
 
-import ChatUsersItem from "./ChatUsersItem";
-import Button from "../../ui/Button";
-import { useGetAllUsers } from "../user/useGetAllUsers";
-import SpinnerItself from "../../ui/SpinnerItself";
+import SelectUserFromUsersList from "./SelectUserFromUsersList";
 import { useCreateChatGroup } from "./useCreateChatGroup";
-import MiniSpinner from "../../ui/MiniSpinner";
+import { useGetAllUsers } from "../user/useGetAllUsers";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
+import SpinnerItself from "../../ui/SpinnerItself";
+import MiniSpinner from "../../ui/MiniSpinner";
+import Button from "../../ui/Button";
 
 function CreateChatGroup({ onCloseModal }) {
   const currentUser = useSelector((state) => state.user);
   const inputFileRef = useRef(null);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
-  const [users, setUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
   const { handleSubmit, register } = useForm();
   const { isLoading, data } = useGetAllUsers(true);
   const { isCreating, createChat } = useCreateChatGroup();
@@ -32,13 +32,13 @@ function CreateChatGroup({ onCloseModal }) {
   }
 
   function handleUser(userId) {
-    if (users.includes(userId)) setUsers((users) => users.filter((user) => user !== userId));
-    else setUsers((users) => [...users, userId]);
+    if (selectedUsers.includes(userId)) setSelectedUsers((users) => users.filter((user) => user !== userId));
+    else setSelectedUsers((users) => [...users, userId]);
   }
 
   function onSubmit(data) {
     createChat(
-      { ...data, users: [...users, currentUser.id], picture: file },
+      { ...data, users: [...selectedUsers, currentUser.id], picture: file },
       {
         onSuccess: () => {
           onCloseModal();
@@ -77,12 +77,7 @@ function CreateChatGroup({ onCloseModal }) {
             <SpinnerItself />
           </div>
         ) : (
-          <>
-            <input type="text" placeholder="Seach user" className="input-auth-style mb-3" />
-            <ul className="bg-neutral-600 rounded p-1 max-h-96 overflow-y-auto divide-y-2 divide-neutral-500">
-              {fetchedUsers.map((user, i) => user._id !== currentUser.id && <ChatUsersItem key={i} index={i} user={user} handleUser={handleUser} />)}
-            </ul>
-          </>
+          <SelectUserFromUsersList fetchedUsers={fetchedUsers} currentUser={currentUser} selectedUsers={selectedUsers} handleUser={handleUser} />
         )}
       </div>
 

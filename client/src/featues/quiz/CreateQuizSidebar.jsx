@@ -18,7 +18,7 @@ function CreateQuizSidebar({ setEditQuestion, setQuestionIndex, questions, quizT
   }
 
   return (
-    <div className="w-[266px] min-h-full p-2 border-l border-blue-400 text-white flex flex-col gap-2">
+    <div className="w-[266px] min-h-full p-2 border-l border-blue-400 dark:text-white flex flex-col gap-2">
       <p>
         Total time: <span className="text-blue-500">{`${quizTime === 0 ? 0 : `${quizTime % 60}s`}`}</span>
       </p>

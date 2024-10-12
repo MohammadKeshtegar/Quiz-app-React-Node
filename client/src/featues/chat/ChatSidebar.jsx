@@ -13,21 +13,21 @@ function ChatSidebar({ chats, chatId, setChatId, setChat }) {
     <div
       className={`w-80 ${
         chats.length > 0 ? "h-[calc(100vh-64px)]" : "h-[calc(100vh)]"
-      } flex flex-col border-r border-blue-500 divide-y divide-neutral-700 text-neutral-300 dark:bg-neutral-900`}
+      } flex flex-col border-r border-blue-500 divide-y dark:divide-neutral-700 dark:text-neutral-300 dark:bg-neutral-900`}
     >
       <div className="flex border-b border-neutral-400">
         {showSearch && (
           <input
             type="text"
             placeholder="Search chat"
-            className="bg-neutral-800 placeholder:text-neutral-600 px-4 py-3 text-lg focus:outline-none absolute rounded border focus:border-blue-600 w-96 border-neutral-600 z-30 top-20 left-1/2 -translate-x-1/2"
+            className="dark:bg-neutral-800 dark:placeholder:text-neutral-600 placeholder:text-neutral-400 px-4 py-3 text-lg focus:outline-none absolute rounded border focus:border-blue-600 w-96 border-neutral-600 z-30 top-20 left-1/2 -translate-x-1/2"
           />
         )}
 
         <div className="flex items-center gap-1 w-full p-2 text-lg">
           <Modal>
             <Modal.Open opens={"create-chat"}>
-              <div className="p-3 hover:bg-blue-500 rounded-full hover:cursor-pointer transition-all">
+              <div className="p-3 hover:bg-blue-500 hover:text-white rounded-full hover:cursor-pointer transition-all">
                 <FiPlusCircle />
               </div>
             </Modal.Open>
@@ -37,7 +37,12 @@ function ChatSidebar({ chats, chatId, setChatId, setChat }) {
             </Modal.Window>
           </Modal>
 
-          <div className="p-3 hover:bg-blue-500 rounded-full hover:cursor-pointer transition-all" onClick={() => setShowSearch((show) => !show)}>
+          <div
+            className={`p-3 hover:bg-blue-500 hover:text-white rounded-full hover:cursor-pointer transition-all ${
+              showSearch ? "bg-blue-500 text-white" : ""
+            }`}
+            onClick={() => setShowSearch((show) => !show)}
+          >
             <FaSearch />
           </div>
         </div>

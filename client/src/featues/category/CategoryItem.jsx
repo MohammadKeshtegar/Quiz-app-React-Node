@@ -7,12 +7,12 @@ function CategoryItem({ children, categoryId }) {
   const { isDeleting, deleteCategory } = useDeleteCategory();
 
   return (
-    <li className="border-b border-neutral-600 p-2 flex items-center justify-between">
+    <li className="border-b dark:border-neutral-600 border-neutral-300 p-2 flex items-center justify-between">
       {children}
       <div className="flex items-center gap-2 rounded-full">
         <Modal>
           <Modal.Open opens="edit-category">
-            <span className="bg-blue-600/60 py-1 px-3 rounded-xl text-sm uppercase space-x-1 text-blue-300 hover:cursor-pointer hover:bg-blue-800/80 transition-all">
+            <span className="dark:bg-blue-600/60 bg-blue-600 py-1 px-3 rounded-xl text-sm uppercase space-x-1 dark:text-blue-300 text-white hover:cursor-pointer dark:hover:bg-blue-800/80 hover:bg-blue-500 transition-all">
               Edit
             </span>
           </Modal.Open>
@@ -23,7 +23,7 @@ function CategoryItem({ children, categoryId }) {
 
         <Modal>
           <Modal.Open opens="delete-category">
-            <span className="bg-red-700/60 py-1 px-3 rounded-xl text-sm uppercase space-x-1 text-red-300 hover:cursor-pointer hover:bg-red-800 transition-all">
+            <span className="dark:bg-red-700/60 bg-red-600 py-1 px-3 rounded-xl text-sm uppercase space-x-1 dark:text-red-300 text-white hover:cursor-pointer dark:hover:bg-red-800 hover:bg-red-500 transition-all">
               Delete
             </span>
           </Modal.Open>

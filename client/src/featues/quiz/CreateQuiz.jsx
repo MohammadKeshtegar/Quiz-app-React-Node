@@ -21,7 +21,7 @@ function CreateQuiz() {
   const { data: questions } = data;
 
   return (
-    <>
+    <div className="flex justify-between w-full h-full dark:bg-neutral-900 bg-neutral-100">
       <CreateQuestion
         questions={questions}
         setQuizTime={setQuizTime}
@@ -40,7 +40,7 @@ function CreateQuiz() {
         setEditQuestion={setEditQuestion}
         setQuestionIndex={setQuestionIndex}
       />
-    </>
+    </div>
   );
 }
 

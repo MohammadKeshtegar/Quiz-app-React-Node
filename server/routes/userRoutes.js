@@ -1,5 +1,13 @@
 import express from "express";
-import { changePassword, forgotPassword, login, logout, protect, resetPassowrd, signup } from "../controller/authController.js";
+import {
+  changePassword,
+  forgotPassword,
+  login,
+  logout,
+  protect,
+  resetPassowrd,
+  signup,
+} from "../controller/authController.js";
 import {
   getNotTeammateUsers,
   updateUserFriends,

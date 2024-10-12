@@ -59,9 +59,13 @@ export const login = catchAsync(async (req, res, next) => {
 
   if (!email || !password) return next(new AppError("Please provide email and password!", 400));
 
-  const user = await User.findOne({ email }).select("+password").select("+role").populate("friends", "username photo points");
+  const user = await User.findOne({ email })
+    .select("+password")
+    .select("+role")
+    .populate("friends", "username photo points");
 
-  if (!user || !(await user.correctPassword(password, user.password))) return next(new AppError("Incorrect email or password!", 400));
+  if (!user || !(await user.correctPassword(password, user.password)))
+    return next(new AppError("Incorrect email or password!", 400));
 
   createToken(user, 200, res);
 });
@@ -96,7 +100,8 @@ export const protect = catchAsync(async (req, res, next) => {
 
 export const restrickTo = (...roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) return next(new AppError("You have not this permission to perform this action!", 403));
+    if (!roles.includes(req.user.role))
+      return next(new AppError("You have not this permission to perform this action!", 403));
     next();
   };
 };
@@ -140,8 +145,10 @@ export const resetPassowrd = catchAsync(async (req, res, next) => {
 });
 
 export const changePassword = catchAsync(async (req, res, next) => {
+  console.log("change password");
   const user = await User.findById(req.user.id).select("+password");
-  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) return next(new AppError("Your current password is wrong!", 401));
+  if (!(await user.correctPassword(req.body.passwordCurrent, user.password)))
+    return next(new AppError("Your current password is wrong!", 401));
   if (req.body.password !== req.body.confirmPassword) return next(new AppError("Password does not match!", 400));
 
   user.password = req.body.password;

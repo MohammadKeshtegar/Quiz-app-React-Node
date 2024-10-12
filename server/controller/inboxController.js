@@ -7,8 +7,8 @@ export const getAllInboxes = catchAsync(async (req, res, next) => {
   let inboxes;
   if (req.query.user) {
     inboxes = await Inbox.find({ $or: [{ sender: req.user.id }, { reciever: req.user.id }] })
-      .populate("sender", "_id username photo chat")
-      .populate("reciever", "_id username photo chat");
+      .populate("sender", "_id username photo chat points confirmedQuiz")
+      .populate("reciever", "_id username photo chat points confirmedQuiz");
   } else {
     inboxes = await Inbox.find().populate("sender", "_id username photo chat").populate("reciever", "_id username photo chat");
   }

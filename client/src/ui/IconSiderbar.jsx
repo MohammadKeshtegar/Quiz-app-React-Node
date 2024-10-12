@@ -29,7 +29,7 @@ function IconSiderbar() {
   const user = useSelector((state) => state.user);
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex text-neutral-300 dark:bg-neutral-900">
+    <div className="min-h-[calc(100vh-64px)] flex dark:text-neutral-300 dark:bg-neutral-900">
       <div className="border-r border-blue-500 divide-y px-2 divide-neutral-700">
         {user && user.role === "user" ? (
           <div>

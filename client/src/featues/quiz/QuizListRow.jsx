@@ -21,6 +21,9 @@ function QuizListRow({ quiz, check = false, result }) {
   } = quiz;
 
   let quizResult, totalPoint;
+
+  console.log(result);
+
   if (check) {
     quizResult = result.quizResult;
     totalPoint = quizResult.reduce((acc, el) => (acc += el.score), 0);

@@ -12,6 +12,8 @@ function InvitationAsFriend({ inbox, index = 1, user }) {
     updateFriends(inbox.sender._id);
   }
 
+  console.log(inbox.sender);
+
   return (
     <>
       <h2 className="text-neutral-400 mb-5 text-xl">

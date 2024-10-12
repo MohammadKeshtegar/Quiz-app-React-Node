@@ -34,7 +34,7 @@ function QuizList() {
   });
 
   const quizzesBasedOnOwner = fetchedQuizzes.slice().filter((quiz) => {
-    if (owner) return quiz.owner.name.toLowerCase() === owner.toLowerCase();
+    if (owner) return quiz.owner.name.toLowerCase().includes(owner.toLowerCase());
     else return fetchedQuizzes;
   });
 
@@ -102,7 +102,7 @@ function QuizList() {
                         <FaChevronLeft />
                       </PaginationButton>
 
-                      <div className="border-x-2 px-4 py-1 bg-neutral-600">0</div>
+                      <div className="border-x-2 px-4 py-1 dark:bg-neutral-600">0</div>
 
                       <PaginationButton>
                         <FaChevronRight />

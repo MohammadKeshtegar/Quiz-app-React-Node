@@ -13,12 +13,14 @@ function QuizResult() {
     totalPoint = state.totalPoint;
   } else {
     totalPoint = quiz.questions.reduce((acc, question, i) => {
-      if (question.correctAnswer === quizResult[i].optionIndex) acc += quizResult[i].score;
+      if (question.correctAnswer === quizResult[i]?.optionIndex) acc += quizResult[i].score;
       return acc;
     }, 0);
   }
 
   function nothing() {}
+
+  console.log(quizResult);
 
   return (
     <div className="w-full py-20 px-32">
@@ -30,7 +32,7 @@ function QuizResult() {
             key={i}
             review={true}
             onClick={nothing}
-            answer={quizResult[i].optionIndex}
+            answer={quizResult[i]?.optionIndex}
             correctAnswer={question.correctAnswer}
             question={question}
             quizResult={quizResult}

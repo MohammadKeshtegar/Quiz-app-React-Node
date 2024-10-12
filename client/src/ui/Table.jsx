@@ -5,8 +5,10 @@ const TableContext = createContext();
 function Table({ children, tableStyle = "" }) {
   return (
     <TableContext.Provider value={{}}>
-      <div className={`${tableStyle} overflow-y-auto h-[650px] rounded overflow-hidden relative`}>
-        <div className="divider-y-2 w-full text-center">{children}</div>
+      <div className={`${tableStyle} overflow-y-auto h-[650px] overflow-hidden relative dark:text-white text-black`}>
+        <div className="divider-y-2 w-full text-center dark:shadow-none shadow-xl bg-zinc-50 dark:bg-neutral-900 rounded dark:border-none">
+          {children}
+        </div>
       </div>
     </TableContext.Provider>
   );
@@ -14,7 +16,11 @@ function Table({ children, tableStyle = "" }) {
 
 function Header({ headerTitles, headerStyle }) {
   return (
-    <div as="header" role="row" className={`${headerStyle} grid-rows-1 bg-neutral-700 capitalize grid p-3 w-full absolute top-0 h-12`}>
+    <div
+      as="header"
+      role="row"
+      className={`${headerStyle} grid-rows-1 dark:bg-neutral-700 bg-zinc-50 dark:border-neutral-700 border-l border-t border-r border-neutral-400 rounded-ss rounded-se capitalize grid p-3 w-full absolute top-0 h-12`}
+    >
       {headerTitles.map((title) => (
         <div key={title}>{title}</div>
       ))}
@@ -23,19 +29,33 @@ function Header({ headerTitles, headerStyle }) {
 }
 
 function Body({ data, bodyStyle, render }) {
-  return <section className={`${bodyStyle} divide-y-[1px] divide-neutral-600 mt-12`}>{data.map(render)}</section>;
+  return (
+    <section className={`${bodyStyle} divide-y dark:divide-neutral-700 dark:border-none border-y border-neutral-400 divide-neutral-400 mt-12`}>
+      {data.map(render)}
+    </section>
+  );
 }
 
 function Row({ children, rowStyle, as, role }) {
   return (
-    <div as={as} role={role} className={`${rowStyle} grid items-center`}>
+    <div
+      as={as}
+      role={role}
+      className={`${rowStyle} grid dark:border-neutral-700 border-x border-neutral-400 items-center dark:bg-neutral-900 bg-neutral-200`}
+    >
       {children}
     </div>
   );
 }
 
 function Footer({ children, footerStyle }) {
-  return <footer className={`${footerStyle} rounded-b bg-neutral-700 w-full px-3 py-2 flex items-center justify-between`}>{children}</footer>;
+  return (
+    <footer
+      className={`${footerStyle} rounded-b dark:bg-neutral-700 dark:border-none border-l border-r border-b border-neutral-400 w-full px-3 py-2 flex items-center justify-between`}
+    >
+      {children}
+    </footer>
+  );
 }
 
 Table.Header = Header;

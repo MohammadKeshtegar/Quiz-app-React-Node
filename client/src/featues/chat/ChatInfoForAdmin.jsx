@@ -9,11 +9,13 @@ import MiniSpinner from "../../ui/MiniSpinner";
 import ChatUsersItem from "./ChatUsersItem";
 import Button from "../../ui/Button";
 
+let allUsers;
+
 function ChatInfoForAdmin({ onCloseModal, chat }) {
   const inputFileRef = useRef(null);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
-  const [users, setUsers] = useState([]);
+  const [chatUsers, setChatUsers] = useState([]);
   const { handleSubmit, register } = useForm({ defaultValues: chat });
   const { isUpdating, updateChat } = useUpdateChatGroup();
   const { isLoading, data } = useGetNotTeammateUsers(chat._id);
@@ -30,12 +32,15 @@ function ChatInfoForAdmin({ onCloseModal, chat }) {
   }
 
   function handleUser(userId) {
-    if (users.includes(userId)) setUsers((users) => users.filter((user) => user !== userId));
-    else setUsers((users) => [...users, userId]);
+    if (chatUsers.includes(userId)) setChatUsers((users) => users.filter((user) => user !== userId));
+    else setChatUsers((users) => [...users, userId]);
   }
 
   function onSubmit(data) {
-    const newData = { ...data, users, picture: file };
+    let remainedUsers;
+    if (chatUsers.length > 0) remainedUsers = allUsers?.filter((user) => chatUsers.includes(user._id));
+
+    const newData = { ...data, users: remainedUsers, picture: file };
 
     updateChat({ newData, chatId: chat._id }, { onSuccess: () => onCloseModal() });
   }
@@ -47,6 +52,7 @@ function ChatInfoForAdmin({ onCloseModal, chat }) {
       </div>
     );
   const { data: fetchedUsers } = data;
+  allUsers = fetchedUsers;
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 w-[400px]">
@@ -73,7 +79,7 @@ function ChatInfoForAdmin({ onCloseModal, chat }) {
             <input type="text" placeholder="Seach user" className="input-auth-style mb-3" />
             <ul className="bg-neutral-600 rounded p-1 max-h-96 overflow-y-auto divide-y-2 divide-neutral-500">
               {fetchedUsers.map((user, i) => (
-                <ChatUsersItem index={i} user={user} handleUser={handleUser} />
+                <ChatUsersItem index={i} user={user} selectedUsers={chatUsers} handleUser={handleUser} editable={true} />
               ))}
             </ul>
           </>
@@ -81,9 +87,15 @@ function ChatInfoForAdmin({ onCloseModal, chat }) {
       </div>
 
       <div className="w-full">
-        <Button styleType="fill" customeStyle="w-full justify-center uppercase" type="submit">
-          {isUpdating ? <MiniSpinner /> : "Update"}
-        </Button>
+        {chatUsers.length > 0 ? (
+          <Button styleType={"fill"} customeStyle={"bg-red-600 w-full hover:bg-red-500 uppercase"} type="submit">
+            {isUpdating ? <MiniSpinner /> : "Remove"}
+          </Button>
+        ) : (
+          <Button styleType="fill" customeStyle="w-full justify-center uppercase" type="submit">
+            {isUpdating ? <MiniSpinner /> : "Update"}
+          </Button>
+        )}
       </div>
     </Form>
   );

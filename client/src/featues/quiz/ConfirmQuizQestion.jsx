@@ -34,14 +34,15 @@ function ConfirmQuizQestion({ quiz, questionIndex, questionObject, setQuizResult
             }
           }
         } else if (isFinished) {
+          console.log("finished");
           if (questionIndex < numQuestions - 1) {
-            for (let i = 0; i < numQuestions - questionIndex; i++) {
+            for (let i = numQuestions - (questionIndex + 1); i < numQuestions - questionIndex; i++) {
               quizResult.push({});
             }
           }
 
           const totalPoint = quiz.questions.reduce((acc, question, i) => {
-            if (question.correctAnswer === quizResult[i].optionIndex) acc += quizResult[i].score;
+            if (question.correctAnswer === quizResult[i]?.optionIndex) acc += quizResult[i].score;
             return acc;
           }, 0);
 

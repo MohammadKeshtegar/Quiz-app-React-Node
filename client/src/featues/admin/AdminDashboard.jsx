@@ -22,7 +22,7 @@ function AdminDashboard() {
   const { data: categories, results } = data;
 
   return (
-    <div className="w-full p-3 h-full flex flex-col gap-3">
+    <div className="w-full p-3 h-full flex flex-col gap-3 dark:bg-neutral-900 bg-neutral-200">
       <div className="flex gap-5 items-center w-full">
         <UserLabel label="Users" value={0} />
         <UserLabel label="Quizzes" value={0} />
@@ -31,7 +31,7 @@ function AdminDashboard() {
       </div>
 
       <div className="text-neutral-600 rounded shadow-lg">
-        <div className="bg-neutral-800 rounded">
+        <div className="dark:bg-neutral-800 bg-zinc-50 rounded">
           <LineChart />
         </div>
       </div>
@@ -42,12 +42,12 @@ function AdminDashboard() {
           {/* <AdminMiniChat /> */}
         </div>
 
-        <div className="w-1/2 bg-neutral-800 rounded p-3">
-          <div className="w-full h-[450px] flex justify-center bg-neutral-900/80 mb-4 rounded">
+        <div className="w-1/2 dark:bg-neutral-800 bg-zinc-50 rounded p-3">
+          <div className="w-full h-[450px] flex justify-center dark:bg-neutral-900/80 bg-neutral-200 mb-4 rounded">
             <PieChart />
           </div>
 
-          <div className="bg-neutral-900/70 text-neutral-300 rounded h-[270px]">
+          <div className="dark:bg-neutral-900/70 bg-neutral-100 border border-neutral-300 dark:border-none dark:text-neutral-300 rounded h-[270px]">
             <div className="flex flex-col h-full">
               <div className="border-b border-blue-500 p-4 flex items-center justify-between">
                 <span className="text-lg font-semibold">Categories: {categories.length}</span>
@@ -77,6 +77,7 @@ function AdminDashboard() {
                   </Modal>
                 </div>
               </div>
+
               {results > 0 ? (
                 <div className="w-full overflow-y-scroll">
                   <ul>

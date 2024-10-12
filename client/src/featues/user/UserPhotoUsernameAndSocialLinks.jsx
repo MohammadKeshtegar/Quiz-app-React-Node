@@ -17,7 +17,7 @@ function UserPhotoUsernameAndSocialLinks({ user }) {
   ]);
 
   return (
-    <div className="flex items-center gap-5 bg-neutral-900 rounded px-5 py-3 w-full">
+    <div className="flex items-center gap-5 dark:bg-neutral-900 bg-neutral-200 rounded px-5 py-3 w-full">
       <div className="rounded-full border-4 border-blue-500">
         <UserPhoto defaultPhoto={defaultPhoto} userPhoto={user.photo} photoSize={28} />
       </div>

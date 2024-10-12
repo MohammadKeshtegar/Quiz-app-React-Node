@@ -109,10 +109,10 @@ function CreateQuestion({ questions, setQuizTime, setCategory, editQuestion, set
   }
 
   return (
-    <div className="w-full p-5 text-white">
+    <div className="w-full p-5 place-self-center dark:text-white">
       <Form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-3 border border-neutral-100 dark:border-none p-3 rounded shadow-md bg-neutral-800"
+        className="flex flex-col gap-3 border border-neutral-400 dark:border-none p-3 rounded shadow-md dark:bg-neutral-800 bg-zinc-50"
       >
         <div className="flex items-center gap-10 dark:border dark:border-neutral-800 rounded">
           <div className="p-2 flex gap-3 items-center">
@@ -161,10 +161,10 @@ function CreateQuestion({ questions, setQuizTime, setCategory, editQuestion, set
           </div>
         </div>
 
-        <div className="p-5 dark:bg-neutral-900 rounded border border-neutral-700">
+        <div className="p-5 dark:bg-neutral-900 bg-neutral-200 rounded border dark:border-neutral-700 border-neutral-400">
           <textarea
             placeholder="Question..."
-            className="dark:bg-neutral-700 border rounded w-full focus:outline-none px-4 py-2 dark:border-none dark:text-neutral-300 dark:placeholder:text-neutral-500 focus:ring-1 focus:ring-blue-500 mt-5"
+            className="dark:bg-neutral-700 border rounded w-full focus:outline-none px-4 py-2 dark:border-none dark:text-neutral-300 dark:placeholder:text-neutral-500 placeholder:text-neutral-400 focus:ring-1 focus:ring-blue-500 mt-5"
             rows={3}
             name="question"
             {...register("question", { required: "Please write the question!" })}
@@ -208,7 +208,7 @@ function CreateQuestion({ questions, setQuizTime, setCategory, editQuestion, set
               <Button
                 disable={!isEditSession}
                 onClick={() => handleDelete(editQuestion)}
-                customeStyle="border-red-600 text-red-600 hover:text-white hover:border-red-500 hover:bg-red-500 px-5 focus:ring-red-500 disabled:hover:cursor-not-allowed disabled:border-red-500 disabled:text-red-500 disabled:hover:bg-red-400"
+                customeStyle="border-red-600 text-red-600 hover:text-white hover:border-red-500 hover:bg-red-500 px-5 focus:ring-red-500 disabled:hover:cursor-not-allowed disabled:border-red-500 disabled:text-red-500 disabled:hover:bg-red-300"
               >
                 Delete
               </Button>

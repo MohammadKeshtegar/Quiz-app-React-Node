@@ -19,7 +19,7 @@ function Signup() {
   }
 
   return (
-    <div className="rounded px-5 py-2 shadow-lg border border-neutral-100 w-[600px] dark:bg-neutral-800/70 dark:border-none dark:text-neutral-400">
+    <div className="rounded px-5 py-2 shadow-2xl border border-neutral-200 w-[600px] dark:bg-neutral-800/70 dark:border-none dark:text-neutral-400">
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h3 className="text-center text-2xl font-bold my-4 dark:text-white uppercase">Signup</h3>
 

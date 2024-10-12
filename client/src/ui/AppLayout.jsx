@@ -18,7 +18,7 @@ function AppLayout() {
       <Header />
       <div className="w-full flex min-h-[calc(100vh-64px)]">
         {!showSidebar ? currentUrl.pathname.startsWith("/chats") ? <IconSidebar /> : <Sidebar /> : null}
-        <div className="w-full flex items-center justify-center dark:bg-neutral-900">
+        <div className="w-full flex items-center justify-center dark:bg-neutral-900 bg-neutral-200">
           <Outlet />
         </div>
       </div>

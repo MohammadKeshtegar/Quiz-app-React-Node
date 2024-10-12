@@ -36,7 +36,7 @@ function UpdateUserData({ user, onCloseModal }) {
               type="file"
               accept="image/*"
               id="photo"
-              className="bg-neutral-600 input-file rounded cursor-pointer text-neutral-400 focus:ring-[2px] focus:ring-blue-600 focus:border-none focus:outline-none w-full"
+              className="dark:bg-neutral-600 bg-neutral-200 input-file rounded cursor-pointer dark:text-neutral-400 focus:ring-[2px] focus:ring-blue-600 focus:border-none focus:outline-none w-full"
               {...register("photo")}
               onChange={handlePhoto}
             />

@@ -11,7 +11,7 @@ function UserDashboard() {
   const { friends, confirmedQuiz, createdQuiz, points } = user;
 
   return (
-    <div className="w-full h-full p-5 flex flex-col gap-3">
+    <div className="w-full h-full p-5 flex flex-col gap-3 dark:bg-neutral-900 bg-neutral-200">
       <div className="flex gap-3 items-center w-full">
         <UserLabel label="Your quiz" value={createdQuiz.length} />
         <UserLabel label="Confirmed Quiz" value={confirmedQuiz.length} />
@@ -24,8 +24,8 @@ function UserDashboard() {
           <UserProfile user={user} />
         </div>
 
-        <div className="w-1/2 bg-neutral-800 p-2 text-neutral-400 rounded flex gap-3">
-          <ul className="w-1/2 h-[272px] bg-neutral-900 rounded overflow-y-auto">
+        <div className="w-1/2 dark:bg-neutral-800 bg-zinc-50 p-2 dark:text-neutral-400 rounded flex gap-3">
+          <ul className="w-1/2 h-[272px] dark:bg-neutral-900 bg-neutral-200 rounded overflow-y-auto">
             {friends.length > 0 ? (
               friends.map((friend, i) => <FriendRow friend={friend} key={i} />)
             ) : (
@@ -48,8 +48,8 @@ function UserDashboard() {
         </div>
       </div>
 
-      <div className="w-full bg-neutral-800 rounded py-2 px-3 text-neutral-400">
-        <div className="bg-neutral-800 rounded">
+      <div className="w-full dark:bg-neutral-800 bg-zinc-50 rounded py-2 px-3 text-neutral-400">
+        <div className="dark:bg-neutral-800 bg-neutral-50 rounded">
           <LineChart />
         </div>
       </div>

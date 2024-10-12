@@ -1,8 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { IoAttachOutline } from "react-icons/io5";
+import { FiPlusCircle } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { FaSearch } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import { Form } from "react-router-dom";
 import io from "socket.io-client";
@@ -14,6 +16,8 @@ import MiniSpinner from "../../ui/MiniSpinner";
 import { useGetChat } from "./useGetChat";
 import Message from "../../ui/Message";
 import Spinner from "../../ui/Spinner";
+import Modal from "../../ui/Modal";
+import CreateChatGroup from "./CreateChatGroup";
 
 // Note to put this line out side of the Component, because each time the component rerenders, the socket
 let socket, selectedChatCompare;
@@ -117,7 +121,7 @@ function ChatMessage({ chat, chatId }) {
   }
 
   return (
-    <div className="w-full flex flex-col bg-neutral-950">
+    <div className="w-full flex flex-col dark:bg-neutral-950">
       <div ref={messageContainer} className="w-full h-[calc(100vh-128.8px)] overflow-y-auto text-white p-3 flex flex-col gap-1 relative">
         {fetchedChat.messages.length > 0 ? (
           fetchedChat.messages.map((message, i) => <Message key={i} userId={user.id} message={message} />)
