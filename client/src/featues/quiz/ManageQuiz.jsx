@@ -15,6 +15,9 @@ function ManageQuiz() {
 
   return (
     <div className="relative rounded overflow-hidden w-full p-3 text-white">
+
+
+
       {quizzes.length > 0 ? (
         <Table>
           <Table.Header headerTitles={QUIZ_TABLE_HEADER} headerStyle={"grid-cols-6"} />

@@ -14,9 +14,9 @@ function ResetPassword() {
   }
 
   return (
-    <div className="h-screen grid place-items-center bg-neutral-900/95 w-full bg-gradient-to-tr from-neutral-900/80 to-neutral-800 text-white">
-      <Form className="w-96 rounded-md p-5 flex flex-col gap-4 shadow-md bg-neutral-700/40" onSubmit={handleSubmit(handleResetPassword)}>
-        <h2 className="text-center py-4 text-3xl font-semibold">Forgot password</h2>
+    <div className="h-screen grid place-items-center bg-neutral-200 w-full dark:bg-neutral-900">
+      <Form className="w-96 rounded-md p-5 flex flex-col gap-4 shadow-md bg-neutral-100 dark:bg-neutral-700/40" onSubmit={handleSubmit(handleResetPassword)}>
+        <h2 className="text-center py-4 text-3xl font-semibold dark:text-white">Reset your password</h2>
 
         <input
           className="input-auth-style"

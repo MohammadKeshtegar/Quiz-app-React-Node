@@ -1,14 +1,12 @@
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
+import { CONFIRMED_QUIZ_HEADER, ITEMS_PER_PAGE } from "../../constant/constant";
 import { useGetConfirmedQuizzes } from "./useGetConfirmedQuizzes";
-import { CONFIRMED_QUIZ_HEADER } from "../../constant/constant";
-import PaginationButton from "../../ui/PaginationButton";
+import FooterPagination from "../../ui/FooterPagination";
 import ButtonLink from "../../ui/ButtonLink";
 import QuizListRow from "./QuizListRow";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
-import { useLocation } from "react-router-dom";
 
 function ConfirmedQuizzes() {
   const user = useSelector((state) => state.user);
@@ -27,7 +25,6 @@ function ConfirmedQuizzes() {
             <Table.Body
               data={quizzes}
               render={(quiz, i) => <QuizListRow key={i} quiz={quiz} result={user.confirmedQuiz[i]} check={true} index={i} />}
-              bodyStyle="border border-neutral-700/50"
             />
 
             <Table.Footer>
@@ -37,17 +34,7 @@ function ConfirmedQuizzes() {
                 </p>
               </div>
 
-              <div className="border-2 rounded flex items-center">
-                <PaginationButton>
-                  <FaChevronLeft />
-                </PaginationButton>
-
-                <div className="border-x-2 px-4 py-1 bg-neutral-600">0</div>
-
-                <PaginationButton>
-                  <FaChevronRight />
-                </PaginationButton>
-              </div>
+              {quizzes.length > ITEMS_PER_PAGE && <FooterPagination />}
             </Table.Footer>
           </Table>
         </div>

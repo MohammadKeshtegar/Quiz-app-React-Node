@@ -15,9 +15,9 @@ function ForgotPassword() {
   }
 
   return (
-    <div className="h-screen grid place-items-center w-full bg-gradient-to-tr dark:from-neutral-900/80 dark:to-neutral-800 shadow-xl">
+    <div className="h-screen grid place-items-center w-full bg-neutral-200 dark:bg-neutral-900 shadow-xl">
       <Form
-        className="w-96 rounded-md p-5 flex flex-col gap-4 border border-neutral-200 shadow-2xl dark:bg-neutral-700/40"
+        className="w-96 rounded-md p-5 flex flex-col gap-4 shadow-2xl bg-neutral-100 dark:bg-neutral-700/40"
         onSubmit={handleSubmit(handleSendEmail)}
       >
         <h2 className="text-center py-4 text-3xl font-semibold dark:text-white">Forgot password</h2>

@@ -22,14 +22,12 @@ function QuizListRow({ quiz, check = false, result }) {
 
   let quizResult, totalPoint;
 
-  console.log(result);
-
   if (check) {
     quizResult = result.quizResult;
     totalPoint = quizResult.reduce((acc, el) => (acc += el.score), 0);
   }
 
-  const isDoneQuiz = user.confirmedQuiz.some((el) => el.quizId === quiz._id);
+  const hasDoneQuiz = user.confirmedQuiz.some((el) => el.quizId === quiz._id);
   const isUserOwnQuiz = quiz.owner._id === user.id;
 
   function handleConfirmQuiz() {
@@ -67,14 +65,14 @@ function QuizListRow({ quiz, check = false, result }) {
       )}
 
       {!check && (
-        <ListIconButton onClick={handleConfirmQuiz} disable={isUserOwnQuiz}>
+        <ListIconButton onClick={handleConfirmQuiz} disable={isUserOwnQuiz || hasDoneQuiz}>
           <MdOutlinePlaylistAddCheck />
         </ListIconButton>
       )}
 
       {!check && (
         <div className="flex justify-center">
-          {isDoneQuiz ? <FaRegCircleCheck className="text-xl text-green-500" /> : <RxCrossCircled className="text-xl text-red-500" />}
+          {hasDoneQuiz ? <FaRegCircleCheck className="text-xl text-green-500" /> : <RxCrossCircled className="text-xl text-red-500" />}
         </div>
       )}
     </Table.Row>

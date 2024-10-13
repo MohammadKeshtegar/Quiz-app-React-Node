@@ -40,8 +40,8 @@ function ChatSideBarItem({ lastMessage, chatId, chat, setChatId, setChat }) {
         setChatId(chat._id);
         setChat(chat);
       }}
-      className={`flex items-center p-3 border-b border-neutral-600 hover:cursor-pointer dark:hover:bg-neutral-700/60 hover:bg-neutral-300 transition-all ${
-        chat._id !== chatId ? "dark:bg-neutral-800/70 bg-neutral-300" : "dark:bg-neutral-700/60 bg-neutral-300"
+      className={`flex items-center p-3 border-b border-neutral-600 hover:cursor-pointer dark:hover:bg-neutral-700/60 hover:bg-neutral-200 transition-all ${
+        chat._id !== chatId ? "dark:bg-neutral-800/70 bg-neutral-300" : "dark:bg-neutral-700/60 bg-neutral-100"
       }`}
     >
       <div className="w-20">
@@ -50,16 +50,16 @@ function ChatSideBarItem({ lastMessage, chatId, chat, setChatId, setChat }) {
 
       <div className="overflow-hidden">
         <p className="font-semibold text-lg truncate mb-1">{chat.name}</p>
-        <p className="text-xs text-neutral-500 truncate">{lastMessage}</p>
+        <p className="text-xs dark:text-neutral-500 text-black truncate">{lastMessage}</p>
       </div>
 
       <div>
-        <div className="rounded-full p-2 hover:bg-neutral-700 transition-all relative" onClick={handleShowMenu}>
+        <div className="rounded-full p-2 dark:hover:bg-neutral-700 hover:bg-blue-500 transition-all relative" onClick={handleShowMenu}>
           <BsThreeDotsVertical />
         </div>
 
         {showMenu === chatId && (
-          <div className="absolute bg-neutral-800 p-1 rounded flex flex-col gap-1 z-40">
+          <div className="absolute dark:bg-neutral-800 bg-neutral-200 dark:border-none border-2 border-blue-400 p-1 rounded flex flex-col gap-1 z-40">
             <Modal>
               <Modal.Open>
                 <div className="flex gap-2 items-center text-lg hover:bg-blue-500 rounded px-2 py-1 transition-all">

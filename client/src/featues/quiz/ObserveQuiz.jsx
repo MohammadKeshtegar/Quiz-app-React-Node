@@ -1,6 +1,6 @@
 import QuizQuestions from "../question/QuizQuestions";
 import { useGetQuiz } from "./useGetQuiz";
-import QuizOptions from "./QuizOptions";
+import QuizFeature from "./QuizFeature";
 import Spinner from "../../ui/Spinner";
 
 function ObserveQuiz() {
@@ -9,6 +9,12 @@ function ObserveQuiz() {
   if (isLoading) return <Spinner />;
 
   const { questions, category, quizTime, questionNum } = data.data;
+
+  const quizFeatures = [
+    { name: "Category", value: category },
+    { name: "QUiz time", value: quizTime },
+    { name: "Number of Questions", value: questionNum },
+  ];
 
   if (!data)
     return (
@@ -19,7 +25,11 @@ function ObserveQuiz() {
 
   return (
     <div className="text-white w-full h-full py-20 px-24">
-      <QuizOptions category={category} quizTime={quizTime} questionNum={questionNum} />
+      <div className="flex items-center gap-4 justify-end">
+        {quizFeatures.map((feature) => (
+          <QuizFeature feature={feature.name} featureValue={feature.value} />
+        ))}
+      </div>
       <QuizQuestions questions={questions} />
     </div>
   );

@@ -1,12 +1,11 @@
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useState } from "react";
 
-import { PALYERS_HEADER } from "../../constant/constant";
-import PaginationButton from "../../ui/PaginationButton";
+import { ITEMS_PER_PAGE, PALYERS_HEADER } from "../../constant/constant";
+import FooterPagination from "../../ui/FooterPagination";
 import { useGetAllUsers } from "./useGetAllUsers";
 import Spinner from "../../ui/Spinner";
 import PlayerRow from "./PlayerRow";
 import Table from "../../ui/Table";
-import { useState } from "react";
 
 function PlayersList() {
   const [username, setUsername] = useState("");
@@ -25,7 +24,7 @@ function PlayersList() {
           <input
             type="text"
             placeholder="Search username"
-            className="bg-neutral-600 rounded px-3 py-2 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="dark:bg-neutral-600 rounded px-3 py-2 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -44,17 +43,7 @@ function PlayersList() {
               </p>
             </div>
 
-            <div className="border-2 rounded flex items-center">
-              <PaginationButton>
-                <FaChevronLeft />
-              </PaginationButton>
-
-              <div className="border-x-2 px-4 py-1 bg-neutral-600">0</div>
-
-              <PaginationButton>
-                <FaChevronRight />
-              </PaginationButton>
-            </div>
+            {players.length > ITEMS_PER_PAGE && <FooterPagination />}
           </Table.Footer>
         </Table>
       </div>

@@ -31,7 +31,7 @@ function SelectUserFromUsersList({ fetchedUsers, selectedUsers, currentUser, han
           )}
         </ul>
       ) : (
-        <div className="bg-neutral-700 text-center py-10 text-neutral-300 text-xl rounded">No user found</div>
+        <div className="dark:bg-neutral-700 bg-neutral-300 text-center py-10 dark:text-neutral-300 text-black text-xl rounded">No user found</div>
       )}
     </>
   );

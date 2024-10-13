@@ -16,7 +16,7 @@ function InvitationAsFriend({ inbox, index = 1, user }) {
 
   return (
     <>
-      <h2 className="text-neutral-400 mb-5 text-xl">
+      <h2 className="dark:text-neutral-400 mb-5 text-xl">
         From{" "}
         <Modal>
           <Modal.Open opens={"player-info"}>
@@ -28,7 +28,7 @@ function InvitationAsFriend({ inbox, index = 1, user }) {
         </Modal>
       </h2>
 
-      <p className="text-neutral-300/70">
+      <p className="dark:text-neutral-300/70">
         <span className="capitalize">{inbox.sender.username}</span> Has sent a request for friendship
       </p>
 

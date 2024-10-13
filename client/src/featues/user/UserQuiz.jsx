@@ -1,7 +1,7 @@
-import { FaChevronLeft, FaChevronRight, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 
-import { USER_QUIZ_HEADER } from "../../constant/constant";
-import PaginationButton from "../../ui/PaginationButton";
+import { ITEMS_PER_PAGE, USER_QUIZ_HEADER } from "../../constant/constant";
+import FooterPagination from "../../ui/FooterPagination";
 import { useGetUserQuiz } from "../quiz/useGetUserQuiz";
 import ButtonLink from "../../ui/ButtonLink";
 import Spinner from "../../ui/Spinner";
@@ -39,17 +39,7 @@ function UserQuiz() {
                 </p>
               </div>
 
-              <div className="border-2 rounded flex items-center dark:border-neutral-400 border-neutral-500">
-                <PaginationButton>
-                  <FaChevronLeft />
-                </PaginationButton>
-
-                <div className="border-x-2 px-4 py-1 dark:border-neutral-400 dark:bg-neutral-600 border-neutral-500">0</div>
-
-                <PaginationButton>
-                  <FaChevronRight />
-                </PaginationButton>
-              </div>
+              {quizzes.length > ITEMS_PER_PAGE && <FooterPagination />}
             </Table.Footer>
           </Table>
         </>

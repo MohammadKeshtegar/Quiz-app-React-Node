@@ -1,10 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { IoAttachOutline } from "react-icons/io5";
-import { FiPlusCircle } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { FaSearch } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import { Form } from "react-router-dom";
 import io from "socket.io-client";
@@ -16,8 +14,6 @@ import MiniSpinner from "../../ui/MiniSpinner";
 import { useGetChat } from "./useGetChat";
 import Message from "../../ui/Message";
 import Spinner from "../../ui/Spinner";
-import Modal from "../../ui/Modal";
-import CreateChatGroup from "./CreateChatGroup";
 
 // Note to put this line out side of the Component, because each time the component rerenders, the socket
 let socket, selectedChatCompare;
@@ -130,12 +126,12 @@ function ChatMessage({ chat, chatId }) {
         )}
       </div>
 
-      <div className="bg-neutral-900 text-neutral-600 w-full border-t border-neutral-800 p-2 flex items-center gap-2">
+      <div className="dark:bg-neutral-900 bg-neutral-100 text-neutral-600 w-full dark:border-t border-t-2 dark:border-neutral-800 border-blue-500 p-2 flex items-center gap-2">
         <Form onSubmit={handleSubmit(handleSendMessage)} className="relative w-full">
           {isTyping ? <div>typing...</div> : null}
           <input
             type="text"
-            className="rounded-full bg-neutral-700 text-neutral-300 placeholder:text-neutral-500 px-5 py-3 focus:border-none focus:outline-none focus:ring-1 focus:ring-blue-500 w-full"
+            className="rounded-full dark:bg-neutral-700 bg-neutral-300 dark:text-neutral-300 text-black placeholder:text-neutral-500 px-5 py-3 focus:border-none focus:outline-none focus:ring-1 focus:ring-blue-500 w-full"
             placeholder="Write a message"
             {...register("message", { onChange: handleTyping })}
           />

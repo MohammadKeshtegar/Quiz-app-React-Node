@@ -22,16 +22,16 @@ function InvitationToChatGroup({ inbox, user }) {
 
   return (
     <>
-      <h2 className="text-neutral-400 mb-5 text-xl">
+      <h2 className="dark:text-neutral-400 mb-5 text-xl">
         From <span className="text-blue-500">{inbox.sender.username}</span>
       </h2>
 
-      <div className="py-2 px-4 rounded border-l-4 border-blue-600 bg-neutral-700/40">
-        <h2 className="font-semibold text-xl mb-5 text-neutral-300/90">
+      <div className="py-2 px-4 rounded border-l-4 border-blue-600 dark:bg-neutral-700/40 bg-neutral-200">
+        <h2 className="font-semibold text-xl mb-5 dark:text-neutral-300/90">
           Dear <span className="capitalize">{inbox.reciever.username}</span>
         </h2>
 
-        <p className="text-neutral-300/70">
+        <p className="dark:text-neutral-300/70 text-black">
           You are invited to join to groupname chat group. check group info{" "}
           <Modal>
             <Modal.Open opens={"chat-info"}>
@@ -43,7 +43,9 @@ function InvitationToChatGroup({ inbox, user }) {
           </Modal>
           .
         </p>
-        <p className="text-neutral-300/70">To accept this invitation, simply click accept on this message. We look forward to having you on board!</p>
+        <p className="dark:text-neutral-300/70">
+          To accept this invitation, simply click accept on this message. We look forward to having you on board!
+        </p>
       </div>
 
       {chat.admin !== user.id ? (

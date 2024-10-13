@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { useRef, useState } from "react";
 import { Form } from "react-router-dom";
 
 import SelectUserFromUsersList from "./SelectUserFromUsersList";
@@ -73,7 +73,7 @@ function CreateChatGroup({ onCloseModal }) {
 
       <div>
         {isLoading ? (
-          <div className="h-96 bg-neutral-900 w-full flex items-center justify-center">
+          <div className="h-96 dark:bg-neutral-900 w-full flex items-center justify-center">
             <SpinnerItself />
           </div>
         ) : (

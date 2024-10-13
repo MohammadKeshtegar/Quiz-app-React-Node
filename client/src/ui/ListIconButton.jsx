@@ -10,7 +10,7 @@ function ListIconButton({ children, onClick, disable = false }) {
             : "text-blue-500 hover:text-blue-400 border-blue-500 hover:border-blue-400"
         } text-2xl border rounded transition-all p-0.5 cursor-pointer`,
         onClick: onClick,
-        title: disable ? "You can't do your own quiz" : "",
+        title: disable ? "You either had done this quiz or you are the owner of this quiz" : "",
       })}
     </button>
   );

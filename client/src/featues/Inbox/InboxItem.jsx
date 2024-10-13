@@ -18,7 +18,7 @@ function InboxItem({ inbox, isSender }) {
   }
 
   return (
-    <div className="bg-neutral-800 border-l-4 border-blue-600 w-full px-6 py-4 text-neutral-300 rounded text-xl font-semibold hover:bg-neutral-700 transition-all hover:cursor-pointer">
+    <div className="dark:bg-neutral-800 bg-white border-l-4 border-blue-600 w-full px-6 py-4 dark:text-neutral-300 text-black rounded text-xl font-semibold dark:hover:bg-neutral-700 hover:bg-neutral-100 transition-all hover:cursor-pointer">
       <Link to={inbox._id} state={{ inbox }} className="flex items-center gap-5">
         <div className={`truncate w-60 ${inbox.read && "text-neutral-500"}`}>
           {isSender ? `to ${inbox.reciever.username}` : `from ${inbox.sender.username}`}

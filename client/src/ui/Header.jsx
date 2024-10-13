@@ -17,7 +17,7 @@ function Header() {
   const defaultPhoto = user.photo?.includes("default");
 
   return (
-    <div className="w-full h-16 dark:bg-neutral-900 border-b border-blue-500 dark:shadow-[0_15px_15px_-15px_rgba(29,78,216,0.5)] shadow-[0_15px_15px_-20px_rgba(29,78,216,0.5)] px-5 py-2 flex justify-between items-center dark:text-white">
+    <div className="w-full h-16 dark:bg-neutral-900 border-b-2 border-blue-500 dark:shadow-[0_15px_15px_-15px_rgba(29,78,216,0.5)] shadow-[0_15px_15px_-20px_rgba(29,78,216,0.5)] px-5 py-2 flex justify-between items-center dark:text-white">
       <Link to="/">
         <Logo />
       </Link>

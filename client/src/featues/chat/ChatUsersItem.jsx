@@ -10,8 +10,8 @@ function ChatUsersItem({ user, selectedUsers, handleUser }) {
     >
       <div className="flex items-center gap-5">
         <div
-          className={`w-7 h-7 border-none rounded-full outline-none ring ring-offset-2 ring-offset-neutral-600 ring-blue-500 ${
-            selectedUsers.includes(user._id) ? "bg-blue-500" : "bg-neutral-600"
+          className={`w-7 h-7 border-none rounded-full outline-none ring ring-offset-2 dark:ring-offset-neutral-600 ring-offset-neutral-300 ring-blue-500 ${
+            selectedUsers.includes(user._id) ? "bg-blue-500" : "dark:bg-neutral-600 bg-neutral-300"
           } `}
         ></div>
 

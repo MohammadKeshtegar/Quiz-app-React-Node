@@ -30,7 +30,7 @@ function IconSiderbar() {
 
   return (
     <div className="min-h-[calc(100vh-64px)] flex dark:text-neutral-300 dark:bg-neutral-900">
-      <div className="border-r border-blue-500 divide-y px-2 divide-neutral-700">
+      <div className="border-r-2 border-blue-500 divide-y px-2 divide-neutral-700">
         {user && user.role === "user" ? (
           <div>
             <ul className="flex flex-col gap-2 pt-1 pb-2">

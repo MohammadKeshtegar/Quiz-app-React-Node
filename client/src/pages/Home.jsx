@@ -29,14 +29,6 @@ function Home() {
               for quizzes, brain teasers, and mind-boggling challenges.
             </p>
           </div>
-
-          <div className="flex items-center justify-center gap-2">
-            {links.map(({ path, label }) => (
-              <ButtonLink key={label} url={path} styleType="fill" customeStyle="justify-center text-lg py-2">
-                <div className="w-40 start-links-style">{label}</div>
-              </ButtonLink>
-            ))}
-          </div>
         </div>
       ) : (
         <div className="text-neutral-200">

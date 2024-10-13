@@ -47,9 +47,9 @@ function AdminDashboard() {
             <PieChart />
           </div>
 
-          <div className="dark:bg-neutral-900/70 bg-neutral-100 border border-neutral-300 dark:border-none dark:text-neutral-300 rounded h-[270px]">
+          <div className="dark:bg-neutral-900/70 bg-neutral-100 border-2 border-neutral-300 dark:border-none dark:text-neutral-300 rounded h-[270px]">
             <div className="flex flex-col h-full">
-              <div className="border-b border-blue-500 p-4 flex items-center justify-between">
+              <div className="border-b-2 border-blue-500 p-4 flex items-center justify-between">
                 <span className="text-lg font-semibold">Categories: {categories.length}</span>
                 <div className="flex items-center gap-3">
                   <Modal>

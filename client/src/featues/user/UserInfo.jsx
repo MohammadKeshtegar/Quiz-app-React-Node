@@ -10,7 +10,7 @@ function UserInfo({ user }) {
         className="rounded-full w-52 mx-auto mb-10"
       />
 
-      <div className="grid grid-cols-2 gap-y-2 text-neutral-400 border-t border-neutral-400 pt-4">
+      <div className="grid grid-cols-2 gap-y-2 dark:text-neutral-400 border-t border-neutral-400 pt-4">
         <span>Name</span>
         <span>{name}</span>
 

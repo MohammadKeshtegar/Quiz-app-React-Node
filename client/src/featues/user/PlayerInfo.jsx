@@ -33,7 +33,7 @@ function PlayerInfo({ player, user, index }) {
   }
 
   return (
-    <div className="w-full h-full flex flex-col rounded bg-neutral-900">
+    <div className="w-full h-full flex flex-col rounded dark:bg-neutral-900">
       <div className="w-full flex flex-col">
         <UserPhotoUsernameAndSocialLinks user={player} />
 

@@ -25,7 +25,7 @@ function InboxMessage() {
     <div className="w-full h-full p-5">
       <BackArrow />
 
-      <div className="text-white bg-neutral-800 p-4 rounded border-t-4 border-blue-600">
+      <div className="dark:text-white text-black dark:bg-neutral-800 bg-white p-4 rounded border-t-4 border-blue-600">
         {inbox.messageType === "invite chat" ? <InvitationToChatGroup inbox={inbox} user={user} /> : <InvitationAsFriend inbox={inbox} user={user} />}
       </div>
     </div>

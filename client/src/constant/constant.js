@@ -5,4 +5,10 @@ export const QUIZ_TABLE_HEADER = ["", "category", "owner", "question num", "quiz
 export const USER_QUIZ_HEADER = ["", "Category", "Time", "Questions", "Delete", "Check"];
 export const PALYERS_HEADER = ["Rank", "Profile", "Username", "Points", "See user"];
 export const DIFFICULTY_OPTIONS = ["easy", "medium", "hard"];
+export const QuizFilterOptions = ["All"];
+export const QuizSortOptions = [
+  { value: "time", text: "Quiz Time" },
+  { value: "questionNum", text: "Question numbers" },
+];
 export const ENDPOINT = "http://localhost:5000";
+export const ITEMS_PER_PAGE = 20;
