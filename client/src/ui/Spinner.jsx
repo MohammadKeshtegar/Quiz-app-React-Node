@@ -1,9 +1,5 @@
 function Spinner() {
-  return (
-    <div className="w-full h-screen flex items-center justify-center bg-neutral-900">
-      <div className="loader"></div>
-    </div>
-  );
+  return <div className="loader"></div>;
 }
 
 export default Spinner;

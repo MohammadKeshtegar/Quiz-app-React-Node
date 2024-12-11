@@ -5,8 +5,8 @@ import mongoose from "mongoose";
 import express from "express";
 import dotenv from "dotenv";
 import helmet from "helmet";
-import cors from "cors";
 import http from "http";
+import cors from "cors";
 
 import globalErrorHandler from "./controller/errorController.js";
 import categoryRouter from "./routes/categoryRoutes.js";
@@ -47,7 +47,7 @@ app.use(express.json({ limit: "10kb" }));
 //   next();
 // });
 
-const DB = process.env.DATABASE.replace("<password>", process.env.DATABASE_PASSWORD);
+const DB = process.env.DATABASE.replace("<db_password>", process.env.DATABASE_PASSWORD);
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(DB).then(() => console.log("DB connection successful"));

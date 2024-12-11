@@ -12,6 +12,7 @@ const categorySchema = new mongoose.Schema(
         message: "The category must contains only letters!",
       },
     },
+    color: { type: String, required: [true, "The category must have a color"], unique: true },
   },
   {
     timestamps: true,

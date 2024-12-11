@@ -1,33 +1,53 @@
+import { useGetAllQuizzes } from "../featues/quiz/useGetAllQuizzes";
+import Spinner from "./Spinner";
+
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function PieChart() {
+function PieChart({ categories }) {
+  const { data, isLoading } = useGetAllQuizzes();
+
+  if (isLoading)
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  const { data: quizData } = data;
+
+  const categoryLabels = categories.map((category) => category.category);
+
+  const quizzesBasedOnCategory = {};
+  quizData.forEach((quiz) => {
+    const quizCategory = quiz.category;
+    if (quizzesBasedOnCategory[quizCategory]) {
+      quizzesBasedOnCategory[quizCategory]++;
+    } else {
+      quizzesBasedOnCategory[quizCategory] = 1;
+    }
+  });
+
+  categories.forEach((category) => {
+    if (!Object.keys(quizzesBasedOnCategory).includes(category.category)) {
+      quizzesBasedOnCategory[category.category] = 0;
+    }
+  });
+
+  const chartData = categories.map((category) => quizzesBasedOnCategory[category.category]);
+  const borderColors = categories.map((category) => category.color);
+  const backgroundColors = borderColors.map((color) => color.replace(" 1)", " 0.2)"));
+
   const pieChartData = {
-    labels: ["Programming", "Technology", "Mathematics", "History", "Botanical", "Phytozoolagy"],
+    labels: categoryLabels,
     datasets: [
       {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(59, 130, 246, 0.2)",
-          "rgba(14, 165, 233, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(5, 150, 105, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(59, 130, 246, 1)",
-          "rgba(14, 165, 233, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(5, 150, 105, 1)",
-        ],
+        label: "# of Quizzes",
+        data: chartData,
+        backgroundColor: backgroundColors,
+        borderColor: borderColors,
         borderWidth: 1,
-        // width: 50,
         hoverOffset: 30,
       },
     ],
