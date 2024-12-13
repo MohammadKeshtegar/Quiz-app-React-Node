@@ -8,13 +8,17 @@ import UserLabel from "./UserLabel";
 import LineChart from "../../ui/LineChart";
 import Button from "../../ui/Button";
 import { useGetChat } from "../chat/useGetChat";
+import Spinner from "../../ui/Spinner";
 
 function PlayerRow({ index, player }) {
   const { username, points, photo, confirmedQuiz, chat } = player;
   const defaultPhoto = photo?.includes("default");
 
-  // const { isLoading, data } = useGetChat(chat?._id);
+  const { isLoading, data } = useGetChat(chat?._id);
 
+  if (isLoading) return <Spinner />;
+  const { data: chatData } = data;
+  console.log(chatData);
   const file = undefined;
 
   return (
@@ -58,7 +62,11 @@ function PlayerRow({ index, player }) {
                 <UserLabel label={"Points"} value={points} />
                 {/* <UserLabel label={"Group"} value={0} /> */}
                 <div className="w-full rounded text-black px-5 py-2 shadow-md bg-zinc-50 flex items-center gap-5 dark:bg-neutral-800 dark:text-white">
-                  <img src={file || "/default-back.png"} alt="group-post" className="w-20 h-20 p-2 rounded-full flex items-center justify-center" />
+                  <img
+                    src={file || "/default-back.png"}
+                    alt="group-post"
+                    className="w-20 h-20 p-2 rounded-full flex items-center justify-center"
+                  />
                   {chat ? (
                     <span className="flex items-center justify-center w-full h-full bg-zinc-50 rounded-full dark:bg-neutral-800"></span>
                   ) : (

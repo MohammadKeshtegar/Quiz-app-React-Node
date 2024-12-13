@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { IoMdEye } from "react-icons/io";
 
-import { useDeleteQuiz } from "../quiz/useDeleteQuiz";
+import { useDeleteQuiz } from "./useDeleteQuiz";
 import DeleteIcon from "../../ui/DeleteIcon";
 import Table from "../../ui/Table";
 

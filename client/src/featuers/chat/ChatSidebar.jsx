@@ -2,15 +2,19 @@ import { FiPlusCircle } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
 
+import { useGetAllChats } from "./useGetAllChats";
 import ChatSideBarItem from "./ChatSidebarItem";
-import Modal from "../../ui/Modal";
 import CreateChatGroup from "./CreateChatGroup";
+import Spinner from "../../ui/Spinner";
+import Modal from "../../ui/Modal";
 
-function ChatSidebar({ chats, setChatId }) {
-  // const [chats, setChats] = useState([]);
+function ChatSidebar({ setChatId }) {
+  const [chatData, setChatData] = useState({});
   const [showSearch, setShowSearch] = useState(false);
-  console.log(chats);
+  const { isLoading, data } = useGetAllChats();
 
+  if (isLoading) return <Spinner />;
+  const { data: chats } = data;
   return (
     <div className="w-80 h-[calc(100vh-64px)] flex flex-col border-r border-blue-500 divide-y divide-neutral-700 text-neutral-300 dark:bg-neutral-900">
       <div className="flex border-b border-neutral-400">
@@ -34,7 +38,10 @@ function ChatSidebar({ chats, setChatId }) {
             </Modal.Window>
           </Modal>
 
-          <div className="p-3 hover:bg-blue-500 rounded-full hover:cursor-pointer transition-all" onClick={() => setShowSearch((show) => !show)}>
+          <div
+            className="p-3 hover:bg-blue-500 rounded-full hover:cursor-pointer transition-all"
+            onClick={() => setShowSearch((show) => !show)}
+          >
             <FaSearch />
           </div>
         </div>
@@ -43,7 +50,13 @@ function ChatSidebar({ chats, setChatId }) {
       <ul className="overflow-y-auto">
         {chats.length > 0 ? (
           chats.map((chat) => (
-            <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" chatId={chat._id} setChatId={setChatId} />
+            <ChatSideBarItem
+              userName="Jeff bezos"
+              lastMessage="Hi bro, How are you going today?"
+              chatId={chat._id}
+              setChatId={setChatId}
+              setChatData={setChatData}
+            />
           ))
         ) : (
           <div className="w-full flex justify-center pt-20 text-neutral-500 text-lg">No chat found!😢</div>

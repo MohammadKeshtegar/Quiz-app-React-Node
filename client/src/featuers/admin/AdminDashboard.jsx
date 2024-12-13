@@ -1,5 +1,7 @@
 import { useDeleteAllCategories } from "../category/useDeleteAllCategories";
 import { useGetAllCategories } from "../category/useGetAllCategories";
+import { useGetAllQuizzes } from "../quiz/useGetAllQuizzes";
+import { useGetAllUsers } from "../user/useGetAllUsers";
 import CreateCategory from "../category/CreateCategory";
 import CategoryItem from "../category/CategoryItem";
 import ConfirmDelete from "../../ui/ConfirmDelete";
@@ -18,16 +20,20 @@ function AdminDashboard() {
   const user = useSelector((state) => state.user);
   const { data, isLoading } = useGetAllCategories();
   const { isDeleting, deleteAllCategories } = useDeleteAllCategories();
+  const { data: usersData, isLoading: isGettingAllUsers } = useGetAllUsers();
+  const { data: quizData, isLoading: isGettingAllQuizzes } = useGetAllQuizzes();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || isGettingAllUsers || isGettingAllQuizzes) return <Spinner />;
   const { data: categories, results } = data;
+  const { data: users } = usersData;
+  const { data: quizzes } = quizData;
 
   return (
     <div className="w-full p-3 h-full flex flex-col gap-3">
       <div className="flex gap-5 items-center w-full">
-        <UserLabel label="Users" value={0} />
-        <UserLabel label="Quizzes" value={0} />
-        <UserLabel label="How many item purched" value={0} />
+        <UserLabel label="Users" value={users.length} />
+        <UserLabel label="Quizzes" value={quizzes.length} />
+        <UserLabel label="Purcheses per month" value={0} />
         <UserLabel label="Friends" value={user.friends.length} />
       </div>
 

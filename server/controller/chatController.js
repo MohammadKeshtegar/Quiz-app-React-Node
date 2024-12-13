@@ -4,10 +4,12 @@ import Chat from "../models/chatModel.js";
 
 export const getAllChats = catchAsync(async (req, res, next) => {
   const chats = await Chat.find();
+  console.log(chats);
   res.status(200).json({ status: "success", data: chats });
 });
 
 export const getChat = catchAsync(async (req, res, next) => {
+  console.log(req.params.id);
   const chat = await Chat.findById(req.params.id).populate("messages");
   if (!chat) return next(new AppError("No chat found with this id!", 404));
   res.status(200).json({ status: "success", data: chat });

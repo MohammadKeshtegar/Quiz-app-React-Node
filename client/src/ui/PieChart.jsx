@@ -1,4 +1,4 @@
-import { useGetAllQuizzes } from "../featues/quiz/useGetAllQuizzes";
+import { useGetAllQuizzes } from "../featuers/quiz/useGetAllQuizzes";
 import Spinner from "./Spinner";
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -6,7 +6,7 @@ import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function PieChart({ categories }) {
+export default function PieChart({ categories }) {
   const { data, isLoading } = useGetAllQuizzes();
 
   if (isLoading)
@@ -18,8 +18,8 @@ function PieChart({ categories }) {
   const { data: quizData } = data;
 
   const categoryLabels = categories.map((category) => category.category);
-
   const quizzesBasedOnCategory = {};
+
   quizData.forEach((quiz) => {
     const quizCategory = quiz.category;
     if (quizzesBasedOnCategory[quizCategory]) {
@@ -67,5 +67,3 @@ function PieChart({ categories }) {
 
   return <Doughnut options={options} data={pieChartData} />;
 }
-
-export default PieChart;

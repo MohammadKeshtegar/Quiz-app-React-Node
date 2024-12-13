@@ -11,7 +11,7 @@ import { FaInbox } from "react-icons/fa";
 
 import SidebarItem from "./SidebarItem";
 
-function Sidebar() {
+function Sidebar({ currentUrl }) {
   const userLinks = [
     { name: "Dashboard", path: "/user/dashboard", icon: <MdSpaceDashboard /> },
     { name: "My Quiz", path: "/user/quiz", icon: <PiUserList /> },
@@ -31,7 +31,11 @@ function Sidebar() {
   const user = useSelector((state) => state.user);
 
   return (
-    <div className="w-60 min-h-[calc(100vh-64px)] px-2 flex flex-col border-r border-blue-500 text-neutral-300 dark:bg-gradient-to-tl from-neutral-900 to-neutral-800">
+    <div
+      className={`${
+        currentUrl.startsWith("/chats") ? "w-16" : "w-60"
+      } min-h-[calc(100vh-64px)] overflow-hidden px-2 flex flex-col border-r border-blue-500 text-neutral-300 dark:bg-gradient-to-tl from-neutral-900 to-neutral-800`}
+    >
       {user.email ? (
         user?.role === "user" ? (
           <div>

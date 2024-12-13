@@ -1,50 +1,47 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
 
+import PageSpinner from "./ui/PageSpinner";
 import ToastNotif from "./ui/ToastNotif";
 import AppLayout from "./ui/AppLayout";
 import NotFound from "./ui/NotFound";
-import Spinner from "./ui/Spinner";
 
-const ConfirmCreateQuiz = lazy(() => import("./featues/quiz/ConfirmCreateQuiz"));
-const ConfirmedQuizzes = lazy(() => import("./featues/quiz/ConfirmedQuizzes"));
-const ObserveQuiz = lazy(() => import("./featues/quiz/ObserveQuiz"));
-const ConfirmQuiz = lazy(() => import("./featues/quiz/ConfirmQuiz"));
-const QuizResult = lazy(() => import("./featues/quiz/QuizResult"));
-const CreateQuiz = lazy(() => import("./featues/quiz/CreateQuiz"));
-const ManageQuiz = lazy(() => import("./featues/quiz/ManageQuiz"));
-const QuizList = lazy(() => import("./featues/quiz/QuizList"));
+const ConfirmCreateQuiz = lazy(() => import("./featuers/quiz/ConfirmCreateQuiz"));
+const ConfirmedQuizzes = lazy(() => import("./featuers/quiz/ConfirmedQuizzes"));
+const ObserveQuiz = lazy(() => import("./featuers/quiz/ObserveQuiz"));
+const ConfirmQuiz = lazy(() => import("./featuers/quiz/ConfirmQuiz"));
+const QuizResult = lazy(() => import("./featuers/quiz/QuizResult"));
+const CreateQuiz = lazy(() => import("./featuers/quiz/CreateQuiz"));
+const ManageQuiz = lazy(() => import("./featuers/quiz/ManageQuiz"));
+const QuizList = lazy(() => import("./featuers/quiz/QuizList"));
 
-const AdminDashboard = lazy(() => import("./featues/admin/AdminDashboard"));
+const AdminDashboard = lazy(() => import("./featuers/admin/AdminDashboard"));
 
-const UserDashboard = lazy(() => import("./featues/user/UserDashboard"));
-const PlayersList = lazy(() => import("./featues/user/PlayersList"));
-const ManageUsers = lazy(() => import("./featues/user/ManageUser"));
-const UserQuiz = lazy(() => import("./featues/user/UserQuiz"));
+const UserDashboard = lazy(() => import("./featuers/user/UserDashboard"));
+const PlayersList = lazy(() => import("./featuers/user/PlayersList"));
+const ManageUsers = lazy(() => import("./featuers/user/ManageUser"));
+const UserQuiz = lazy(() => import("./featuers/user/UserQuiz"));
 
-const InboxMessage = lazy(() => import("./featues/Inbox/InboxMessage"));
-const Inbox = lazy(() => import("./featues/Inbox/Inbox"));
+const InboxMessage = lazy(() => import("./featuers/Inbox/InboxMessage"));
+const Inbox = lazy(() => import("./featuers/Inbox/Inbox"));
 
-const Signup = lazy(() => import("./featues/authentication/Signup"));
-const Login = lazy(() => import("./featues/authentication/Login"));
+const Signup = lazy(() => import("./featuers/authentication/Signup"));
+const Login = lazy(() => import("./featuers/authentication/Login"));
 
-const ChatLayout = lazy(() => import("./featues/chat/ChatLayout"));
-const CreateChat = lazy(() => import("./featues/chat/CreateChat"));
+const ChatLayout = lazy(() => import("./featuers/chat/ChatLayout"));
+const CreateChat = lazy(() => import("./featuers/chat/CreateChat"));
 
 const Home = lazy(() => import("./pages/Home"));
 
 const router = createBrowserRouter([
   {
     element: (
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<PageSpinner />}>
         <AppLayout />
       </Suspense>
     ),
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
+      { path: "/", element: <Home /> },
       {
         path: "/quiz",
         children: [
@@ -88,9 +85,9 @@ const router = createBrowserRouter([
           { path: "manage-users", element: <ManageUsers /> },
           { path: "observe-quiz/:quizId", element: <ObserveQuiz /> },
         ],
-        errorElement: <NotFound />,
       },
     ],
+    errorElement: <NotFound />,
   },
 ]);
 

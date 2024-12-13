@@ -1,4 +1,13 @@
-function ChatSideBarItem({ userName, lastMessage, userPicture, chatId, setChatId }) {
+// import Spinner from "../../ui/Spinner";
+// import { useGetChat } from "./useGetChat";
+
+function ChatSideBarItem({ userName, lastMessage, userPicture, chatId, setChatId, setChatData }) {
+  // const { isLoading, data } = useGetChat(chatId);
+
+  // if (isLoading) return <Spinner />;
+  // const { data: chatData } = data;
+  // setChatData(chatData);
+
   return (
     <li
       onClick={() => setChatId(chatId)}

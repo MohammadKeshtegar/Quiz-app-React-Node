@@ -46,8 +46,9 @@
   animation: l13 1s infinite linear;
 }
 
-li:has(> a.active) {
+a.active {
   background-color: #2563eb;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar {
@@ -73,6 +74,18 @@ li:has(> a.active) {
 
 .go-down-animation {
   animation: go-down 1s;
+}
+
+.extend-start-sidebar {
+  animation: start-sidebar 1s;
+}
+
+.extend-start-icon-sidebar {
+  animation: extend-start-icon-sidebar 1s;
+}
+
+.extend-icon-sidebar {
+  animation: icon-sidebar 1s;
 }
 
 @keyframes come-from-up {
