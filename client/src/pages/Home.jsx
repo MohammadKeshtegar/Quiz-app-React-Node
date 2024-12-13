@@ -25,8 +25,8 @@ function Home() {
             </div>
 
             <p className="text-neutral-500 text-lg w-2/3">
-              Are you ready to dive into a world of knowledge, fun, and friendly competition? Look no further! QuizMaster is your ultimate destination
-              for quizzes, brain teasers, and mind-boggling challenges.
+              Are you ready to dive into a world of knowledge, fun, and friendly competition? Look no further! QuizMaster is your
+              ultimate destination for quizzes, brain teasers, and mind-boggling challenges.
             </p>
           </div>
 
