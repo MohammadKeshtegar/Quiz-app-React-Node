@@ -5,7 +5,10 @@ import { toast } from "react-toastify";
 export function useDeleteUser() {
   const { isPending: isDeleting, mutate: deleteUser } = useMutation({
     mutationFn: deleteUserApi,
-    onSuccess: () => toast.success("User deleted successfully!", { autoClose: 1000 }),
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("User deleted successfully!", { autoClose: 1000 });
+    },
     onError: (err) => {
       console.error(err);
       toast.error("Something went wrong while deleting user!");

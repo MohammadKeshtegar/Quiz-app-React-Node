@@ -18,12 +18,13 @@ function QuizRow({ quiz, index }) {
   }
 
   return (
-    <Table.Row rowStyle={"p-3 grid-cols-6"}>
-      <div># {index + 1}</div>
+    <Table.Row rowStyle={"p-3 grid-cols-7"}>
+      <div>{index + 1}</div>
       <div>{quiz.category}</div>
-      <div>{quiz.quizTime} s</div>
+      {/* The quiz of the deleted user must be deleted as well after all the users that was confirming the quizzes which their owner is this user */}
+      <div>{quiz.owner?.name}</div>
       <div>{quiz.questionNum}</div>
-
+      <div>{quiz.quizTime} s</div>
       {quiz.owner.role === "user" && <DeleteIcon index={index + 1} handleDelete={handleDelete} isDeleting={isDeleting} />}
 
       <div className="flex justify-center">

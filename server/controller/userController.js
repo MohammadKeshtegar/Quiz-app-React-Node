@@ -27,9 +27,9 @@ export const uploadUserPhoto = upload.single("photo");
 export const getAllUsers = catchAsync(async (req, res, next) => {
   let users;
   if (req.query.admin) {
-    users = await User.find({ role: { $ne: "admin" } });
+    users = await User.find().select("+role");
   } else {
-    users = await User.find();
+    users = await User.find({ role: { $ne: "admin" } });
   }
   res.status(200).json({ status: "success", results: users.length, data: users });
 });

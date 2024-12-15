@@ -34,7 +34,7 @@ function ChatMessage({ chatId }) {
   }
 
   return (
-    <div className="w-full flex flex-col bg-neutral-950">
+    <div className="w-full flex flex-col dark:bg-neutral-950 bg-neutral-100">
       <div className="w-full h-[calc(100vh-128.8px)] overflow-y-auto text-white p-3 flex flex-col gap-1 relative">
         <Message maxWidth={"max-w-[500px]"} userId={1} currentUserId={1}>
           How your project is going on?
@@ -92,11 +92,11 @@ function ChatMessage({ chatId }) {
         </Message>
       </div>
 
-      <div className="bg-neutral-900 text-neutral-600 w-full border-t border-neutral-800 p-2 flex items-center gap-2">
+      <div className="dark:bg-neutral-900 text-neutral-600 w-full border-t border-neutral-800 p-2 flex items-center gap-2">
         <div className="relative w-full">
           <input
             type="text"
-            className="rounded-full bg-neutral-700 text-neutral-300 placeholder:text-neutral-500 px-5 py-3 focus:border-none focus:outline-none focus:ring-1 focus:ring-blue-500 w-full"
+            className="rounded-full dark:bg-neutral-700 bg-neutral-200 dark:text-neutral-300 text-black placeholder:text-neutral-500 px-5 py-3 focus:border-none focus:outline-none focus:ring-1 focus:ring-blue-500 w-full"
             placeholder="Write a message"
           />
 

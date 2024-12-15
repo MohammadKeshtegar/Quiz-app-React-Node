@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Suspense, lazy } from "react";
+import { lazy } from "react";
 
-import PageSpinner from "./ui/PageSpinner";
 import ToastNotif from "./ui/ToastNotif";
 import AppLayout from "./ui/AppLayout";
 import NotFound from "./ui/NotFound";
@@ -35,11 +34,7 @@ const Home = lazy(() => import("./pages/Home"));
 
 const router = createBrowserRouter([
   {
-    element: (
-      <Suspense fallback={<PageSpinner />}>
-        <AppLayout />
-      </Suspense>
-    ),
+    element: <AppLayout />,
     children: [
       { path: "/", element: <Home /> },
       {

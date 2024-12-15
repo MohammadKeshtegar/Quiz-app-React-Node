@@ -1,5 +1,5 @@
 function Logo() {
-  return <div>QUIZ</div>;
+  return <div className="dark:text-white text-black">QUIZ</div>;
 }
 
 export default Logo;

@@ -19,7 +19,7 @@ function ManageUsers() {
         <Table>
           <Table.Header headerTitles={USER_TABLE_HEADER} headerStyle={`grid-cols-8`} />
 
-          <Table.Body data={users} render={(user, i) => <UserRow key={user._id} user={user} index={i} />} bodyStyle="border border-neutral-700/50" />
+          <Table.Body data={users} render={(user, i) => <UserRow key={user._id} user={user} index={i} />} />
 
           <Table.Footer>
             <div>
@@ -33,7 +33,7 @@ function ManageUsers() {
                 <FaChevronLeft />
               </PaginationButton>
 
-              <div className="border-x-2 px-4 py-1 bg-neutral-600">0</div>
+              <div className="border-x-2 px-4 py-1 dark:bg-neutral-600">0</div>
 
               <PaginationButton>
                 <FaChevronRight />

@@ -17,7 +17,7 @@ function LineChart() {
       : {
           totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
           extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
-          text: "#374151",
+          text: "#000",
           background: "#fff",
         };
 
@@ -41,7 +41,7 @@ function LineChart() {
 
         <XAxis dataKey="date" tick={{ fill: colors.text }} axisLine={false} />
         <YAxis dataKey="value" tick={{ fill: colors.text }} axisLine={false} />
-        <CartesianGrid opacity={0.1} />
+        <CartesianGrid opacity={mode === "dark" ? 0.1 : 0.5} />
         <Tooltip contentStyle={{ color: "#fff", backgroundColor: "#18212f" }} />
         <Area dataKey="value" type="monotone" stroke="#3b82f6" fill="url(#color)" strokeWidth={2} name="users" />
       </AreaChart>

@@ -28,6 +28,7 @@ function AdminDashboard() {
   const { data: users } = usersData;
   const { data: quizzes } = quizData;
 
+  console.log(quizzes);
   return (
     <div className="w-full p-3 h-full flex flex-col gap-3">
       <div className="flex gap-5 items-center w-full">
@@ -38,7 +39,7 @@ function AdminDashboard() {
       </div>
 
       <div className="text-neutral-600 rounded shadow-lg">
-        <div className="bg-neutral-800 rounded">
+        <div className="dark:bg-neutral-800 rounded shadow-custom-1">
           <LineChart />
         </div>
       </div>
@@ -49,12 +50,12 @@ function AdminDashboard() {
           <AdminMiniChat />
         </div>
 
-        <div className="w-1/2 bg-neutral-800 rounded p-3">
-          <div className="w-full h-[450px] flex justify-center bg-neutral-900/80 mb-4 rounded">
+        <div className="w-1/2 dark:bg-neutral-800 rounded p-3 shadow-custom-2">
+          <div className="w-full h-[450px] flex justify-center dark:bg-neutral-900/80 mb-4 rounded">
             <PieChart categories={categories} />
           </div>
 
-          <div className="bg-neutral-900/70 text-neutral-300 rounded h-[294px]">
+          <div className="dark:bg-neutral-900/70 bg-neutral-100 dark:text-neutral-300 text-black rounded h-[294px] dark:border-none border border-neutral-200">
             <div className="flex flex-col h-full">
               <div className="border-b border-blue-500 p-4 flex items-center justify-between">
                 <span className="text-lg font-semibold">Categories: {categories.length}</span>

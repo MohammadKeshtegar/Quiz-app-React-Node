@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema(
         validator: function (val) {
           return val > 6;
         },
-        message: "Your age is out of the proper rang to access to the content of this app, we appreciate your unstrestanding and cooperation",
+        message:
+          "Your age is out of the proper rang to access to the content of this app, we appreciate your unstrestanding and cooperation",
       },
     },
     friends: [{ type: mongoose.Types.ObjectId, ref: "User" }],
@@ -24,7 +25,7 @@ const userSchema = new mongoose.Schema(
         quizResult: [{ questionIndex: Number, optionIndex: Number, correctAnswer: Number, score: Number, _id: false }],
       },
     ],
-    createdQuiz: { type: Number, default: 0 },
+    createdQuiz: [{ type: mongoose.Schema.ObjectId, ref: "Quiz" }],
     points: { type: Number, default: 0 },
     photo: { type: String, default: "default-user.png" },
     password: { type: String, required: [true, "Please provide a password!"], select: false },

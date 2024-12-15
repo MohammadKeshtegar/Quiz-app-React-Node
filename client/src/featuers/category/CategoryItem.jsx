@@ -12,7 +12,7 @@ function CategoryItem({ children, categoryId }) {
       <div className="flex items-center gap-2 rounded-full">
         <Modal>
           <Modal.Open opens="edit-category">
-            <span className="bg-blue-600/60 py-1 px-3 rounded-xl text-sm uppercase space-x-1 text-blue-300 hover:cursor-pointer hover:bg-blue-800/80 transition-all">
+            <span className="dark:bg-blue-600/60 bg-blue-700/80 py-1 px-3 rounded-xl text-sm uppercase space-x-1 dark:text-blue-300 text-blue-100 hover:cursor-pointer dark:hover:bg-blue-800/80 hover:bg-blue-500 transition-all">
               Edit
             </span>
           </Modal.Open>
@@ -23,12 +23,17 @@ function CategoryItem({ children, categoryId }) {
 
         <Modal>
           <Modal.Open opens="delete-category">
-            <span className="bg-red-700/60 py-1 px-3 rounded-xl text-sm uppercase space-x-1 text-red-300 hover:cursor-pointer hover:bg-red-800 transition-all">
+            <span className="dark:bg-red-700/60 bg-red-600 py-1 px-3 rounded-xl text-sm uppercase space-x-1 dark:text-red-300 text-red-100 hover:cursor-pointer dark:hover:bg-red-800 hover:bg-red-500 transition-all">
               Delete
             </span>
           </Modal.Open>
           <Modal.Window name="delete-category">
-            <ConfirmDelete source="category" isLoading={isDeleting} onClick={() => deleteCategory(categoryId)} itemName={children} />
+            <ConfirmDelete
+              source="category"
+              isLoading={isDeleting}
+              onClick={() => deleteCategory(categoryId)}
+              itemName={children}
+            />
           </Modal.Window>
         </Modal>
       </div>

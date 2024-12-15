@@ -13,17 +13,15 @@ function ManageQuiz() {
   if (isLoading) return <Spinner />;
   const { data: quizzes } = data;
 
+  console.log(quizzes);
+
   return (
     <div className="relative rounded overflow-hidden w-full p-3 text-white">
       {quizzes.length > 0 ? (
         <Table>
-          <Table.Header headerTitles={QUIZ_TABLE_HEADER} headerStyle={"grid-cols-6"} />
+          <Table.Header headerTitles={QUIZ_TABLE_HEADER} headerStyle={"grid-cols-7"} />
 
-          <Table.Body
-            data={quizzes}
-            render={(quiz, i) => <QuizRow key={quiz._id} quiz={quiz} index={i} />}
-            bodyStyle="border border-neutral-700/50"
-          />
+          <Table.Body data={quizzes} render={(quiz, i) => <QuizRow key={quiz._id} quiz={quiz} index={i} />} />
 
           <Table.Footer>
             <div>
@@ -32,12 +30,12 @@ function ManageQuiz() {
               </p>
             </div>
 
-            <div className="border-2 rounded flex items-center">
+            <div className="border-2 rounded flex items-center overflow-hidden">
               <PaginationButton>
                 <FaChevronLeft />
               </PaginationButton>
 
-              <div className="border-x-2 px-4 py-1 bg-neutral-600">0</div>
+              <div className="border-x-2 px-4 py-1 dark:bg-neutral-600">0</div>
 
               <PaginationButton>
                 <FaChevronRight />

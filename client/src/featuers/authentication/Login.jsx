@@ -1,4 +1,4 @@
-import { Form, NavLink } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { useLogin } from "./useLogin";
@@ -19,7 +19,7 @@ function Login() {
   }
 
   return (
-    <div className="rounded px-5 py-2 shadow-lg border border-neutral-100 w-[400px] dark:bg-neutral-800/70 dark:border-none dark:text-neutral-300">
+    <div className="rounded px-5 py-2 shadow-xl border border-neutral-100 w-[400px] dark:bg-neutral-800/70 dark:border-none dark:text-neutral-300">
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h3 className="text-center text-2xl font-bold my-4 dark:text-white uppercase">Login</h3>
 
@@ -46,12 +46,12 @@ function Login() {
         </AuthInput>
 
         <div className="mt-8">
-          <NavLink to="/signup" className="text-blue-500 text-sm hover:underline pl-1 block">
+          <Link to="/signup" className="text-blue-500 text-sm hover:underline pl-1 block">
             Haven't an account?
-          </NavLink>
-          <NavLink to="" className="text-blue-500 text-sm hover:underline pl-1">
+          </Link>
+          <Link to="" className="text-blue-500 text-sm hover:underline pl-1">
             Forgot your password?
-          </NavLink>
+          </Link>
         </div>
 
         <div className="my-4">

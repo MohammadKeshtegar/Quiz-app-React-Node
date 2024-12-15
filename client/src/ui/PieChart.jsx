@@ -1,4 +1,5 @@
 import { useGetAllQuizzes } from "../featuers/quiz/useGetAllQuizzes";
+import { useMode } from "../context/Mode";
 import Spinner from "./Spinner";
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -8,6 +9,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChart({ categories }) {
   const { data, isLoading } = useGetAllQuizzes();
+  const { mode } = useMode();
 
   if (isLoading)
     return (
@@ -58,10 +60,16 @@ export default function PieChart({ categories }) {
     plugins: {
       legend: {
         position: "right",
+        labels: {
+          color: mode === "dark" ? "#737373" : "#000",
+          font: {
+            size: 16,
+          },
+        },
       },
     },
     layout: {
-      padding: 30,
+      padding: 20,
     },
   };
 

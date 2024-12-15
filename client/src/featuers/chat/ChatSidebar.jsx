@@ -2,21 +2,16 @@ import { FiPlusCircle } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
 
-import { useGetAllChats } from "./useGetAllChats";
-import ChatSideBarItem from "./ChatSidebarItem";
+import ChatsSidebarList from "./ChatsSidebarList";
 import CreateChatGroup from "./CreateChatGroup";
-import Spinner from "../../ui/Spinner";
 import Modal from "../../ui/Modal";
 
 function ChatSidebar({ setChatId }) {
   const [chatData, setChatData] = useState({});
   const [showSearch, setShowSearch] = useState(false);
-  const { isLoading, data } = useGetAllChats();
 
-  if (isLoading) return <Spinner />;
-  const { data: chats } = data;
   return (
-    <div className="w-80 h-[calc(100vh-64px)] flex flex-col border-r border-blue-500 divide-y divide-neutral-700 text-neutral-300 dark:bg-neutral-900">
+    <div className="w-80 h-[calc(100vh-64px)] flex flex-col border-r border-blue-500 divide-y divide-neutral-700 dark:text-neutral-300 text-black dark:bg-neutral-900">
       <div className="flex border-b border-neutral-400">
         {showSearch && (
           <input
@@ -29,7 +24,7 @@ function ChatSidebar({ setChatId }) {
         <div className="flex items-center gap-1 w-full p-2 text-lg">
           <Modal>
             <Modal.Open>
-              <div className="p-3 hover:bg-blue-500 rounded-full hover:cursor-pointer transition-all">
+              <div className="p-3 hover:bg-blue-500 rounded-full hover:cursor-pointer transition-all hover:text-white">
                 <FiPlusCircle />
               </div>
             </Modal.Open>
@@ -39,7 +34,7 @@ function ChatSidebar({ setChatId }) {
           </Modal>
 
           <div
-            className="p-3 hover:bg-blue-500 rounded-full hover:cursor-pointer transition-all"
+            className="p-3 hover:bg-blue-500 rounded-full hover:cursor-pointer transition-all hover:text-white"
             onClick={() => setShowSearch((show) => !show)}
           >
             <FaSearch />
@@ -47,21 +42,7 @@ function ChatSidebar({ setChatId }) {
         </div>
       </div>
 
-      <ul className="overflow-y-auto">
-        {chats.length > 0 ? (
-          chats.map((chat) => (
-            <ChatSideBarItem
-              userName="Jeff bezos"
-              lastMessage="Hi bro, How are you going today?"
-              chatId={chat._id}
-              setChatId={setChatId}
-              setChatData={setChatData}
-            />
-          ))
-        ) : (
-          <div className="w-full flex justify-center pt-20 text-neutral-500 text-lg">No chat found!😢</div>
-        )}
-      </ul>
+      <ChatsSidebarList setChatId={setChatId} setChatData={setChatData} />
     </div>
   );
 }

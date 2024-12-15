@@ -15,7 +15,7 @@ function UserPhotoUsernameAndSocialLinks({ user }) {
   ]);
 
   return (
-    <div className="flex items-center gap-5 bg-neutral-900 rounded px-5 py-3 w-full">
+    <div className="flex items-center gap-5 dark:bg-neutral-900 bg-neutral-200 rounded px-5 py-3 w-full">
       <div className="rounded-full ">
         <img
           src={!defaultPhoto ? `http://127.0.0.1:5000/public/images/users/${user.photo}` : "/default-user.png"}

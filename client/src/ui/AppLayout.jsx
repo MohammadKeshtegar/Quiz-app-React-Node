@@ -1,5 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
+import { Suspense } from "react";
 
+import PageSpinner from "./PageSpinner";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 
@@ -15,9 +17,11 @@ function AppLayout() {
           <Sidebar currentUrl={currentUrl.pathname} />
         )}
 
-        <div className="w-full flex items-center justify-center dark:bg-neutral-900 bg-neutral-200">
-          <Outlet />
-        </div>
+        <Suspense fallback={<PageSpinner />}>
+          <div className="w-full flex items-center justify-center dark:bg-neutral-900">
+            <Outlet />
+          </div>
+        </Suspense>
       </div>
     </div>
   );

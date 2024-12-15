@@ -4,7 +4,7 @@
 
 @layer components {
   .input-auth-style {
-    @apply rounded-sm border text-neutral-300 border-neutral-200 px-3 py-2 mt-1 w-full text-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all dark:bg-neutral-600 dark:border-none dark:placeholder:text-neutral-400;
+    @apply rounded-sm border dark:text-neutral-300 border-neutral-200 px-3 py-2 mt-1 w-full text-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all dark:bg-neutral-600 bg-neutral-100 dark:border-none dark:placeholder:text-neutral-400;
   }
 
   .input-option-style {
@@ -20,6 +20,22 @@
   }
   .input-file[type="file"]::file-selector-button:hover {
     @apply bg-blue-600;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-[0.5vw];
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply dark:bg-neutral-500 bg-neutral-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply dark:bg-[#404040] bg-neutral-300;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply dark:bg-neutral-400 bg-neutral-500;
   }
 }
 
@@ -51,22 +67,13 @@ a.active {
   border-radius: 3px;
 }
 
-::-webkit-scrollbar {
-  width: 0.5vw;
+a.active > li > div {
+  color: #fff;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #737373;
-  border-radius: 100px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #404040;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #a3a3a3;
-}
+/* a:hover > li > div {
+  color: #fff;
+} */
 
 .come-from-up-animation {
   animation: come-from-up 1s;
@@ -74,18 +81,6 @@ a.active {
 
 .go-down-animation {
   animation: go-down 1s;
-}
-
-.extend-start-sidebar {
-  animation: start-sidebar 1s;
-}
-
-.extend-start-icon-sidebar {
-  animation: extend-start-icon-sidebar 1s;
-}
-
-.extend-icon-sidebar {
-  animation: icon-sidebar 1s;
 }
 
 @keyframes come-from-up {

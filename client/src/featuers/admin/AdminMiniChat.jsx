@@ -8,9 +8,9 @@ import Message from "../../ui/Message";
 
 function AdminMiniChat() {
   return (
-    <div className="bg-neutral-800 w-full rounded overflow-hidden text-neutral-500 flex h-[492px]">
-      <div className="w-1/2 border-r border-blue-500 bg-neutral-900/30 overflow-y-auto">
-        <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
+    <div className="dark:bg-neutral-800 bg-neutral-200 w-full rounded overflow-hidden dark:text-neutral-500 text-black flex h-[492px] shadow-custom-2">
+      <div className="w-1/2 border-r border-blue-500 dark:bg-neutral-900/30 bg-neutral-100 overflow-y-auto">
+        <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" chatId={"skdlnvsd"} />
         <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
         <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
         <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
@@ -19,7 +19,7 @@ function AdminMiniChat() {
         <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
       </div>
 
-      <div className="flex flex-col bg-neutral-900/50 w-full">
+      <div className="flex flex-col dark:bg-neutral-900/50 bg-neutral-100 w-full">
         <div className="flex-1 p-2 overflow-y-auto text-white flex flex-col gap-2 relative">
           <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={1}>
             How your project is going on?
@@ -58,11 +58,11 @@ function AdminMiniChat() {
             occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </Message>
         </div>
-        <div className="bg-neutral-900 text-neutral-600 w-full border-neutral-800 p-2 flex items-center gap-2 border-r border-b">
+        <div className="dark:bg-neutral-900 bg-white dark:shadow-none text-neutral-600 w-full dark:border-neutral-800 border-none p-2 flex items-center gap-2 border-r border-b ">
           <div className="relative w-full">
             <input
               type="text"
-              className="rounded-full bg-neutral-700 text-neutral-300 placeholder:text-neutral-500 px-5 py-3 focus:border-none focus:outline-none focus:ring-1 focus:ring-blue-500 w-full"
+              className="rounded-full dark:bg-neutral-700 bg-neutral-100 text-neutral-300 placeholder:text-neutral-500 px-5 py-3 focus:border-none focus:outline-none focus:ring-1 focus:ring-blue-500 w-full"
               placeholder="Write a message"
             />
 

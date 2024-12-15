@@ -31,7 +31,7 @@ function Window({ children, name }) {
   return createPortal(
     <div className="fixed w-full h-screen backdrop-blur-sm top-0 left-0 transition-all z-[1000]">
       <div
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-800 p-4 text-white border-neutral-500 border rounded"
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 dark:bg-neutral-800 bg-white text-black p-4 dark:text-white border-neutral-500 border rounded"
         ref={ref}
       >
         <div className="flex justify-end">

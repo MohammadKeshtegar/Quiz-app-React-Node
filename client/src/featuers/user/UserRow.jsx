@@ -14,6 +14,8 @@ function UserRow({ user, index }) {
     deleteUser(user._id);
   }
 
+  console.log(user);
+
   return (
     <Table.Row rowStyle={`p-2 grid-cols-8`}>
       <div className="flex justify-center">
@@ -31,9 +33,11 @@ function UserRow({ user, index }) {
       <div>{rank}</div>
       <div>{points}</div>
 
-      <div className="flex justify-center">
-        <DeleteIcon index={index} handleDelete={handleDelete} isDeleting={isDeleting} />
-      </div>
+      {user.role !== "admin" && (
+        <div className="flex justify-center">
+          <DeleteIcon index={index} handleDelete={handleDelete} isDeleting={isDeleting} />
+        </div>
+      )}
       <div className="flex justify-center text-xl text-blue-500 hover:text-blue-400 transition-all cursor-pointer">
         <Modal>
           <Modal.Open opens="user-info">

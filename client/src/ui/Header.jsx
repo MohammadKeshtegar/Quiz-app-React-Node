@@ -17,23 +17,27 @@ function Header() {
   const defaultPhoto = user.photo?.includes("default");
 
   return (
-    <div className="w-full h-16 bg-neutral-900 border-b border-blue-500 shadow-[0_15px_15px_-15px_rgba(29,78,216,0.5)] px-5 py-2 flex justify-between items-center text-white">
+    <div className="w-full h-16 dark:bg-neutral-900 border-b border-blue-500 shadow-[0_15px_15px_-15px_rgba(29,78,216,0.5)] px-5 py-2 flex justify-between items-center text-white">
       <Link to="/">
         <Logo />
       </Link>
 
       <div className="flex items-center gap-3">
-        <div className="rounded-full bg-neutral-800 hover:bg-neutral-700 hover:cursor-pointer transition-all mr-3">
-          <div className="p-2 rounded-full" onClick={changeMode}>
-            {mode === "dark" ? <FaMoon /> : <IoIosSunny />}
-          </div>
+        <div
+          className="p-2 rounded-full dark:bg-neutral-800 dark:text-white text-black border border-neutral-300 shadow-2xl dark:hover:bg-neutral-700 hover:bg-neutral-200 hover:cursor-pointer transition-all mr-3"
+          onClick={changeMode}
+        >
+          {mode === "dark" ? <FaMoon /> : <IoIosSunny />}
         </div>
 
         {user?.email ? (
           <Link className="flex items-center gap-3" to={user.role === "admin" ? "/admin/dashboard" : "/user/dashboard"}>
             <HeaderUserUi defaultPhoto={defaultPhoto} photo={user.photo} username={user.username} />
 
-            <div className="hover:bg-neutral-700 p-2 text-xl rounded transition-all cursor-pointer" onClick={logout}>
+            <div
+              className="dark:hover:bg-neutral-700 hover:bg-neutral-200 dark:text-white text-black p-2 text-xl rounded transition-all cursor-pointer"
+              onClick={logout}
+            >
               <FiLogOut />
             </div>
           </Link>

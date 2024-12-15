@@ -2,6 +2,8 @@ function UserInfo({ user }) {
   const { name, username, email, rank, owner, points, photo, createdAt, updatedAt, confirmedQuiz, createdQuiz } = user;
   const defaultPhoto = photo?.includes("default");
 
+  console.log(user);
+
   return (
     <div>
       <img
@@ -10,7 +12,7 @@ function UserInfo({ user }) {
         className="rounded-full w-52 mx-auto mb-10"
       />
 
-      <div className="grid grid-cols-2 gap-y-2 text-neutral-400 border-t border-neutral-400 pt-4">
+      <div className="grid grid-cols-2 gap-y-2 dark:text-neutral-400 text-black border-t border-neutral-400 pt-4">
         <span>Name</span>
         <span>{name}</span>
 
@@ -33,7 +35,7 @@ function UserInfo({ user }) {
         <span>{confirmedQuiz.length}</span>
 
         <span>Created quiz</span>
-        <span>{createdQuiz}</span>
+        <span>{createdQuiz.length}</span>
 
         <span>Joined at</span>
         <span>{new Date(createdAt).toLocaleString()}</span>
