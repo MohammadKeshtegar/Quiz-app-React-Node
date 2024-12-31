@@ -6,6 +6,27 @@ import User from "../models/userModel.js";
 
 export const getAllQuizzes = catchAsync(async (req, res, next) => {
   let quizzes;
+
+  // start
+  // const queryObj = { ...req.query };
+  // const excludedFields = ["sort", "filter"];
+  // excludedFields.forEach((el) => delete queryObj[el]);
+
+  // // filtering
+  // let queryStr = JSON.stringify(queryObj);
+  // queryStr = queryStr.replace(/\b(gre|gt|lte|lt)\b/g, (match) => `$${match}`);
+
+  // let query = Quiz.find(JSON.parse(queryStr));
+
+  // // sorting
+  // if (req.query.sort) {
+  //   const sortBy = req.query.sort.split(",").join(" ");
+  //   query = query.sort(sortBy);
+  // } else {
+  //   query = query.sort("-createdAt");
+  // }
+  // end
+
   if (req.query.confirmed) {
     const quizzesID = req.user.confirmedQuiz.map((quiz) => {
       return quiz.quizId.toString();
@@ -13,6 +34,7 @@ export const getAllQuizzes = catchAsync(async (req, res, next) => {
     quizzes = await Quiz.find({ _id: { $in: quizzesID } })
       .populate("owner", "name role")
       .populate("questions");
+  } else if (req.query.sort) {
   } else {
     quizzes = await Quiz.find().populate("owner", "name role").populate("questions");
     if (req.url.includes("/quizzes")) {
@@ -29,6 +51,8 @@ export const getQuiz = catchAsync(async (req, res, next) => {
 });
 
 export const createQuiz = catchAsync(async (req, res, next) => {
+  console.log(req.user);
+  console.log(req.body);
   await User.findByIdAndUpdate(req.user._id, { $inc: { createdQuiz: 1 } }, { new: true });
   const newQuiz = await Quiz.create({ ...req.body, owner: req.user._id });
   res.status(200).json({ status: "success", data: newQuiz });

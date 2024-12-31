@@ -1,4 +1,9 @@
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { createContext } from "react";
+
+import PaginationButton from "./PaginationButton";
+import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../constant/constant";
 
 const TableContext = createContext();
 
@@ -52,9 +57,51 @@ function Footer({ children, footerStyle }) {
   );
 }
 
+function Pagination({ itemsLength }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentPage = !searchParams ? 1 : Number(searchParams.get("page"));
+  const pageCount = Math.ceil(itemsLength / PAGE_SIZE);
+
+  function nextPage() {
+    const next = currentPage === pageCount ? currentPage : currentPage + 1;
+    searchParams.set("page", next);
+    setSearchParams(searchParams);
+  }
+
+  function prevPage() {
+    const prev = currentPage === 1 ? currentPage : currentPage - 1;
+    searchParams.set("page", prev);
+    setSearchParams(searchParams);
+  }
+
+  return (
+    <>
+      <div>
+        <p className="text-lg">
+          Total quizzes: <span className="font-semibold">{itemsLength}</span>
+        </p>
+      </div>
+
+      <div className="border-2 rounded flex items-center">
+        <PaginationButton onClick={prevPage} disabled={currentPage === 1}>
+          <FaChevronLeft />
+        </PaginationButton>
+
+        <div className="border-x-2 px-4 py-1 dark:bg-neutral-600">{currentPage + 1}</div>
+
+        <PaginationButton onClick={nextPage} disabled={currentPage === pageCount}>
+          <FaChevronRight />
+        </PaginationButton>
+      </div>
+    </>
+  );
+}
+
 Table.Header = Header;
 Table.Body = Body;
 Table.Row = Row;
 Table.Footer = Footer;
+Table.Pagination = Pagination;
 
 export default Table;

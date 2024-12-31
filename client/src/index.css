@@ -4,11 +4,11 @@
 
 @layer components {
   .input-auth-style {
-    @apply rounded-sm border dark:text-neutral-300 border-neutral-200 px-3 py-2 mt-1 w-full text-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all dark:bg-neutral-600 bg-neutral-100 dark:border-none dark:placeholder:text-neutral-400;
+    @apply rounded-sm border dark:text-neutral-300 text-black border-neutral-200 px-3 py-2 mt-1 w-full text-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all dark:bg-neutral-600 bg-neutral-100 dark:border-none dark:placeholder:text-neutral-400;
   }
 
   .input-option-style {
-    @apply dark:bg-neutral-800 border dark:border-neutral-700 rounded px-4 py-2 w-full focus:outline-none placeholder:text-neutral-300 focus:ring-1 focus:ring-blue-400 dark:placeholder:text-neutral-600 transition-all;
+    @apply dark:bg-neutral-800 bg-neutral-100 border dark:border-neutral-700 rounded px-4 py-2 w-full focus:outline-none placeholder:text-neutral-300 focus:ring-1 focus:ring-blue-400 dark:placeholder:text-neutral-600 transition-all;
   }
 
   .select-input-style {
@@ -46,6 +46,7 @@
   border-radius: 50%;
   background: radial-gradient(farthest-side, #2563eb 94%, #0000) top/8px 8px no-repeat, conic-gradient(#0000 30%, #2563eb);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: l13 1s infinite linear;
 }
 @keyframes l13 {
@@ -59,6 +60,7 @@
   border-radius: 50%;
   background: radial-gradient(farthest-side, #60a5fa 94%, #0000) top/8px 8px no-repeat, conic-gradient(#0000 30%, #60a5fa);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: l13 1s infinite linear;
 }
 
@@ -71,16 +73,29 @@ a.active > li > div {
   color: #fff;
 }
 
-/* a:hover > li > div {
-  color: #fff;
-} */
-
 .come-from-up-animation {
   animation: come-from-up 1s;
 }
 
 .go-down-animation {
   animation: go-down 1s;
+}
+
+/* Sidebar animations */
+.expand-start-sidebar {
+  animation: expand-start-sidebar 0.5s;
+}
+
+.unexpand-sidebar-iconsidebar {
+  animation: unexpand-sidebar-iconsidebar 0.5s;
+}
+
+.expand-iconsidebar-sidebar {
+  animation: expand-iconsidebar-sidebar 0.5s;
+}
+
+.expand-start-iconsidebar {
+  animation: expand-start-iconsidebar 0.5s;
 }
 
 @keyframes come-from-up {
@@ -102,5 +117,41 @@ a.active > li > div {
   to {
     transform: translateY(200px);
     opacity: 0;
+  }
+}
+
+@keyframes expand-start-sidebar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 240px;
+  }
+}
+
+@keyframes expand-start-iconsidebar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 64px;
+  }
+}
+
+@keyframes unexpand-sidebar-iconsidebar {
+  from {
+    width: 240px;
+  }
+  to {
+    width: 64px;
+  }
+}
+
+@keyframes expand-iconsidebar-sidebar {
+  from {
+    width: 64px;
+  }
+  to {
+    width: 240px;
   }
 }

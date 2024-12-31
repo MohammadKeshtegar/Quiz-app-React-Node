@@ -1,4 +1,4 @@
-import { useGetAllQuizzes } from "../featuers/quiz/useGetAllQuizzes";
+import { useGetAllQuizzes } from "../features/quiz/useGetAllQuizzes";
 import { useMode } from "../context/Mode";
 import Spinner from "./Spinner";
 

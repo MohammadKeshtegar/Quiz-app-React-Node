@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { FaMoon } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import { useLogout } from "../featuers/authentication/useLogout";
+import { useLogout } from "../features/authentication/useLogout";
 import { useMode } from "../context/Mode";
 import HeaderUserUi from "./HeaderUserUi";
 import ButtonLink from "./ButtonLink";
@@ -31,7 +31,11 @@ function Header() {
         </div>
 
         {user?.email ? (
-          <Link className="flex items-center gap-3" to={user.role === "admin" ? "/admin/dashboard" : "/user/dashboard"}>
+          <Link
+            className="flex items-center gap-3"
+            to={user.role === "admin" ? "/admin/dashboard" : "/user/dashboard"}
+            state={{ from: "/" }}
+          >
             <HeaderUserUi defaultPhoto={defaultPhoto} photo={user.photo} username={user.username} />
 
             <div

@@ -18,15 +18,6 @@ export async function getChat(chatId) {
   return data;
 }
 
-export async function getChatMessages(chatId) {
-  const res = await fetch(`${chatURL}/${chatId}`);
-  const data = await res.json();
-
-  if (!res.ok) console.error(data);
-
-  return data;
-}
-
 export async function createChatGroup(chatGroupData) {
   const res = await fetch(`${chatURL}`, {
     method: "POST",

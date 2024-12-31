@@ -10,12 +10,13 @@ import { useSelector } from "react-redux";
 import { FaInbox } from "react-icons/fa";
 
 import SidebarItem from "./SidebarItem";
+import { useLocation } from "react-router-dom";
 
 function Sidebar({ currentUrl }) {
   const userLinks = [
     { name: "Dashboard", path: "/user/dashboard", icon: <MdSpaceDashboard /> },
     { name: "My Quiz", path: "/user/quiz", icon: <PiUserList /> },
-    { name: "Confirmed Quizzes", path: "/user/confirmed-quizzes", icon: <MdOutlinePlaylistAddCheck /> },
+    { name: "Confirmed Quiz", path: "/user/confirmed-quizzes", icon: <MdOutlinePlaylistAddCheck /> },
     { name: "Best players", path: "/players", icon: <LuUsers2 /> },
     { name: "Quizes", path: "quiz/quiz-list", icon: <LuClipboardCheck /> },
     { name: "Chats", path: "/chats", icon: <IoMdChatbubbles /> },
@@ -29,12 +30,36 @@ function Sidebar({ currentUrl }) {
     { name: "Inbox", path: "/inbox", icon: <FaInbox /> },
   ];
   const user = useSelector((state) => state.user);
+  const { state } = useLocation();
+  const from = state?.from;
+
+  // sidebar Animation
+  // prev path  -> new path
+  // /          -> /admin/dashboard or /user/dashboard
+  // /chats     -> /something
+  // /something -> /chats
+
+  let animation;
+  // Check if the user come throw the links (not with changing the URL manually)
+  if (from) {
+    if (from === "/") {
+      animation = "expand-start-sidebar";
+    } else if (from.startsWith("/chats")) {
+      animation = "expand-iconsidebar-sidebar";
+    } else {
+      if (currentUrl.startsWith("/chats")) {
+        animation = "unexpand-sidebar-iconsidebar";
+      } else {
+        animation = "";
+      }
+    }
+  }
 
   return (
     <div
       className={`${
         currentUrl.startsWith("/chats") ? "w-16" : "w-60"
-      } min-h-[calc(100vh-64px)] overflow-hidden px-2 flex flex-col border-r border-blue-500 text-neutral-300 dark:bg-gradient-to-tl from-neutral-900 to-neutral-800`}
+      } ${animation} min-h-[calc(100vh-64px)] overflow-hidden px-2 flex flex-col border-r border-blue-500 text-neutral-300 dark:bg-gradient-to-tl from-neutral-900 to-neutral-800`}
     >
       {user.email ? (
         user?.role === "user" ? (

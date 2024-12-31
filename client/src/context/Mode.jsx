@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const ModeContext = createContext({ toggleColorMode: () => {} });
+const ModeContext = createContext();
 
 function ModeProvider({ children }) {
   const [mode, setMode] = useState(() => {
@@ -34,7 +34,7 @@ function ModeProvider({ children }) {
 
 function useMode() {
   const context = useContext(ModeContext);
-  if (context === undefined) throw new Error("Mode Context is used outside of the provider");
+  if (context === undefined) throw new Error("Mode Context is used outside of the provider!");
   return context;
 }
 

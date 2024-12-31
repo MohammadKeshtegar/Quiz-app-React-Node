@@ -1,3 +1,4 @@
+import Quiz from "../models/quizModel.js";
 import User from "../models/userModel.js";
 import appError from "../utils/appError.js";
 import catchAsync from "../utils/catchAsync.js";
@@ -53,6 +54,9 @@ export const updateUser = catchAsync(async (req, res, next) => {
 
 export const deleteUser = catchAsync(async (req, res, next) => {
   const deletedUser = await User.findByIdAndDelete(req.params.id);
+
+  const userQuizzes = await Quiz.deleteMany({ owner: deletedUser._id });
+
   if (!deletedUser) return next(new appError("No user found with this id!", 404));
   res.status(200).json({ status: "success", data: deletedUser });
 });
