@@ -28,7 +28,11 @@ export const uploadUserPhoto = upload.single("photo");
 export const getAllUsers = catchAsync(async (req, res, next) => {
   let users;
   if (req.query.admin) {
-    users = await User.find().select("+role");
+    if (req.query.filter) {
+      users = await User.find({ username: { $regex: req.query.filter } }).select("+role");
+    } else {
+      users = await User.find().select("+role");
+    }
   } else {
     users = await User.find({ role: { $ne: "admin" } });
   }

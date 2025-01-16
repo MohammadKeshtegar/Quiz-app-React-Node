@@ -47,7 +47,8 @@ app.use(express.json({ limit: "10kb" }));
 //   next();
 // });
 
-const DB = process.env.DATABASE.replace("<db_password>", process.env.DATABASE_PASSWORD);
+// const DB = process.env.DATABASE.replace("<db_password>", process.env.DATABASE_PASSWORD);
+const DB = process.env.DATABASE;
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(DB).then(() => console.log("DB connection successful"));

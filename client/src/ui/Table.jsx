@@ -1,7 +1,7 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { createContext } from "react";
 
-import PaginationButton from "./PaginationButton";
+// import PaginationButton from "./PaginationButton";
 import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../constant/constant";
 
@@ -75,6 +75,8 @@ function Pagination({ itemsLength }) {
     setSearchParams(searchParams);
   }
 
+  console.log(currentPage);
+
   return (
     <>
       <div>
@@ -84,17 +86,29 @@ function Pagination({ itemsLength }) {
       </div>
 
       <div className="border-2 rounded flex items-center">
-        <PaginationButton onClick={prevPage} disabled={currentPage === 1}>
+        <PaginationButton onClick={prevPage} disabled={currentPage <= 1}>
           <FaChevronLeft />
         </PaginationButton>
 
         <div className="border-x-2 px-4 py-1 dark:bg-neutral-600">{currentPage + 1}</div>
 
-        <PaginationButton onClick={nextPage} disabled={currentPage === pageCount}>
+        <PaginationButton onClick={nextPage} disabled={currentPage >= pageCount - 1}>
           <FaChevronRight />
         </PaginationButton>
       </div>
     </>
+  );
+}
+
+function PaginationButton({ children, onClick, disabled }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="h-8 w-12 hover:bg-blue-500 hover:text-white m-0 p-0 overflow-hidden flex items-center justify-center disabled:cursor-not-allowed transition-all"
+    >
+      {children}
+    </button>
   );
 }
 
