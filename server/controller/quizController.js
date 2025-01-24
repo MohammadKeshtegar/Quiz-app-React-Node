@@ -4,43 +4,50 @@ import AppError from "../utils/appError.js";
 import Quiz from "../models/quizModel.js";
 import User from "../models/userModel.js";
 
+import mongoose from "mongoose";
+
 export const getAllQuizzes = catchAsync(async (req, res, next) => {
-  let quizzes;
-
-  // start
-  // const queryObj = { ...req.query };
-  // const excludedFields = ["sort", "filter"];
-  // excludedFields.forEach((el) => delete queryObj[el]);
-
-  // // filtering
-  // let queryStr = JSON.stringify(queryObj);
-  // queryStr = queryStr.replace(/\b(gre|gt|lte|lt)\b/g, (match) => `$${match}`);
-
-  // let query = Quiz.find(JSON.parse(queryStr));
-
-  // // sorting
-  // if (req.query.sort) {
-  //   const sortBy = req.query.sort.split(",").join(" ");
-  //   query = query.sort(sortBy);
-  // } else {
-  //   query = query.sort("-createdAt");
-  // }
-  // end
+  let query;
 
   if (req.query.confirmed) {
-    const quizzesID = req.user.confirmedQuiz.map((quiz) => {
-      return quiz.quizId.toString();
-    });
-    quizzes = await Quiz.find({ _id: { $in: quizzesID } })
-      .populate("owner", "name role")
-      .populate("questions");
-  } else if (req.query.sort) {
+    const quizzesID = req.user.confirmedQuiz.map((quiz) => quiz.quizId.toString());
+    query = Quiz.find({ _id: { $in: quizzesID } });
+  } else if (req.query.category || req.query.owner) {
+    const { owner, category } = req.query;
+
+    // Getting the user for filtering based on the owner
+    const searchedOwner = req.query.owner ? await User.findOne({ username: { $regex: req.query.owner } }) : null;
+
+    // If the searchedOwner is null or undefined, don't add the owner for filtering
+    let queryConditions = [];
+    if (category !== "No-filter") queryConditions.push({ category: req.query.category });
+    if (searchedOwner) queryConditions.push({ owner: new mongoose.Types.ObjectId(searchedOwner._id) });
+
+    // If both owner and category exists, filter results based on both of them, else filter based one of them
+    if (owner && category) query = Quiz.find({ $and: queryConditions });
+    else if (queryConditions.length > 0) query = Quiz.find({ $or: queryConditions });
+    else query = Quiz.find();
   } else {
-    quizzes = await Quiz.find().populate("owner", "name role").populate("questions");
     if (req.url.includes("/quizzes")) {
-      quizzes = quizzes.filter((quiz) => quiz.owner.equals(req.user._id));
+      query = Quiz.find().filter((quiz) => quiz.owner.equals(req.user._id));
+    } else {
+      query = Quiz.find();
     }
   }
+
+  let sortObj = {};
+  if (req.query.sort) {
+    const [field, order] = req.query.sort.split("-");
+
+    if (field === "questions") order === "ascending" ? (sortObj["questionNum"] = 1) : (sortObj["questionNum"] = -1);
+    else sortObj[field] = order === "ascending" ? 1 : -1;
+
+    console.log(order);
+
+    console.log(sortObj);
+  }
+
+  const quizzes = await query.populate("owner", "name role").populate("questions").sort(sortObj);
   res.status(200).json({ status: "success", data: quizzes });
 });
 
@@ -51,8 +58,8 @@ export const getQuiz = catchAsync(async (req, res, next) => {
 });
 
 export const createQuiz = catchAsync(async (req, res, next) => {
-  console.log(req.user);
-  console.log(req.body);
+  // console.log(req.user);
+  // console.log(req.body);
   await User.findByIdAndUpdate(req.user._id, { $inc: { createdQuiz: 1 } }, { new: true });
   const newQuiz = await Quiz.create({ ...req.body, owner: req.user._id });
   res.status(200).json({ status: "success", data: newQuiz });

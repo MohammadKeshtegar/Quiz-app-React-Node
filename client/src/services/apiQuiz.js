@@ -1,11 +1,20 @@
 const quizURL = "/api/v1/quiz";
 
-export async function getAllQuizzes(quizIdArray) {
+export async function getAllQuizzes(quizIdArray, filters) {
+  let query = "";
+  if (filters.owner || filters.category || filters.sort) {
+    const { owner, category, sort } = filters;
+    query += "?";
+    if (owner) query += `owner=${owner}`;
+    if (category) query += `${owner ? "&" : ""}category=${category}`;
+    if (sort) query += `${owner || category ? "&" : ""}sort=${sort}`;
+  }
+
   let res;
   if (quizIdArray) {
     res = await fetch(`${quizURL}?confirmed=true`);
   } else {
-    res = await fetch(`${quizURL}`);
+    res = await fetch(`${quizURL}${query}`);
   }
   const data = await res.json();
 
