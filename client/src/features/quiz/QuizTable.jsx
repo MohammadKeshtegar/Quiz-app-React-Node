@@ -1,15 +1,11 @@
-import { QUIZ_TABLE_HEADER } from "../../constant/constant";
-import Spinner from "../../ui/Spinner";
-import Table from "../../ui/Table";
-import QuizRow from "./QuizRow";
-
 import { useFilterSortQuizzes } from "./useFilterSortQuizzes";
 import { useGetAllQuizzes } from "./useGetAllQuizzes";
+import Spinner from "../../ui/Spinner";
+import Table from "../../ui/Table";
 
-export default function QuizTable() {
+export default function QuizTable({ tableHeader, headerStyle, render }) {
   const { owner, category, sort } = useFilterSortQuizzes();
-
-  const { isLoading, data } = useGetAllQuizzes({ owner, category, sort });
+  const { isLoading, data } = useGetAllQuizzes(false, { owner, category, sort });
 
   if (isLoading)
     return (
@@ -19,13 +15,12 @@ export default function QuizTable() {
     );
 
   const { data: quizzes } = data;
-  console.log(quizzes);
 
   return quizzes.length > 0 ? (
     <Table>
-      <Table.Header headerTitles={QUIZ_TABLE_HEADER} headerStyle={"grid-cols-7"} />
+      <Table.Header headerTitles={tableHeader} headerStyle={headerStyle} />
 
-      <Table.Body data={quizzes} render={(quiz, i) => <QuizRow key={quiz._id} quiz={quiz} index={i} />} />
+      <Table.Body data={quizzes} render={render} />
 
       <Table.Footer>
         <Table.Pagination itemsLength={quizzes.length} />

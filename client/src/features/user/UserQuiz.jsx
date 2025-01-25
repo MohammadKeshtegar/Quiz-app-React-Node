@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux";
+import { FaPlus } from "react-icons/fa";
+
 import { USER_QUIZ_HEADER } from "../../constant/constant";
 import { useGetUserQuiz } from "../quiz/useGetUserQuiz";
 import ButtonLink from "../../ui/ButtonLink";
@@ -5,10 +8,9 @@ import Spinner from "../../ui/Spinner";
 import QuizRow from "../quiz/QuizRow";
 import Table from "../../ui/Table";
 
-import { FaPlus } from "react-icons/fa";
-
 function UserQuiz() {
-  const { isLoading, userQuizzes } = useGetUserQuiz();
+  const { id: userId } = useSelector((state) => state.user);
+  const { isLoading, data: userQuizzes } = useGetUserQuiz(userId);
 
   if (isLoading) return <Spinner />;
   const { data: quizzes } = userQuizzes;

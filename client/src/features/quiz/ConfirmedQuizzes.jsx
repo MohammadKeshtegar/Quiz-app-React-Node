@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
-import { useGetConfirmedQuizzes } from "./useGetConfirmedQuizzes";
 import { CONFIRMED_QUIZ_HEADER } from "../../constant/constant";
+import { useGetAllQuizzes } from "./useGetAllQuizzes";
 import ButtonLink from "../../ui/ButtonLink";
 import QuizListRow from "./QuizListRow";
 import Spinner from "../../ui/Spinner";
@@ -9,26 +9,26 @@ import Table from "../../ui/Table";
 
 function ConfirmedQuizzes() {
   const user = useSelector((state) => state.user);
-  const { isLoading, data } = useGetConfirmedQuizzes(true);
+  const { isLoading, data } = useGetAllQuizzes(true);
 
   if (isLoading) return <Spinner />;
   const { data: quizzes } = data;
 
   return (
     <>
-      {quizzes.length > 0 ? (
-        <div className="w-full p-5 text-white">
+      {user.confirmedQuiz.length > 0 ? (
+        <div className="flex flex-col relative rounded overflow-hidden w-full p-3 text-white h-full">
           <Table>
             <Table.Header headerTitles={CONFIRMED_QUIZ_HEADER} headerStyle={"grid-cols-8"} />
 
             <Table.Body
               data={quizzes}
-              render={(quiz, i) => <QuizListRow key={i} quiz={quiz} result={user.confirmedQuiz[i]} check={true} index={i} />}
+              render={(quiz, i) => <QuizListRow key={i} quiz={quiz} result={user.confirmedQuiz[i]} isConfirmed={true} index={i} />}
               bodyStyle="border border-neutral-700/50"
             />
 
             <Table.Footer>
-              <Table.Pagination itemsLength={quizzes.length} />
+              <Table.Pagination itemsLength={user.confirmedQuiz.length} />
             </Table.Footer>
           </Table>
         </div>

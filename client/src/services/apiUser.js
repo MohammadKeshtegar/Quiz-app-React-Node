@@ -36,7 +36,7 @@ export async function updateUserData({ data: userData }) {
 }
 
 export async function getUserQuiz(userId) {
-  const res = await fetch(`${userURL}/${userId}/quizzes`);
+  const res = await fetch(`${userURL}/${userId}/quizzes?user=true`);
   const data = await res.json();
 
   if (!res.ok) console.error(data);

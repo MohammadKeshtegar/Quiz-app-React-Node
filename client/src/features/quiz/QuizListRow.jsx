@@ -4,10 +4,10 @@ import { IoReload } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { IoMdEye } from "react-icons/io";
 
-import Table from "../../ui/Table";
 import ListIconButton from "../../ui/ListIconButton";
+import Table from "../../ui/Table";
 
-function QuizListRow({ quiz, index, check = false, result }) {
+function QuizListRow({ quiz, index, isConfirmed = false, result }) {
   const user = useSelector((state) => state.user);
   const { points } = user;
   const navigation = useNavigate();
@@ -19,7 +19,7 @@ function QuizListRow({ quiz, index, check = false, result }) {
   } = quiz;
 
   let quizResult, totalPoint;
-  if (check) {
+  if (isConfirmed) {
     quizResult = result.quizResult;
     totalPoint = quizResult.reduce((acc, el) => (acc += el.score), 0);
   }
@@ -29,35 +29,35 @@ function QuizListRow({ quiz, index, check = false, result }) {
   }
 
   function handleSeeQuiz() {
-    if (check) {
+    if (isConfirmed) {
       navigation(`/quiz/result/${quiz._id}`, { state: { quiz, quizResult } });
     }
   }
 
   return (
-    <Table.Row rowStyle={`p-2 ${check ? "grid-cols-8" : "grid-cols-6"}`}>
-      {!check && <div>{index + 1}</div>}
+    <Table.Row rowStyle={`p-2 ${isConfirmed ? "grid-cols-8" : "grid-cols-6"}`}>
+      {!isConfirmed && <div>{index + 1}</div>}
       <div>{category}</div>
       <div>{questionNum}</div>
       <div>{quizTime}</div>
       <div>{name}</div>
 
-      {check && <div>{totalPoint}</div>}
-      {check && <div>{points}</div>}
+      {isConfirmed && <div>{totalPoint}</div>}
+      {isConfirmed && <div>{points}</div>}
 
-      {check && (
+      {isConfirmed && (
         <ListIconButton onClick={handleSeeQuiz}>
           <IoMdEye />
         </ListIconButton>
       )}
 
-      {check && (
+      {isConfirmed && (
         <ListIconButton onClick={handleConfirmQuiz}>
           <IoReload />
         </ListIconButton>
       )}
 
-      {!check && (
+      {!isConfirmed && (
         <ListIconButton onClick={handleConfirmQuiz}>
           <MdOutlinePlaylistAddCheck />
         </ListIconButton>

@@ -28,8 +28,8 @@ export const getAllQuizzes = catchAsync(async (req, res, next) => {
     else if (queryConditions.length > 0) query = Quiz.find({ $or: queryConditions });
     else query = Quiz.find();
   } else {
-    if (req.url.includes("/quizzes")) {
-      query = Quiz.find().filter((quiz) => quiz.owner.equals(req.user._id));
+    if (req.query.user) {
+      query = Quiz.find({ owner: req.user._id });
     } else {
       query = Quiz.find();
     }
@@ -39,12 +39,11 @@ export const getAllQuizzes = catchAsync(async (req, res, next) => {
   if (req.query.sort) {
     const [field, order] = req.query.sort.split("-");
 
-    if (field === "questions") order === "ascending" ? (sortObj["questionNum"] = 1) : (sortObj["questionNum"] = -1);
-    else sortObj[field] = order === "ascending" ? 1 : -1;
-
-    console.log(order);
-
-    console.log(sortObj);
+    if (field === "questions") {
+      order === "ascending" ? (sortObj["questionNum"] = 1) : (sortObj["questionNum"] = -1);
+    } else {
+      sortObj[field] = order === "ascending" ? 1 : -1;
+    }
   }
 
   const quizzes = await query.populate("owner", "name role").populate("questions").sort(sortObj);
