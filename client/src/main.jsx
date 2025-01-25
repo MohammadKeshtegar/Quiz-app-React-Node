@@ -1,12 +1,13 @@
-import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PersistGate } from "redux-persist/integration/react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import React from "react";
+
+import { store, persisStore } from "./redux/store.js";
+import { ModeProvider } from "./context/Mode";
 import App from "./App.jsx";
 import "./index.css";
-import { ModeProvider } from "./context/Mode";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Provider } from "react-redux";
-import { store, persisStore } from "./redux/store.js";
-import { PersistGate } from "redux-persist/integration/react";
 
 const queryClient = new QueryClient({
   defaultOptions: {

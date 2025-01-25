@@ -11,6 +11,7 @@ const initialState = {
   rank: 0,
   friends: [],
   confirmedQuiz: [],
+  chatGroups: [],
   createdQuiz: 0,
   points: 0,
   coins: 0,
@@ -37,6 +38,7 @@ const userSlice = createSlice({
       state.active = action.payload.active;
       state.friends = action.payload.friends;
       state.confirmedQuiz = action.payload.confirmedQuiz;
+      state.chatGroups = action.payload.chats;
       state.createdQuiz = action.payload.createdQuiz;
       state.points = action.payload.points;
       state.telegram = action.payload.telegram;
@@ -57,6 +59,7 @@ const userSlice = createSlice({
       state.createdQuiz = action.payload.createdQuiz;
       state.points = action.payload.points;
       state.telegram = action.payload.telegram;
+      state.chatGroups = action.payload.chats;
       state.discord = action.payload.discord;
       state.twitter = action.payload.twitter;
       state.reddit = action.payload.reddit;
@@ -75,6 +78,7 @@ const userSlice = createSlice({
       state.rank = 0;
       state.friends = [];
       state.confirmedQuiz = [];
+      state.chatGroups = [];
       state.createdQuiz = 0;
       state.points = 0;
       state.coins = 0;
