@@ -2,8 +2,6 @@ function UserInfo({ user }) {
   const { name, username, email, rank, owner, points, photo, createdAt, updatedAt, confirmedQuiz, createdQuiz } = user;
   const defaultPhoto = photo?.includes("default");
 
-  console.log(user);
-
   return (
     <div>
       <img

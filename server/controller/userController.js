@@ -1,7 +1,7 @@
+import catchAsync from "../utils/catchAsync.js";
+import appError from "../utils/appError.js";
 import Quiz from "../models/quizModel.js";
 import User from "../models/userModel.js";
-import appError from "../utils/appError.js";
-import catchAsync from "../utils/catchAsync.js";
 
 import multer from "multer";
 
@@ -27,16 +27,22 @@ const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 export const uploadUserPhoto = upload.single("photo");
 
 export const getAllUsers = catchAsync(async (req, res, next) => {
-  let users;
-  if (req.query.admin) {
-    if (req.query.filter) {
-      users = await User.find({ username: { $regex: req.query.filter } }).select("+role");
-    } else {
-      users = await User.find().select("+role");
-    }
-  } else {
-    users = await User.find({ role: { $ne: "admin" } });
+  let filters = {};
+  let maxUsersValue = 0;
+
+  if (req.user.role !== "admin") filters["role"] = { $ne: "admin" };
+  if (req.query.username || req.query.username) {
+    const { maxUsers, username } = req.query;
+
+    if (username) filters["username"] = { $regex: username };
+    if (maxUsers) maxUsersValue = maxUsers;
   }
+
+  const users = await User.find(filters)
+    .limit(maxUsersValue)
+    .sort({ points: -1 })
+    .select(req.query.isAdmin ? "+role" : "");
+
   res.status(200).json({ status: "success", results: users.length, data: users });
 });
 
@@ -60,9 +66,9 @@ export const updateUser = catchAsync(async (req, res, next) => {
 export const deleteUser = catchAsync(async (req, res, next) => {
   const deletedUser = await User.findByIdAndDelete(req.params.id);
 
+  if (!deletedUser) return next(new appError("No user found with this id!", 404));
   const userQuizzes = await Quiz.deleteMany({ owner: deletedUser._id });
 
-  if (!deletedUser) return next(new appError("No user found with this id!", 404));
   res.status(200).json({ status: "success", data: deletedUser });
 });
 

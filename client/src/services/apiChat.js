@@ -1,32 +1,41 @@
-const chatURL = "/api/v1/chat";
+import axios from "axios";
+import { ENDPOINT } from "../constant/constant";
+
+const chatApiClient = axios.create({ baseURL: `${ENDPOINT}/api/v1/chat` });
 
 export async function getAllChats() {
-  const res = await fetch(`${chatURL}`);
-  const data = await res.json();
+  const res = await chatApiClient.get("", { withCredentials: true });
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function getChat(chatId) {
-  const res = await fetch(`${chatURL}/${chatId}`);
-  const data = await res.json();
+  const res = await chatApiClient.get(`/${chatId}`, { withCredentials: true });
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
+
+  return data;
+}
+
+export async function getUserChats(userChatsId) {
+  const res = await chatApiClient.post("/user-chats", { chatIDs: userChatsId }, { withCredentials: true });
+  const data = res.data;
+
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function createChatGroup(chatGroupData) {
-  const res = await fetch(`${chatURL}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(chatGroupData),
-  });
-  const data = await res.json();
+  console.log(chatGroupData);
+  const res = await chatApiClient.post("", chatGroupData, { withCredentials: true });
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }

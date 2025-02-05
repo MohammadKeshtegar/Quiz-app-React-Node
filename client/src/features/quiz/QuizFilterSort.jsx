@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useFilterSortQuizzes } from "./useFilterSortQuizzes";
 import useDebounce from "../../hooks/useDebounce";
 
-export default function QuizFilterSort({ filtersData }) {
+export default function QuizFilterSort({ filterOptions }) {
   const { owner, category, sort, setFilterSort } = useFilterSortQuizzes();
   const [localSearch, setLocalSearch] = useState(owner);
   const debouncedSearchedOwner = useDebounce(localSearch);
@@ -52,7 +52,7 @@ export default function QuizFilterSort({ filtersData }) {
           value={category}
           onChange={(e) => setFilterSort({ category: e.target.value })}
         >
-          {filtersData.map((category) => (
+          {filterOptions.map((category) => (
             <option key={category} value={category}>
               {category}
             </option>

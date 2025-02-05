@@ -1,4 +1,7 @@
-const quizURL = "/api/v1/quiz";
+import axios from "axios";
+import { ENDPOINT } from "../constant/constant";
+
+const quizApiClient = axios.create({ baseURL: `${ENDPOINT}/api/v1/quiz` });
 
 export async function getAllQuizzes(quizIdArray, filters) {
   let query = "";
@@ -10,48 +13,36 @@ export async function getAllQuizzes(quizIdArray, filters) {
     if (sort) query += `${owner || category ? "&" : ""}sort=${sort}`;
   }
 
-  let res;
-  if (quizIdArray) {
-    res = await fetch(`${quizURL}?confirmed=true`);
-  } else {
-    res = await fetch(`${quizURL}${query}`);
-  }
-  const data = await res.json();
+  let whatQueryToSend = quizIdArray ? "?confirmed=true" : query;
+  const res = await quizApiClient.get(whatQueryToSend, { withCredentials: true });
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(res);
 
   return data;
 }
 
 export async function getQuiz(quizId) {
-  const res = await fetch(`${quizURL}/${quizId}`);
-  const data = await res.json();
+  const res = await quizApiClient.get(`${quizId}`, { withCredentials: true });
+  const data = res.data;
+
+  if (res.status !== 200) console.error(data);
+
+  return data;
+}
+
+export async function createQuiz({ questions, time, ...restOfData }) {
+  const res = await quizApiClient.post("", { questions, time, ...restOfData }, { withCredentials: true });
+  const data = res.data;
 
   if (!res.ok) console.error(data);
 
   return data;
 }
 
-export async function createQuiz({ questions, time, ...data }) {
-  const res = await fetch(`${quizURL}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ questions, time, ...data }),
-  });
-  const jsonData = await res.json();
-
-  if (!res.ok) console.error(jsonData);
-
-  return jsonData;
-}
-
 export async function updateQuiz({ quizId, quizData }) {
-  const res = await fetch(`${quizURL}/${quizId}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(quizData),
-  });
-  const data = await res.json();
+  const res = await quizApiClient.patch(`${quizId}`, { quizData }, { withCredentials: true });
+  const data = res.data;
 
   if (!res.ok) console.error(data);
 
@@ -59,8 +50,8 @@ export async function updateQuiz({ quizId, quizData }) {
 }
 
 export async function deleteQuiz(quizId) {
-  const res = await fetch(`${quizURL}/${quizId}`, { method: "DELETE" });
-  const data = await res.json();
+  const res = await quizApiClient.delete("", {}, { withCredentials: true });
+  const data = res.data;
 
   if (!res.ok) console.error(data);
 

@@ -1,18 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
-import { logout as logoutApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { setUserLogout } from "../../redux/slices/userSlice";
+
+import { useChatStorage, useUserStorage } from "../../states/store";
+import { logout as logoutApi } from "../../services/apiAuth";
 
 export function useLogout() {
+  const { setUserLogout } = useUserStorage();
+  const { removeSelectedChatData } = useChatStorage();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { isPending: isLoggingOut, mutate: logout } = useMutation({
     mutationFn: logoutApi,
     onSuccess: () => {
-      dispatch(setUserLogout());
+      setUserLogout();
+      removeSelectedChatData();
       toast.success("You successfully logged out!", { autoClose: 1000 });
       navigate("/");
     },

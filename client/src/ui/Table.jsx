@@ -75,8 +75,6 @@ function Pagination({ itemsLength }) {
     setSearchParams(searchParams);
   }
 
-  console.log(currentPage);
-
   return (
     <>
       <div>

@@ -1,5 +1,5 @@
-import { useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useCallback } from "react";
 
 export function useFilterSortQuizzes() {
   const [searchParams, setSearchParams] = useSearchParams();

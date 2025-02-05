@@ -1,48 +1,39 @@
-const userAuthURL = "/api/v1/users";
+import axios from "axios";
+import { ENDPOINT } from "../constant/constant";
+
+const userAuthURL = `${ENDPOINT}/api/v1/users`;
+const apiClient = axios.create({ baseURL: userAuthURL });
 
 export async function login(loginData) {
-  const res = await fetch(`${userAuthURL}/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(loginData),
-  });
-  const data = await res.json();
+  const res = await apiClient.post("/login", { ...loginData }, { withCredentials: true });
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function signup(signupData) {
-  const res = await fetch(`${userAuthURL}/signup`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(signupData),
-  });
-  const data = await res.json();
+  const res = await apiClient.post("/signup", signupData, { withCredentials: true });
+  const data = await res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function logout() {
-  const res = await fetch(`${userAuthURL}/logout`);
-  const data = await res.json();
+  const res = await apiClient.get("/logout", { withCredentials: true });
+  const data = await res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function changeUserPassword(passwordData) {
-  console.log(passwordData);
-  const res = await fetch(`${userAuthURL}/change-password`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(passwordData),
-  });
-  const data = await res.json();
+  const res = await apiClient.post("/change-password", passwordData, { withCredentials: true });
+  const data = await res.data;
 
-  console.log(data);
+  if (res.status !== 200) console.error(data);
 }

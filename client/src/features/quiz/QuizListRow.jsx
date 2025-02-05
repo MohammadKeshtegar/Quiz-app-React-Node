@@ -1,14 +1,14 @@
 import { MdOutlinePlaylistAddCheck } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { IoReload } from "react-icons/io5";
-import { useSelector } from "react-redux";
 import { IoMdEye } from "react-icons/io";
 
 import ListIconButton from "../../ui/ListIconButton";
 import Table from "../../ui/Table";
+import { useUserStorage } from "../../states/store";
 
 function QuizListRow({ quiz, index, isConfirmed = false, result }) {
-  const user = useSelector((state) => state.user);
+  const { user } = useUserStorage();
   const { points } = user;
   const navigation = useNavigate();
   const {

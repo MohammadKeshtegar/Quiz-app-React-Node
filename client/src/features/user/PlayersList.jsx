@@ -1,47 +1,28 @@
-import { PLAYERS_HEADER } from "../../constant/constant";
-import { useGetAllUsers } from "./useGetAllUsers";
-import PlayerRowNoChat from "./PlayerRowNoChat";
-import PageSpinner from "../../ui/PageSpinner";
-import PlayerRowChat from "./PlayerRowChat";
-import Table from "../../ui/Table";
+import { useEffect, useState } from "react";
+
+import useDebounce from "../../hooks/useDebounce";
+import { useFilterUsers } from "./useFilterUsers";
+import PlayerTable from "./PlayerTable";
 
 function PlayersList() {
-  const { isLoading, data } = useGetAllUsers(true);
-  if (isLoading) return <PageSpinner />;
-  const { data: players } = data;
+  const { username, setFilter } = useFilterUsers();
+  const [localSearchedUsername, setLocalSearchedUsername] = useState(username);
+  const debouncedSearchedUsername = useDebounce(localSearchedUsername);
 
-  console.log(players);
+  useEffect(
+    function () {
+      setFilter({ username: debouncedSearchedUsername });
+    },
+    [setFilter, debouncedSearchedUsername]
+  );
 
   return (
     <div className="w-full h-full p-5 text-white flex flex-col gap-5">
-      <div className="flex items-center gap-7 self-end">
-        <div>
-          <input
-            type="text"
-            placeholder="Enter user name"
-            className="bg-neutral-600 rounded px-3 py-2 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+      <div className="flex items-center gap-7 w-80">
+        <input type="text" placeholder="Enter user name" className="input-auth-style" onChange={(e) => setLocalSearchedUsername(e.target.value)} />
       </div>
 
-      <div>
-        <Table>
-          <Table.Header headerTitles={PLAYERS_HEADER} headerStyle="grid-cols-5" />
-
-          <Table.Body
-            data={players}
-            render={(player, i) => {
-              if (player.chat) return <PlayerRowChat key={i} index={i} player={player} bodyStyle="border border-neutral-700/50" />;
-              else return <PlayerRowNoChat key={i} index={i} player={player} bodyStyle="border border-neutral-700/50" />;
-            }}
-            bodyStyle="border border-neutral-700/50"
-          />
-
-          <Table.Footer>
-            <Table.Pagination itemsLength={players.length} />
-          </Table.Footer>
-        </Table>
-      </div>
+      <PlayerTable username={username} />
     </div>
   );
 }

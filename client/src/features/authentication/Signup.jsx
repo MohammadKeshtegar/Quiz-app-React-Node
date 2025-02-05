@@ -1,10 +1,10 @@
 import { Form, NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+import MiniSpinner from "../../ui/MiniSpinner";
 import AuthInput from "../../ui/AuthInput";
 import { useSignup } from "./useSignup";
 import Button from "../../ui/Button";
-import MiniSpinner from "../../ui/MiniSpinner";
 
 function Signup() {
   const { isSignUpgIn, signup } = useSignup();

@@ -1,33 +1,29 @@
 import { promisify } from "util";
 import jwt from "jsonwebtoken";
+
 import catchAsync from "../utils/catchAsync.js";
-import User from "../models/userModel.js";
 import AppError from "../utils/appError.js";
+import User from "../models/userModel.js";
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_SECRET_EXPIRES_IN * 24 * 60 * 60 * 100,
+    expiresIn: process.env.JWT_SECRET_EXPIRES_IN * 24 * 60 * 60 * 3600 * 1000,
   });
 
 const createToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
   const cookieOptions = {
-    maxAge: process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+    maxAge: process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 3600 * 1000,
+    sameSite: "None",
     httpOnly: true,
+    secure: true,
   };
 
-  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
-
   res.cookie("jwt", token, cookieOptions);
-
   user.password = undefined;
 
-  res.status(statusCode).json({
-    status: "success",
-    token,
-    data: user,
-  });
+  res.status(statusCode).json({ status: "success", token, data: user });
 };
 
 export const signup = catchAsync(async (req, res, next) => {
@@ -53,11 +49,9 @@ export const signup = catchAsync(async (req, res, next) => {
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-
   if (!email || !password) return next(new AppError("Please provide email and password!", 400));
 
   const user = await User.findOne({ email }).select("+password").select("+role");
-
   if (!user || !(await user.correctPassword(password, user.password))) return next(new AppError("Incorrect email or password!", 400));
 
   createToken(user, 200, res);
@@ -80,7 +74,6 @@ export const protect = catchAsync(async (req, res, next) => {
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   const currentUser = await User.findById(decoded.id).select("+role");
-
   if (!currentUser) return next(new AppError("The user belong to this token does no longer exists", 401));
 
   if (currentUser.changePasswordAfter(decoded.iat)) {

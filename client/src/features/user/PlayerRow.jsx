@@ -11,10 +11,7 @@ import Table from "../../ui/Table";
 function PlayerRow({ index, player, chatData = undefined, hasChat = false }) {
   const { username, points, photo, confirmedQuiz, chat } = player;
   const defaultPhoto = photo?.includes("default");
-
   const file = undefined;
-
-  console.log(chatData);
 
   return (
     <Table.Row rowStyle="p-2 grid-cols-5">
@@ -57,11 +54,7 @@ function PlayerRow({ index, player, chatData = undefined, hasChat = false }) {
                 <UserLabel label={"Points"} value={points} />
                 {/* <UserLabel label={"Group"} value={0} /> */}
                 <div className="w-full rounded text-black px-5 py-2 shadow-md bg-zinc-50 flex items-center gap-5 dark:bg-neutral-800 dark:text-white">
-                  <img
-                    src={file || "/default-back.png"}
-                    alt="group-post"
-                    className="w-20 h-20 p-2 rounded-full flex items-center justify-center"
-                  />
+                  <img src={file || "/default-back.png"} alt="group-post" className="w-20 h-20 p-2 rounded-full flex items-center justify-center" />
                   {chat ? (
                     <span className="flex items-center justify-center w-full h-full bg-zinc-50 rounded-full dark:bg-neutral-800"></span>
                   ) : (

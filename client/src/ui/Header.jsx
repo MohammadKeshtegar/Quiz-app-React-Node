@@ -1,17 +1,17 @@
 import { IoIosSunny } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
-import { useSelector } from "react-redux";
 import { FaMoon } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import { useLogout } from "../features/authentication/useLogout";
+import { useUserStorage } from "../states/store";
 import { useMode } from "../context/Mode";
 import HeaderUserUi from "./HeaderUserUi";
 import ButtonLink from "./ButtonLink";
 import Logo from "./Logo";
 
 function Header() {
-  const user = useSelector((state) => state.user);
+  const { user } = useUserStorage();
   const { logout } = useLogout();
   const { changeMode, mode } = useMode();
   const defaultPhoto = user.photo?.includes("default");
@@ -31,11 +31,7 @@ function Header() {
         </div>
 
         {user?.email ? (
-          <Link
-            className="flex items-center gap-3"
-            to={user.role === "admin" ? "/admin/dashboard" : "/user/dashboard"}
-            state={{ from: "/" }}
-          >
+          <Link className="flex items-center gap-3" to={user.role === "admin" ? "/admin/dashboard" : "/user/dashboard"} state={{ from: "/" }}>
             <HeaderUserUi defaultPhoto={defaultPhoto} photo={user.photo} username={user.username} />
 
             <div

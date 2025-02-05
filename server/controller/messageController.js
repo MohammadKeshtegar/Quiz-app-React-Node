@@ -3,12 +3,15 @@ import catchAsync from "../utils/catchAsync.js";
 import appError from "../utils/appError.js";
 
 export const getAllMessages = catchAsync(async (req, res, next) => {
-  const messages = await Message.find();
+  let query = {};
+  if (req.query.chatID) query["chat"] = req.query.chatID;
+
+  const messages = await Message.find(query);
   res.status(200).json({ status: "success", data: messages });
 });
 
 export const getAllChatMessages = catchAsync(async (req, res, next) => {
-  const messages = await Message.findById(req.params.id);
+  const messages = await Message.findById(req.params.id).populate("sender", "name username photo");
   res.status(200).json({ status: "success", data: messages });
 });
 

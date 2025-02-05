@@ -6,7 +6,7 @@ const chatSchema = mongoose.Schema(
     picture: { type: String, default: "default-back.png" },
     chatSize: { type: Number },
     members: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
-    messages: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Message" }],
+    admin: { type: mongoose.Types.ObjectId, ref: "User", required: [true, "Can not create a chat group without an admin"] },
   },
   {
     timestamps: true,
@@ -14,7 +14,7 @@ const chatSchema = mongoose.Schema(
 );
 
 chatSchema.pre("save", function (next) {
-  if (this.isNew) this.chatSize = this.members.length;
+  if (this.isNew) this.chatSize = this.members.length + 1;
   next();
 });
 

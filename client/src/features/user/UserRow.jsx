@@ -1,17 +1,17 @@
-import { useDeleteUser } from "./useDeleteUser";
 import { TbListDetails } from "react-icons/tb";
-import DeleteIcon from "../../ui/DeleteIcon";
-import { useSelector } from "react-redux";
 
+import DeleteIconButton from "../../ui/DeleteIconButton";
+import { useUserStorage } from "../../states/store";
+import { useDeleteUser } from "./useDeleteUser";
 import Modal from "../../ui/Modal";
 import Table from "../../ui/Table";
 import UserInfo from "./UserInfo";
 
 function UserRow({ user, index }) {
   const { isDeleting, deleteUser } = useDeleteUser();
-  const { name, username, email, rank, points, photo } = user;
+  const { name, username, email, points, photo } = user;
   const defaultPhoto = photo?.includes("default");
-  const currentUser = useSelector((state) => state.user);
+  const { user: userData } = useUserStorage();
 
   function handleDelete() {
     deleteUser(user._id);
@@ -19,7 +19,7 @@ function UserRow({ user, index }) {
 
   return (
     <Table.Row rowStyle={`p-2 grid-cols-8`}>
-      <div>{rank}</div>
+      <div>{index + 1}</div>
       <div className="flex justify-center">
         <img
           src={!defaultPhoto ? `http://127.0.0.1:5000/public/images/users/${photo}` : "/default-user.png"}
@@ -35,10 +35,10 @@ function UserRow({ user, index }) {
       <div>{points}</div>
 
       <div className="flex justify-center">
-        {user.role !== "admin" && !(user.email === currentUser.email) ? (
-          <DeleteIcon index={index} handleDelete={handleDelete} isDeleting={isDeleting} />
+        {user.role !== "admin" && !(user.email === userData.email) ? (
+          <DeleteIconButton source="User" itemName={user.name} isDeleting={isDeleting} handleDelete={handleDelete} />
         ) : (
-          <DeleteIcon index={index} isDeleting={isDeleting} />
+          <DeleteIconButton source="User" itemName={user.name} isDeleting={isDeleting} />
         )}
       </div>
       <div className="flex justify-center text-xl text-blue-500 hover:text-blue-400 transition-all cursor-pointer">

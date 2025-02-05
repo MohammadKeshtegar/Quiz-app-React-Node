@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { Form } from "react-router-dom";
 
 import { useGetAllCategories } from "../category/useGetAllCategories";
@@ -14,6 +13,7 @@ import MiniSpinner from "../../ui/MiniSpinner";
 import Button from "../../ui/Button";
 import Spinner from "../../ui/Spinner";
 import Modal from "../../ui/Modal";
+import { useUserStorage } from "../../states/store";
 
 function CreateQuestion({ questions, setQuizTime, setCategory, editQuestion, setEditQuestion, setQuestionIndex, editQuiz }) {
   const { isLoading, data } = useGetAllCategories();
@@ -26,7 +26,7 @@ function CreateQuestion({ questions, setQuizTime, setCategory, editQuestion, set
 
   const isEditSession = Boolean(editQuestion.question);
   const isEditQuizSession = Boolean(editQuiz.id);
-  const user = useSelector((state) => state.user);
+  const { user } = useUserStorage();
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: isEditSession ? editQuestion : isEditQuizSession ? editQuiz.questions : {},

@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
+import { useUserStorage } from "../states/store";
 import ButtonLink from "../ui/ButtonLink";
 
 function Home() {
-  const user = useSelector((state) => state.user);
+  const { user } = useUserStorage();
 
   const links = [
     { path: "/quiz/quiz-list-category", label: "Start a quiz" },
@@ -25,8 +25,8 @@ function Home() {
             </div>
 
             <p className="text-neutral-500 text-lg w-2/3">
-              Are you ready to dive into a world of knowledge, fun, and friendly competition? Look no further! QuizMaster is your
-              ultimate destination for quizzes, brain teasers, and mind-boggling challenges.
+              Are you ready to dive into a world of knowledge, fun, and friendly competition? Look no further! QuizMaster is your ultimate destination
+              for quizzes, brain teasers, and mind-boggling challenges.
             </p>
           </div>
 

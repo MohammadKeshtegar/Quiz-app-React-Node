@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { IoMdEye } from "react-icons/io";
 
+import DeleteIconButton from "../../ui/DeleteIconButton";
+import { useUserStorage } from "../../states/store";
 import { useDeleteQuiz } from "./useDeleteQuiz";
-import DeleteIcon from "../../ui/DeleteIcon";
 import Table from "../../ui/Table";
-import { useSelector } from "react-redux";
 
 function QuizRow({ quiz, index }) {
   const { isDeleting, deleteQuiz } = useDeleteQuiz();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const { user } = useUserStorage();
 
   function handleDelete() {
     deleteQuiz(quiz._id);
@@ -32,7 +32,7 @@ function QuizRow({ quiz, index }) {
       <div>{quiz.questionNum}</div>
       <div>{quiz.quizTime} s</div>
 
-      {quiz.owner.role === "user" && <DeleteIcon index={index + 1} handleDelete={handleDelete} isDeleting={isDeleting} />}
+      {quiz.owner.role === "user" && <DeleteIconButton index={index + 1} handleDelete={handleDelete} isDeleting={isDeleting} />}
 
       <div className="flex justify-center">
         <IoMdEye

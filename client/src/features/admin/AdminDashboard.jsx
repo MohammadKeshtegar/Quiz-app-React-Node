@@ -4,6 +4,7 @@ import { useGetAllQuizzes } from "../quiz/useGetAllQuizzes";
 import { useGetAllUsers } from "../user/useGetAllUsers";
 import CreateCategory from "../category/CreateCategory";
 import CategoryItem from "../category/CategoryItem";
+import { useUserStorage } from "../../states/store";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import UserProfile from "../user/UserProfile";
 import AdminMiniChat from "./AdminMiniChat";
@@ -14,10 +15,8 @@ import Spinner from "../../ui/Spinner";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 
-import { useSelector } from "react-redux";
-
 function AdminDashboard() {
-  const user = useSelector((state) => state.user);
+  const { user } = useUserStorage();
   const { data, isLoading } = useGetAllCategories();
   const { isDeleting, deleteAllCategories } = useDeleteAllCategories();
   const { data: usersData, isLoading: isGettingAllUsers } = useGetAllUsers();
@@ -46,7 +45,7 @@ function AdminDashboard() {
       <div className="w-full flex gap-3">
         <div className="w-1/2 flex flex-col gap-3">
           <UserProfile user={user} />
-          <AdminMiniChat />
+          <AdminMiniChat user={user} />
         </div>
 
         <div className="w-1/2 dark:bg-neutral-800 rounded p-3 shadow-custom-2">
@@ -58,6 +57,7 @@ function AdminDashboard() {
             <div className="flex flex-col h-full">
               <div className="border-b border-blue-500 p-4 flex items-center justify-between">
                 <span className="text-lg font-semibold">Categories: {categories.length}</span>
+
                 <div className="flex items-center gap-3">
                   <Modal>
                     <Modal.Open opens="delete-all-category">
@@ -84,6 +84,7 @@ function AdminDashboard() {
                   </Modal>
                 </div>
               </div>
+
               {results > 0 ? (
                 <div className="w-full overflow-y-scroll">
                   <ul>

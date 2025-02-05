@@ -37,7 +37,10 @@ function Window({ children, name }) {
         <div className="flex justify-end">
           <Button
             customeStyle="border-red-600 text-red-600 mb-2 hover:bg-red-600 hover:border-red-600 hover:text-white foucus:border-none focus:ring-red-500"
-            onClick={close}
+            onClick={(e) => {
+              e.stopPropagation();
+              close();
+            }}
           >
             <GrClose />
           </Button>

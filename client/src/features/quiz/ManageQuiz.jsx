@@ -15,7 +15,7 @@ function ManageQuiz() {
 
   return (
     <div className="flex flex-col relative rounded overflow-hidden w-full p-3 text-white h-full">
-      <QuizFilterSort filtersData={categories} />
+      <QuizFilterSort filterOptions={categories} />
       <QuizTable tableHeader={QUIZ_TABLE_HEADER} headerStyle={"grid-cols-7"} render={(quiz, i) => <QuizRow key={quiz._id} quiz={quiz} index={i} />} />
     </div>
   );

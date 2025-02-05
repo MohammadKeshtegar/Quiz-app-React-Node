@@ -1,82 +1,39 @@
-import { IoAttachOutline } from "react-icons/io5";
-import { FaMicrophone } from "react-icons/fa6";
-import { IoSend } from "react-icons/io5";
-
+import { useGetUserChats } from "../chat/useGetUserChats";
 import ChatSideBarItem from "../chat/ChatSidebarItem";
-import ChatButtons from "../../ui/ChatButtons";
-import Message from "../../ui/Message";
+import { useState } from "react";
 
-function AdminMiniChat() {
+import AdminChatMessagin from "./AdminChatMessagin";
+import Spinner from "../../ui/Spinner";
+import Button from "../../ui/Button";
+
+function AdminMiniChat({ user }) {
+  const [selectedChat, setSelectedChat] = useState(null);
+  const { isLoading, data } = useGetUserChats(user.chatGroups);
+
+  if (isLoading) return <Spinner />;
+  const { data: userChatData } = data;
+
   return (
     <div className="dark:bg-neutral-800 bg-neutral-200 w-full rounded overflow-hidden dark:text-neutral-500 text-black flex h-[492px] shadow-custom-2">
       <div className="w-1/2 border-r border-blue-500 dark:bg-neutral-900/30 bg-neutral-100 overflow-y-auto">
-        <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" chatId={"skdlnvsd"} />
-        <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
-        <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
-        <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
-        <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
-        <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
-        <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" />
+        {user.chatGroups?.length > 0 ? (
+          user.chatGroups.map((chat) => (
+            <ChatSideBarItem userName="Jeff bezos" lastMessage="Hi bro, How are you going today?" chatID={chat._id} setChatId={setSelectedChat} />
+          ))
+        ) : (
+          <div className="mt-40 mx-auto w-40 text-center flex flex-col items-center justify-center gap-2">
+            <p>You have not joined any chat!</p>
+            <Button styleType="fill">See Groups</Button>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col dark:bg-neutral-900/50 bg-neutral-100 w-full">
-        <div className="flex-1 p-2 overflow-y-auto text-white flex flex-col gap-2 relative">
-          <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={1}>
-            How your project is going on?
-          </Message>
-          <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={2}>
-            Not very well
-          </Message>
-          <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={2}>
-            Not very well
-          </Message>
-          <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={2}>
-            Not very well
-          </Message>
-          <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={1}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </Message>
-          <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={2}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </Message>
-          <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={1}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </Message>
-          <Message maxWidth={"max-w-[300px]"} userId={1} currentUserId={2}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </Message>
-        </div>
-        <div className="dark:bg-neutral-900 bg-white dark:shadow-none text-neutral-600 w-full dark:border-neutral-800 border-none p-2 flex items-center gap-2 border-r border-b ">
-          <div className="relative w-full">
-            <input
-              type="text"
-              className="rounded-full dark:bg-neutral-700 bg-neutral-100 text-neutral-300 placeholder:text-neutral-500 px-5 py-3 focus:border-none focus:outline-none focus:ring-1 focus:ring-blue-500 w-full"
-              placeholder="Write a message"
-            />
-
-            <button
-              type="submit"
-              className="absolute right-1 bg-blue-500 -translate-y-1/2 top-1/2 text-xl rounded-full p-2.5 hover:cursor-pointer hover:bg-blue-400 transition-all"
-            >
-              <IoSend className="text-white" />
-            </button>
-          </div>
-
-          <ChatButtons icon={<FaMicrophone className="text-2xl" />} />
-          <ChatButtons icon={<IoAttachOutline className="rotate-45 text-3xl" />} />
-        </div>
+        {selectedChat ? (
+          <AdminChatMessagin selectedChat={selectedChat} user={user} />
+        ) : (
+          <div className="w-full flex flex-col items-center mt-56">No chat selected</div>
+        )}
       </div>
     </div>
   );

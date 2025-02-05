@@ -1,21 +1,36 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
-import { useState } from "react";
 
-import ChatUsersItem from "./ChatUsersItem";
+import SelectUsersToCreateChat from "./SelectUsersToCreateChat";
+import { useCreateChatGroup } from "./useCreateChatGroup";
+import { useFilterUsers } from "../user/useFilterUsers";
+import useDebounce from "../../hooks/useDebounce";
 import Button from "../../ui/Button";
 
-function CreateChatGroup() {
+function CreateChatGroup({ onCloseModal }) {
+  const { username, setFilter } = useFilterUsers();
+  const [localSearchedUsername, setLocalSearchedUsername] = useState(username);
+  const debouncedSearchedUsername = useDebounce(localSearchedUsername);
   const [file, setFile] = useState();
-  const [users, setUsers] = useState([]);
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, watch } = useForm();
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const { isCreating, createChat } = useCreateChatGroup();
+  const chatName = watch("name");
+
+  useEffect(
+    function () {
+      setFilter({ username: debouncedSearchedUsername });
+    },
+    [setFilter, debouncedSearchedUsername]
+  );
 
   function handleGroupCover(e) {
     setFile(URL.createObjectURL(e.target.files[0]));
   }
 
   function onSubmit(data) {
-    console.log(data);
+    createChat({ ...data, members: selectedUsers }, { onSuccess: () => onCloseModal() });
   }
 
   return (
@@ -31,26 +46,23 @@ function CreateChatGroup() {
           })}
         />
         <label htmlFor="group-picture" className="w-32 h-24 flex items-center justify-center">
-          <img
-            src={file || "/default-back.png"}
-            alt=""
-            className="w-20 h-20 object-cover rounded-full cursor-pointer border-2 border-blue-500"
-          />
+          <img src={file || "/default-back.png"} alt="" className="w-20 h-20 object-cover rounded-full cursor-pointer border-2 border-blue-500" />
         </label>
         <input type="text" className="input-auth-style" placeholder="Enter group name" {...register("name")} />
       </div>
 
       <div>
-        <input type="text" placeholder="Seach user" className="input-auth-style mb-3" />
-        <ul className="dark:bg-neutral-600 bg-neutral-200 rounded p-1 h-96 overflow-y-auto divide-y-2 divide-neutral-500">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <ChatUsersItem key={i} index={i} userId={users._id} setUsers={setUsers} />
-          ))}
-        </ul>
+        <input type="text" placeholder="Seach user" className="input-auth-style mb-3" onChange={(e) => setLocalSearchedUsername(e.target.value)} />
+        <SelectUsersToCreateChat setSelectedUsers={setSelectedUsers} selectedUsers={selectedUsers} username={username} />
       </div>
 
       <div className="w-full">
-        <Button styleType="fill" customeStyle="w-full justify-center uppercase" type="submit">
+        <Button
+          styleType="fill"
+          disable={isCreating || selectedUsers.length === 0 || !chatName}
+          customeStyle="w-full justify-center uppercase"
+          type="submit"
+        >
           Create
         </Button>
       </div>

@@ -13,12 +13,10 @@ const userSchema = new mongoose.Schema(
         validator: function (val) {
           return val > 6;
         },
-        message:
-          "Your age is out of the proper rang to access to the content of this app, we appreciate your unstrestanding and cooperation",
+        message: "Your age is out of the proper rang to access to the content of this app, we appreciate your unstrestanding and cooperation",
       },
     },
     friends: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-    rank: { type: Number, default: 0 },
     confirmedQuiz: [
       {
         quizId: String,

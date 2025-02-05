@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { login as loginApi } from "../../services/apiAuth";
-import { useDispatch } from "react-redux";
-import { setUserData } from "../../redux/slices/userSlice";
+import { useUserStorage } from "../../states/store";
 
 export function useLogin() {
+  const { setUserData } = useUserStorage();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { isPending: isLoggingIn, mutate: login } = useMutation({
     mutationFn: loginApi,
@@ -18,7 +17,7 @@ export function useLogin() {
         console.error(data.message);
       } else {
         toast.success("You logged in successfully!", { autoClose: 1000 });
-        dispatch(setUserData(data.data));
+        setUserData(data.data);
         navigate("/");
       }
     },

@@ -1,16 +1,13 @@
-import { useSelector } from "react-redux";
-
 import DailyUsageChar from "../../ui/DailyUsageChar";
 import ButtonLink from "../../ui/ButtonLink";
 import LineChart from "../../ui/LineChart";
 import UserProfile from "./UserProfile";
 import UserLabel from "./UserLabel";
+import { useUserStorage } from "../../states/store";
 
 function UserDashboard() {
-  const user = useSelector((state) => state.user);
+  const { user } = useUserStorage();
   const { friends, confirmedQuiz, createdQuiz, points } = user;
-
-  console.log(confirmedQuiz);
 
   return (
     <div className="w-full h-full p-5 flex flex-col gap-3">

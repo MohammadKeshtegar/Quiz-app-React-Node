@@ -4,7 +4,7 @@ import { getAllChats } from "../../services/apiChat";
 export function useGetAllChats() {
   const { isLoading, data } = useQuery({
     queryFn: getAllChats,
-    queryKey: ["chat"],
+    queryKey: ["chats"],
   });
 
   return { isLoading, data };

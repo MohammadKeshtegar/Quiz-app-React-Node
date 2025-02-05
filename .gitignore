@@ -154,3 +154,5 @@ sketch
 config.env
 *.txt
 assets
+
+public/

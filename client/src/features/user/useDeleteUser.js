@@ -6,7 +6,6 @@ export function useDeleteUser() {
   const { isPending: isDeleting, mutate: deleteUser } = useMutation({
     mutationFn: deleteUserApi,
     onSuccess: (data) => {
-      console.log(data);
       toast.success("User deleted successfully!", { autoClose: 1000 });
     },
     onError: (err) => {

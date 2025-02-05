@@ -20,13 +20,21 @@ export const getAllQuizzes = catchAsync(async (req, res, next) => {
 
     // If the searchedOwner is null or undefined, don't add the owner for filtering
     let queryConditions = [];
-    if (category !== "No-filter") queryConditions.push({ category: req.query.category });
-    if (searchedOwner) queryConditions.push({ owner: new mongoose.Types.ObjectId(searchedOwner._id) });
+    if (category !== "No-filter") {
+      queryConditions.push({ category: req.query.category });
+    }
+    if (searchedOwner) {
+      queryConditions.push({ owner: new mongoose.Types.ObjectId(searchedOwner._id) });
+    }
 
     // If both owner and category exists, filter results based on both of them, else filter based one of them
-    if (owner && category) query = Quiz.find({ $and: queryConditions });
-    else if (queryConditions.length > 0) query = Quiz.find({ $or: queryConditions });
-    else query = Quiz.find();
+    if (owner && category) {
+      query = Quiz.find({ $and: queryConditions });
+    } else if (queryConditions.length > 0) {
+      query = Quiz.find({ $or: queryConditions });
+    } else {
+      query = Quiz.find();
+    }
   } else {
     if (req.query.user) {
       query = Quiz.find({ owner: req.user._id });
@@ -57,8 +65,6 @@ export const getQuiz = catchAsync(async (req, res, next) => {
 });
 
 export const createQuiz = catchAsync(async (req, res, next) => {
-  // console.log(req.user);
-  // console.log(req.body);
   await User.findByIdAndUpdate(req.user._id, { $inc: { createdQuiz: 1 } }, { new: true });
   const newQuiz = await Quiz.create({ ...req.body, owner: req.user._id });
   res.status(200).json({ status: "success", data: newQuiz });

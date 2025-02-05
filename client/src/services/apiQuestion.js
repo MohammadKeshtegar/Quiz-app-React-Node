@@ -1,63 +1,58 @@
-const questionURL = "/api/v1/question";
+import axios from "axios";
+import { ENDPOINT } from "../constant/constant";
+
+const questionsApiClient = axios.create({ baseURL: `${ENDPOINT}/api/v1/question` });
 
 export async function getAllQuestions() {
-  const res = await fetch(`${questionURL}`);
-  const data = await res.json();
+  const res = await questionsApiClient.get();
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function getQuestion(id) {
-  const res = await fetch(`${questionURL}/${id}`);
-  const data = await res.json();
+  const res = await questionsApiClient.get(`/${id}`);
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function getQuizQuestions() {
-  const res = await fetch(`${questionURL}/quiz-questions`);
-  const data = await res.json();
+  const res = await questionsApiClient.get("/quiz-questions");
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function createQuestion(questionData) {
-  const res = await fetch(`${questionURL}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(questionData),
-  });
-  const data = await res.json();
+  const res = await questionsApiClient.post("", { questionData }, { withCredentials: true });
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function updateQuestion({ questionData, id: questionId }) {
-  const res = await fetch(`${questionURL}/${questionId}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(questionData),
-  });
-  const data = await res.json();
+  const res = await questionsApiClient.put(`${questionId}`, { questionData }, { withCredentials: true });
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }
 
 export async function deleteQuestion(questionId) {
-  const res = await fetch(`${questionURL}/${questionId}`, { method: "DELETE" });
-  const data = await res.json();
+  const res = await questionsApiClient.delete(`${questionId}`, {}, { withCredentials: true });
+  const data = res.data;
 
-  if (!res.ok) console.error(data);
+  if (res.status !== 200) console.error(data);
 
   return data;
 }

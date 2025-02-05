@@ -9,7 +9,7 @@ import Modal from "../../ui/Modal";
 function ChatSidebar() {
   return (
     <div className="w-80 h-[calc(100vh-64px)] flex flex-col border-r border-blue-500 divide-y divide-neutral-700 dark:text-neutral-300 text-black dark:bg-neutral-900">
-      <div className="flex border-b border-neutral-400">
+      <div className="flex border-b border-blue-500">
         <div className="flex items-center gap-1 w-full p-2 text-lg">
           <Modal>
             <Modal.Open opens="create-chat-group">
