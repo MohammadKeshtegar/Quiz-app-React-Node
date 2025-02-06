@@ -5,6 +5,7 @@ export const QUIZ_HEADER_LIST = ["", "Category", "Question numebrs", "Time", "Cr
 export const USER_QUIZ_HEADER = ["", "Category", "Owner", "Time", "Questions", "Delete", "Check"];
 export const CHAT_MEMBERS_TABLE_HEADER = ["picture", "username", "points", "confirmed quizzes"];
 export const PLAYERS_HEADER = ["Rank", "Profile", "Username", "Points", "See user"];
+export const SEARCH_CHATS_TABLE_HEADER = ["Cover", "Name", "Size", "details"];
 export const DIFFICULTY_OPTIONS = ["easy", "medium", "hard"];
 export const ENDPOINT = "http://localhost:5000";
 export const PAGE_SIZE = 20;

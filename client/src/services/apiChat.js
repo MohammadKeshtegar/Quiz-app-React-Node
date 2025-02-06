@@ -3,8 +3,14 @@ import { ENDPOINT } from "../constant/constant";
 
 const chatApiClient = axios.create({ baseURL: `${ENDPOINT}/api/v1/chat` });
 
-export async function getAllChats() {
-  const res = await chatApiClient.get("", { withCredentials: true });
+export async function getAllChats(queries = {}) {
+  let query = "";
+  if (queries.chatName) {
+    query += `?chatName=${queries.chatName}`;
+  }
+
+  console.log(query);
+  const res = await chatApiClient.get(query, { withCredentials: true });
   const data = res.data;
 
   if (res.status !== 200) console.error(data);

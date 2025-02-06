@@ -32,7 +32,7 @@ function AdminDashboard() {
       <div className="flex gap-5 items-center w-full">
         <UserLabel label="Users" value={users.length} />
         <UserLabel label="Quizzes" value={quizzes.length} />
-        <UserLabel label="Purcheses per month" value={0} />
+        <UserLabel label="Purcheses / month" value={0} />
         <UserLabel label="Friends" value={user.friends.length} />
       </div>
 

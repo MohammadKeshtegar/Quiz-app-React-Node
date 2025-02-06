@@ -14,7 +14,7 @@ function AdminMiniChat({ user }) {
   const { data: userChatData } = data;
 
   return (
-    <div className="dark:bg-neutral-800 bg-neutral-200 w-full rounded overflow-hidden dark:text-neutral-500 text-black flex h-[492px] shadow-custom-2">
+    <div className="dark:bg-neutral-800 bg-neutral-200 w-full rounded overflow-hidden dark:text-neutral-500 text-black flex h-[516px] shadow-custom-2">
       <div className="w-1/2 border-r border-blue-500 dark:bg-neutral-900/30 bg-neutral-100 overflow-y-auto">
         {user.chatGroups?.length > 0 ? (
           user.chatGroups.map((chat) => (

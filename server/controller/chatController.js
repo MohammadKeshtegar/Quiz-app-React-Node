@@ -6,13 +6,13 @@ import Chat from "../models/chatModel.js";
 import User from "../models/userModel.js";
 
 export const getAllChats = catchAsync(async (req, res, next) => {
-  let chats;
-  if (req.body.chatIDs) {
-    chats = await Chat.find({ _id: { $in: req.body.chatIDs } });
-  } else {
-    chats = await Chat.find();
+  let filterObj = {};
+  if (req.query.chatName || req.body.chatIDs) {
+    if (req.query.chatName) filterObj["name"] = { $regex: req.query.chatName };
+    if (req.body.chatIDs) filterObj["_id"] = { $in: req.body.chatIDs };
   }
 
+  const chats = await Chat.find(filterObj);
   res.status(200).json({ status: "success", data: chats });
 });
 
