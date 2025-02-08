@@ -57,4 +57,5 @@ export const createUserSlice = (set, get) => ({
       confirmedQuiz: state.confirmedQuiz,
       points: state.points + get().points,
     })),
+  setUpdateUserFriends: (userFriends) => set((state) => ({ user: { ...state.user, friends: userFriends } })),
 });

@@ -16,7 +16,7 @@ function Sidebar({ currentUrl }) {
     { name: "Dashboard", path: "/user/dashboard", icon: <MdSpaceDashboard /> },
     { name: "My Quiz", path: "/user/quiz", icon: <PiUserList /> },
     { name: "Confirmed Quiz", path: "/user/confirmed-quizzes", icon: <MdOutlinePlaylistAddCheck /> },
-    { name: "Best players", path: "/players", icon: <LuUsers2 /> },
+    { name: "Players", path: "/players", icon: <LuUsers2 /> },
     { name: "Quizes", path: "quiz/quiz-list", icon: <LuClipboardCheck /> },
     { name: "Chats", path: "/chats", icon: <IoMdChatbubbles /> },
     { name: "Inbox", path: "/inbox", icon: <FaInbox /> },

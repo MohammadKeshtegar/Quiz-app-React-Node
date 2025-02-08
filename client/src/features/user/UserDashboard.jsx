@@ -1,9 +1,9 @@
 import DailyUsageChar from "../../ui/DailyUsageChar";
+import { useUserStorage } from "../../states/store";
 import ButtonLink from "../../ui/ButtonLink";
 import LineChart from "../../ui/LineChart";
 import UserProfile from "./UserProfile";
 import UserLabel from "./UserLabel";
-import { useUserStorage } from "../../states/store";
 
 function UserDashboard() {
   const { user } = useUserStorage();

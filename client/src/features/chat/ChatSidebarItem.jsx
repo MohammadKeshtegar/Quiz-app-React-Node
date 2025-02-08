@@ -1,6 +1,7 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useChatStorage } from "../../states/store";
 import { useRef } from "react";
+
+import { useChatStorage } from "../../states/store";
 import Modal from "../../ui/Modal";
 import ChatInfo from "./ChatInfo";
 

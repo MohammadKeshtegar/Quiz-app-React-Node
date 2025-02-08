@@ -1,6 +1,6 @@
 import express from "express";
 import { changePassword, login, logout, protect, signup } from "../controller/authController.js";
-import { deleteUser, getAllUsers, getUser, updateUser, uploadUserPhoto, userQuizResult } from "../controller/userController.js";
+import { deleteUser, getAllUsers, getUser, updateUser, updateUserFriends, uploadUserPhoto, userQuizResult } from "../controller/userController.js";
 import quizRouter from "./quizRoutes.js";
 
 const router = express.Router();
@@ -12,6 +12,7 @@ router.route("/signup").post(signup);
 router.route("/logout").get(logout);
 
 router.route("/update-me").put(protect, uploadUserPhoto, updateUser);
+router.route("/update-user-friends").patch(protect, updateUserFriends);
 router.route("/change-password").post(protect, changePassword);
 router.route("/user-quiz-result").patch(protect, userQuizResult);
 

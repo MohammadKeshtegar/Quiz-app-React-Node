@@ -2,11 +2,11 @@ import { FaPlus } from "react-icons/fa";
 
 import { USER_QUIZ_HEADER } from "../../constant/constant";
 import { useGetUserQuiz } from "../quiz/useGetUserQuiz";
+import { useUserStorage } from "../../states/store";
 import ButtonLink from "../../ui/ButtonLink";
 import Spinner from "../../ui/Spinner";
 import QuizRow from "../quiz/QuizRow";
 import Table from "../../ui/Table";
-import { useUserStorage } from "../../states/store";
 
 function UserQuiz() {
   const { user } = useUserStorage();

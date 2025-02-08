@@ -4,6 +4,7 @@ import Quiz from "../models/quizModel.js";
 import User from "../models/userModel.js";
 
 import multer from "multer";
+import mongoose from "mongoose";
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -60,6 +61,22 @@ export const updateUser = catchAsync(async (req, res, next) => {
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, { new: true, runValidators: true });
   if (!updatedUser) return next(new appError("No user found with this id!", 404));
+  res.status(200).json({ status: 200, data: updatedUser });
+});
+
+export const updateUserFriends = catchAsync(async (req, res, next) => {
+  let updateOperation = {};
+
+  if (req.body.newData.increase) {
+    updateOperation = { $push: { friends: new mongoose.Types.ObjectId(req.body.user) } };
+  } else if (req.body.newData.decrease) {
+    updateOperation = { $pull: { friends: new mongoose.Types.ObjectId(req.body.user) } };
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(req.body.userID, updateOperation, { new: true, runValidators: true });
+
+  if (!updatedUser) return next(new appError("No user found with this id!", 404));
+
   res.status(200).json({ status: 200, data: updatedUser });
 });
 

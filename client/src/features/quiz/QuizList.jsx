@@ -21,7 +21,7 @@ function QuizList() {
     <>
       {quizzes.length > 0 ? (
         <div className="w-full h-full p-5 flex flex-col gap-5">
-          <QuizFilterSort filtersData={categories} />
+          <QuizFilterSort filterOptions={categories} />
           <QuizTable tableHeader={QUIZ_HEADER_LIST} headerStyle={"grid-cols-6"} render={(quiz, i) => <QuizListRow key={i} quiz={quiz} index={i} />} />
         </div>
       ) : (

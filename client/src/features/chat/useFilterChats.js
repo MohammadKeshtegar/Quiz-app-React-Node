@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export default function useFilterChats() {
+export function useFilterChats() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const chatName = searchParams.get("chatName") || "";

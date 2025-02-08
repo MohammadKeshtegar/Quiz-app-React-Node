@@ -9,7 +9,6 @@ export async function getAllChats(queries = {}) {
     query += `?chatName=${queries.chatName}`;
   }
 
-  console.log(query);
   const res = await chatApiClient.get(query, { withCredentials: true });
   const data = res.data;
 

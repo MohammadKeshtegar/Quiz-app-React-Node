@@ -1,13 +1,13 @@
 import { TbListDetails } from "react-icons/tb";
 
-import ChatCover from "../../ui/ChatCover";
+import ChatPicture from "../../ui/ChatPicture";
 import Table from "../../ui/Table";
 
 export default function SearchedQuizzesTableRow({ chat }) {
   return (
     <Table.Row rowStyle="grid-cols-4 p-2">
       <div className="flex justify-center">
-        <ChatCover cover={chat.picture} />
+        <ChatPicture picture={chat.picture} pictureStyle='"rounded-full w-10"' />
       </div>
       <div>{chat.name}</div>
       <div>{chat.chatSize}</div>

@@ -43,6 +43,15 @@ export async function updateUserData({ data: userData }) {
   return data;
 }
 
+export async function updateUserFriends(friendData) {
+  const res = await userApiClient.patch("/update-user-friends", friendData, { withCredentials: true });
+  const data = res.data;
+
+  if (res.status !== 200) console.error(data);
+
+  return data;
+}
+
 export async function getUserQuiz(userId) {
   const res = await userApiClient.get(`${userId}/quizzes?user=true`, { withCredentials: true });
   const data = res.data;

@@ -1,10 +1,10 @@
 import { CONFIRMED_QUIZ_HEADER } from "../../constant/constant";
 import { useGetAllQuizzes } from "./useGetAllQuizzes";
+import { useUserStorage } from "../../states/store";
 import ButtonLink from "../../ui/ButtonLink";
 import QuizListRow from "./QuizListRow";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
-import { useUserStorage } from "../../states/store";
 
 function ConfirmedQuizzes() {
   const { user } = useUserStorage();

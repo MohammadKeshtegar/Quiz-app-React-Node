@@ -1,7 +1,8 @@
 import { FaPen } from "react-icons/fa";
-import Modal from "../../ui/Modal";
-import UserContainerForm from "./UserContainerForm";
+
 import UserPhotoUsernameAndSocialLinks from "./UserPhotoUsernameAndSocialLinks";
+import UserContainerForm from "./UserContainerForm";
+import Modal from "../../ui/Modal";
 
 function UserProfile({ user }) {
   return (

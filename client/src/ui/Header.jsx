@@ -11,10 +11,9 @@ import ButtonLink from "./ButtonLink";
 import Logo from "./Logo";
 
 function Header() {
+  const { changeMode, mode } = useMode();
   const { user } = useUserStorage();
   const { logout } = useLogout();
-  const { changeMode, mode } = useMode();
-  const defaultPhoto = user.photo?.includes("default");
 
   return (
     <div className="w-full h-16 dark:bg-neutral-900 border-b border-blue-500 shadow-[0_15px_15px_-15px_rgba(29,78,216,0.5)] px-5 py-2 flex justify-between items-center text-white">
@@ -32,7 +31,7 @@ function Header() {
 
         {user?.email ? (
           <Link className="flex items-center gap-3" to={user.role === "admin" ? "/admin/dashboard" : "/user/dashboard"} state={{ from: "/" }}>
-            <HeaderUserUi defaultPhoto={defaultPhoto} photo={user.photo} username={user.username} />
+            <HeaderUserUi photo={user.photo} username={user.username} />
 
             <div
               className="dark:hover:bg-neutral-700 hover:bg-neutral-200 dark:text-white text-black p-2 text-xl rounded transition-all cursor-pointer"

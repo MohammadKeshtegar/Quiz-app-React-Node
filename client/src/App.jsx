@@ -63,7 +63,7 @@ const router = createBrowserRouter([
         path: "/inbox",
         children: [
           { path: "", element: <Inbox /> },
-          { path: ":sender", element: <InboxMessage /> },
+          { path: ":inbox", element: <InboxMessage /> },
         ],
       },
       { path: "/players", element: <PlayersList /> },

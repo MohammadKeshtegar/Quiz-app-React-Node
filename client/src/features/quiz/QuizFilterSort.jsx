@@ -25,7 +25,7 @@ export default function QuizFilterSort({ filterOptions }) {
   );
 
   return (
-    <div className="flex items-center justify-between w-full mb-5">
+    <div className="flex items-center justify-between w-full">
       <div className="w-72">
         <input
           type="text"

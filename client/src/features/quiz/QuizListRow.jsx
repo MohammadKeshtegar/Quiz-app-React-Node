@@ -4,8 +4,8 @@ import { IoReload } from "react-icons/io5";
 import { IoMdEye } from "react-icons/io";
 
 import ListIconButton from "../../ui/ListIconButton";
-import Table from "../../ui/Table";
 import { useUserStorage } from "../../states/store";
+import Table from "../../ui/Table";
 
 function QuizListRow({ quiz, index, isConfirmed = false, result }) {
   const { user } = useUserStorage();

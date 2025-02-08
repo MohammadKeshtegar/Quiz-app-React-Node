@@ -1,9 +1,10 @@
-import { Form } from "react-router-dom";
-import FormRow from "../../ui/FormRow";
 import { useForm } from "react-hook-form";
-import Button from "../../ui/Button";
+import { Form } from "react-router-dom";
+
 import { useChangePassword } from "./useChangePassword";
 import MiniSpinner from "../../ui/MiniSpinner";
+import FormRow from "../../ui/FormRow";
+import Button from "../../ui/Button";
 
 function UpdateUserPassword() {
   const { register, handleSubmit } = useForm();
